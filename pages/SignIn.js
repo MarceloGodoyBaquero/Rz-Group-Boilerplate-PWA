@@ -1,6 +1,6 @@
 import Nav from "../components/Nav";
 import Image from "next/image";
-import LoginImage from '../public/login.svg';
+import LoginImage from '../public/Login.svg';
 import {useRouter} from "next/router";
 import {EyeIcon, EyeSlashIcon} from "@heroicons/react/24/solid";
 import {useState} from "react";
