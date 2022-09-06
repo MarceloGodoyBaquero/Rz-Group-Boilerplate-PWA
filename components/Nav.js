@@ -28,7 +28,7 @@ export default function Nav({location}) {
   }
 
   return (
-    <nav className={"bg-white w-screen h-13 flex justify-center flex-row shadow-lg mb-3"}>
+    <nav className={"bg-white w-full h-13 flex justify-center flex-row shadow-lg mb-3"}>
       <div onClick={() => router.back()} className={"w-1/6 flex items-center justify-center cursor-pointer"}>
         <ArrowLeftIcon className={"h-1/3"}/>
       </div>

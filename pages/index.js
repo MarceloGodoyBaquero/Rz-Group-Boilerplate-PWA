@@ -1,8 +1,11 @@
 import SplashScreen from "../components/SplashScreen";
+import MobileLayout from "../components/MobileLayout";
 
 export default function Home() {
 
   return (
-    <SplashScreen />
+    <MobileLayout>
+      <SplashScreen/>
+    </MobileLayout>
   );
 }
