@@ -32,14 +32,20 @@ export default function Onboarding() {
           {tab === 2 && <Image width={'274px'} height={'287px'} src={image2} alt="hero" className={"w-3/4"}/>}
           {tab === 3 && <Image width={'274px'} height={'287px'} src={image3} alt="hero" className={"w-3/4"}/>}
         </div>
-        <div className={'bg-gradient-to-b from-blue-500 to-blue-900 rounded-t-3xl mt-5 p-5 h-[375px] flex-grow flex-col items-center justify-center'}>
+        <div
+          className={'bg-gradient-to-b from-blue-500 to-blue-900 rounded-t-3xl mt-5 p-5 h-[375px] flex-grow flex-col items-center justify-center'}>
           <div>
             <h2 className={'text-white font-bold text-2xl text-center m-5'}> Welcome to Rz Group</h2>
-            <h2 className={'text-white text-xl text-center m-5'}>
-              We will send a mail to
-              the email address you registered
-              to regain your password
-            </h2>
+            {tab === 1 &&
+              <h2 className={'text-white text-xl text-center m-5'}>We have exclusive transportation in cities such as:
+                Bogotá, Medellín, Cali, Cartagena among others.</h2>}
+            {tab === 2 &&
+              <h2 className={'text-white text-xl text-center m-5'}>Our service is door to door
+                (airport-hotel-hotel-airport) and is based on respect, punctuality and safety.</h2>}
+            {tab === 3 &&
+              <h2 className={'text-white text-xl text-center m-5'}>We offer service for hours or full day according to
+                the requirement of our client.</h2>}
+
           </div>
           <div className={'w-full'}>
             <button onClick={() => router.push('/SignIn')}
