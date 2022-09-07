@@ -40,7 +40,7 @@ export default function SignIn() {
           </div>
         </div>
         <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
-          <h2>Have not any account? <span onClick={() => router.push('/')}
+          <h2>Have not any account? <span onClick={() => router.push('/SignUp')}
                                           className={'text-[#3A56FF] font-bold cursor-pointer'}>Sign up</span></h2>
           <h2 onClick={() => router.push('/ForgetPassword')} className={'mt-2 text-[#3A56FF] font-bold cursor-pointer'}>I forget my password</h2>
         </div>
