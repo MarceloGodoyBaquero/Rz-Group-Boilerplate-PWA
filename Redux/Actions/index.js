@@ -1,19 +1,19 @@
-import {SUMAR, RESET, RESTAR} from "./ActionsCreators";
+import { SUMAR, RESET, RESTAR } from './ActionsCreators'
 
-export function sumar() {
+export function sumar () {
   return {
-    type: SUMAR,
-  };
+    type: SUMAR
+  }
 }
 
-export function restar() {
+export function restar () {
   return {
-    type: RESTAR,
-  };
+    type: RESTAR
+  }
 }
 
-export function reset() {
+export function reset () {
   return {
-    type: RESET,
-  };
+    type: RESET
+  }
 }
