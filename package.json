@@ -14,7 +14,11 @@
     "next": "12.1.6",
     "next-pwa": "^5.5.2",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "eslint": "8.15.0",
