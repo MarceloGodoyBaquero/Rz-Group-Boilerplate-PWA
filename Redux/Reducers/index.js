@@ -1,47 +1,48 @@
+
 import {SIGN_IN, SIGN_UP, SIGN_OUT, RECOVER_PASSWORD, VERIFY_EMAIL, SEND_OTP} from '../Actions/authActions/actionsCreator';
 
 const initialState = {
   user: {},
 }
 
-export default function rootReducer(state = initialState, action) {
+export default function rootReducer (state = initialState, action) {
   switch (action.type) {
     case SIGN_UP: {
       return {
         ...state,
-        user: action.payload,
-    }
+        user: action.payload
+      }
     }
     case SIGN_IN: {
       return {
         ...state,
-        user: action.payload,
-    }
+        user: action.payload
+      }
     }
     case SIGN_OUT: {
       return {
         ...state,
-        user: {},
-    }
+        user: {}
+      }
     }
     case RECOVER_PASSWORD: {
       return {
-        ...state,
+        ...state
       }
     }
     case VERIFY_EMAIL: {
       return {
-        ...state,
+        ...state
       }
     }
     case SEND_OTP: {
       return {
-        ...state,
+        ...state
       }
     }
     default:
-      return { 
-        ...state 
+      return {
+        ...state
       }
   }
 }
