@@ -33,7 +33,7 @@ export default function Onboarding () {
           {tab === 3 && <Image width={'274px'} height={'287px'} src={image3} alt="hero" className={'w-3/4 '}/>}
         </div>
         <div
-          className={'bg-gradient-to-b from-red-700 to-[#5b211f] rounded-t-3xl mt-5 p-5 h-[375px] flex-grow flex-col items-center justify-center'}>
+          className={'bg-[#5b211f] rounded-t-3xl mt-5 p-5 h-[375px] flex-grow flex-col items-center justify-center'}>
           <div>
             <h2 className={'text-white font-bold text-2xl text-center m-5'}> Welcome to Rz Group</h2>
             {tab === 1 &&

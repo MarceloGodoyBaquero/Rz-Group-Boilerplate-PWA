@@ -105,7 +105,7 @@ export default function SignIn () {
   console.log(input)
   return (
     <MobileLayout>
-      <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
+      <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
         <Nav location={'Sign Up'}/>
         <div className={'h-1/2 flex justify-center'}>
           <Image width={'274px'} height={'287px'} src={SignUp} alt="hero" className={'w-3/4'}/>
@@ -198,14 +198,14 @@ export default function SignIn () {
                             className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}/>}
           </div>
           <div className={'w-full m-2'}>
-            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]'} onClick={(e) => handleSubmit(e)}>SIGN UP</button>
+            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'} onClick={(e) => handleSubmit(e)}>SIGN UP</button>
           </div>
         </div>
         <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
           <h2>Already have an account? <span onClick={() => router.push('/SignIn')}
-                                          className={'text-[#3A56FF] font-bold cursor-pointer'}>Sign in</span></h2>
+                                          className={'text-[#5B211F] font-bold cursor-pointer'}>Sign in</span></h2>
           <h2 onClick={() => router.push('/ForgetPassword')}
-              className={'mt-2 text-[#3A56FF] font-bold cursor-pointer'}>I forgot my password</h2>
+              className={'mt-2 text-[#5B211F] font-bold cursor-pointer'}>I forgot my password</h2>
         </div>
       </div>
     </MobileLayout>

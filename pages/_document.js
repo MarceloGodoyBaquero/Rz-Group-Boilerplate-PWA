@@ -9,7 +9,7 @@ export default function Document () {
         <link rel="apple-touch-icon" href="../public/icon-192x192.png"></link>
         <meta name="theme-color" content="#fff" />
         {/* eslint-disable-next-line */}
-        <title>Rz Group</title>
+        {/*<title>Rz Group</title>*/}
       </Head>
       <body>
         <Main />
