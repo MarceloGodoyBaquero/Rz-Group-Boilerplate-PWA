@@ -33,7 +33,7 @@ const Verification = () => {
             />
           </div>
           <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
-            <h2>I didn't receive code. <span className={'text-blue-500 cursor-pointer'}>Resend Code</span></h2>
+            <h2>I didnt receive code. <span className={'text-blue-500 cursor-pointer'}>Resend Code</span></h2>
           </div>
           <div className={'w-full m-2'}>
             <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]'}>VERIFY NOW</button>
