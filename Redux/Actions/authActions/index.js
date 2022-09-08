@@ -3,7 +3,7 @@ import axios from "axios";
 
 export function signUp(obj){
 return function(dispatch){
- axios.post('/api/auth/signup', obj)
+ axios.post('http://localhost:3001/api/auth/signup', obj)
   .then((res)=>{
     dispatch({
       type: SIGN_UP,
