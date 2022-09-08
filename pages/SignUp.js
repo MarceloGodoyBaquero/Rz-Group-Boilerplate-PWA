@@ -69,6 +69,7 @@ export default function SignIn () {
       repeatPassword: '',
       roles: []
     })
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState({})
 
   const handleInputChange = function (e) {
