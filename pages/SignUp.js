@@ -5,11 +5,31 @@ import {useRouter} from "next/router";
 import {EyeIcon, EyeSlashIcon} from "@heroicons/react/24/solid";
 import {useState} from "react";
 import MobileLayout from "../components/MobileLayout";
+import { useDispatch } from "react-redux";
+import { signUp } from "../redux/actions/authActions";
 
 export default function SignIn() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const [input, setInput] = useState(
+    {
+       firstName: "",
+       lastName: "",
+       email: "",
+       idNumber: "",
+       phoneNumber: "",
+       password: ""
+   });
 
+   const handleInputChange = function(e) {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        });
+      }
+
+console.log(input);
   return (
     <MobileLayout>
       <div className={"md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col"}>
@@ -40,23 +60,43 @@ export default function SignIn() {
 
           <div className={'w-full m-2'}>
             <input placeholder={"First Name"}
-                   className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}/>
+                   className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}
+                   onChange={(e) => handleInputChange(e)}
+                   name={"firstName"}
+                   value={input.firstName}
+                   />
           </div>
           <div className={'w-full m-2'}>
             <input placeholder={"Last Name"}
-                   className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}/>
+                   className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}
+                   onChange={(e) => handleInputChange(e)}
+                   name={"lastName"}
+                   value={input.lastName}
+                   />
           </div>
           <div className={'w-full m-2'}>
             <input placeholder={"Email"}
-                   className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}/>
+                   className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}
+                   onChange={(e) => handleInputChange(e)}
+                   name={"email"}
+                   value={input.email}
+                   />
           </div>
           <div className={'w-full m-2'}>
             <input placeholder={"ID number"}
-                   className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}/>
+                   className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}
+                   onChange={(e) => handleInputChange(e)}
+                   name={"idNumber"}
+                   value={input.idNumber}
+                   />
           </div>
           <div className={'w-full m-2'}>
             <input placeholder={"Phone Number"}
-                   className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}/>
+                   className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}
+                   onChange={(e) => handleInputChange(e)}
+                   name={"phoneNumber"}
+                   value={input.phoneNumber}
+                   />
           </div>
 
           <div className={'w-full m-2 flex h-[50px] items-center'}>
@@ -66,7 +106,11 @@ export default function SignIn() {
             {!showPassword ? <EyeIcon onClick={() => setShowPassword(!showPassword)}
                                       className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}/> :
               <EyeSlashIcon onClick={() => setShowPassword(!showPassword)}
-                            className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}/>}
+                            className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}
+                   onChange={(e) => handleInputChange(e)}
+                   name={"password"}
+                   value={input.password}
+                            />}
           </div>
           <div className={'w-full m-2 flex h-[50px] items-center'}>
             <input placeholder={" Repeat Password"}
@@ -82,10 +126,10 @@ export default function SignIn() {
           </div>
         </div>
         <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
-          <h2>Have not any account? <span onClick={() => router.push('/SignIn')}
+          <h2>Already have an account? <span onClick={() => router.push('/SignIn')}
                                           className={'text-[#3A56FF] font-bold cursor-pointer'}>Sign in</span></h2>
           <h2 onClick={() => router.push('/ForgetPassword')}
-              className={'mt-2 text-[#3A56FF] font-bold cursor-pointer'}>I forget my password</h2>
+              className={'mt-2 text-[#3A56FF] font-bold cursor-pointer'}>I forgot my password</h2>
         </div>
       </div>
     </MobileLayout>

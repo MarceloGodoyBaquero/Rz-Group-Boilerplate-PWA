@@ -11,3 +11,10 @@ module.exports = withPWA({
     skipWaiting: true,
   },
 });
+
+
+/* module.exports = {
+  env: {
+    API_URL: 'https://rz-group-backend.herokuapp.com/' 
+  },
+} */
