@@ -7,7 +7,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
 import MobileLayout from '../components/MobileLayout'
 import { useDispatch } from 'react-redux'
-import { signUp } from '../redux/actions/authActions/index.js'
+import { signUp } from '../redux/actions/'
 
 function validate (input) {
   const errors = {}
