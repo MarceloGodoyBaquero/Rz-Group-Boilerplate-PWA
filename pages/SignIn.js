@@ -10,7 +10,6 @@ import MobileLayout from '../components/MobileLayout'
 export default function SignIn () {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
-
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
@@ -25,7 +24,6 @@ export default function SignIn () {
             <input placeholder={'Email'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}/>
           </div>
-
           <div className={'w-full m-2 flex h-[50px] items-center'}>
             <input placeholder={'Password'}
                    type={showPassword ? 'text' : 'password'}
@@ -36,7 +34,6 @@ export default function SignIn () {
               : <EyeSlashIcon onClick={() => setShowPassword(!showPassword)}
                             className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}/>}
           </div>
-
           <div className={'w-full m-2'}>
             <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]'}>SIGN IN</button>
           </div>

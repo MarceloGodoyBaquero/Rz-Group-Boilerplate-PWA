@@ -33,7 +33,7 @@ export default function Onboarding () {
           {tab === 3 && <Image width={'274px'} height={'287px'} src={image3} alt="hero" className={'w-3/4 '}/>}
         </div>
         <div
-          className={'bg-gradient-to-b from-blue-500 to-blue-900 rounded-t-3xl mt-5 p-5 h-[375px] flex-grow flex-col items-center justify-center'}>
+          className={'bg-gradient-to-b from-red-700 to-[#5b211f] rounded-t-3xl mt-5 p-5 h-[375px] flex-grow flex-col items-center justify-center'}>
           <div>
             <h2 className={'text-white font-bold text-2xl text-center m-5'}> Welcome to Rz Group</h2>
             {tab === 1 &&
@@ -49,19 +49,19 @@ export default function Onboarding () {
           </div>
           <div className={'w-full'}>
             <button onClick={() => router.push('/SignIn')}
-                    className={'w-full rounded-[25px] h-[50px] text-white bg-orange-400'}>Get Started
+                    className={'w-full rounded-[25px] h-[50px] text-white bg-[#000000]'}>Get Started
             </button>
           </div>
           <div className={'flex justify-center mt-10'}>
             {tab === 1
-              ? <StopIcon className={'h-5 w-5 text-orange-400'}/>
-              : <StopIcon className={'text-white w-5 h-5'}/>}
+              ? <StopIcon className={'h-5 w-5 text-[#000000]'}/>
+              : <StopIcon className={'text-[#f1f2f6] w-5 h-5'}/>}
             {tab === 2
-              ? <StopIcon className={'h-5 w-5 text-orange-400'}/>
-              : <StopIcon className={'text-white w-5 h-5'}/>}
+              ? <StopIcon className={'h-5 w-5 text-[#000000]'}/>
+              : <StopIcon className={'text-[#f1f2f6] w-5 h-5'}/>}
             {tab === 3
-              ? <StopIcon className={'h-5 w-5 text-orange-400'}/>
-              : <StopIcon className={'text-white w-5 h-5'}/>}
+              ? <StopIcon className={'h-5 w-5 text-[#000000]'}/>
+              : <StopIcon className={'text-[#f1f2f6] w-5 h-5'}/>}
           </div>
         </div>
       </div>
