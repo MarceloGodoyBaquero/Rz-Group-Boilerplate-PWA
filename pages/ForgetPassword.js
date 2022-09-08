@@ -1,7 +1,7 @@
 import React from 'react'
 import Nav from '../components/Nav'
 import Image from 'next/image'
-import ForgetPasswordImage from '../public/ForgetPassword.svg'
+import ForgetPasswordImage from '../public/Images/ForgetPassword.svg'
 
 import MobileLayout from '../components/MobileLayout'
 

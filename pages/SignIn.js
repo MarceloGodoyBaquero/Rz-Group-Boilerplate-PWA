@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Nav from '../components/Nav'
 import Image from 'next/image'
-import LoginImage from '../public/Login.svg'
+import LoginImage from '../public/Images/Login.svg'
 import { useRouter } from 'next/router'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
