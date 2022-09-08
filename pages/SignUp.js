@@ -118,7 +118,7 @@ export default function SignIn () {
             <h2>Please complete all the fields</h2>
           </div>
 
-          <div className={'w-full m-2 pl-5 pr-5 flex flex-row justify-between'}>
+          <div className={'w-full m-2 pl-5 pr-5 flex flex-row justify-evenly'}>
             <label>
               <input type={'radio'} name={'radio'} value={'driver'}
               onChange={(e) => handleCheckboxChange(e)}/>
