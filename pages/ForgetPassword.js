@@ -1,6 +1,6 @@
 import Nav from "../components/Nav";
 import Image from "next/image";
-import ForgetPasswordImage from '../public/ForgetPassword.svg';
+import ForgetPasswordImage from '../public/Images/ForgetPassword.svg';
 import {useRouter} from "next/router";
 import MobileLayout from "../components/MobileLayout";
 
