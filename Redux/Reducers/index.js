@@ -1,8 +1,8 @@
 
-import {SIGN_IN, SIGN_UP, SIGN_OUT, RECOVER_PASSWORD, VERIFY_EMAIL, SEND_OTP} from '../Actions/authActions/actionsCreator';
+import { SIGN_IN, SIGN_UP, SIGN_OUT, RECOVER_PASSWORD, VERIFY_EMAIL, SEND_OTP } from '../Actions/authActions/actionsCreator'
 
 const initialState = {
-  user: {},
+  user: {}
 }
 
 export default function rootReducer (state = initialState, action) {

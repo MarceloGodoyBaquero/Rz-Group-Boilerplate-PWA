@@ -1,15 +1,14 @@
-import Nav from "../components/Nav";
-import Image from "next/image";
-import SignUp from '../public/Images/SignUp.svg';
-import {useRouter} from "next/router";
-import {EyeIcon, EyeSlashIcon} from "@heroicons/react/24/solid";
-import {useState} from "react";
-import MobileLayout from "../components/MobileLayout";
-import { useDispatch, useSelector } from "react-redux";
+import Nav from '../components/Nav'
+import Image from 'next/image'
+import SignUp from '../public/Images/SignUp.svg'
+import { useRouter } from 'next/router'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
+import { React, useState } from 'react'
+import MobileLayout from '../components/MobileLayout'
+import { useDispatch } from 'react-redux'
 import { signUp } from '../Redux/Actions/authActions/'
 
-
-function validate(input) {
+function validate (input) {
   const errors = {}
   if (!input.firstName) {
     errors.firstName = 'First Name is required'
@@ -54,11 +53,10 @@ function validate(input) {
   return errors
 }
 
-export default function SignIn() {
-  const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
+export default function SignIn () {
+  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false)
+  const dispatch = useDispatch()
   const [input, setInput] = useState(
     {
       firstName: '',
@@ -100,10 +98,7 @@ export default function SignIn() {
     if (Object.keys(errors).length > 0) {
       alert('Please fill in all the required fields')
     } else {
-      dispatch(signUp(input));
-      if(Object.keys(user).length > 0){
-        alert('sucessfully signed up');
-      }
+      dispatch(signUp(input))
     }
   }
 

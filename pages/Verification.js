@@ -1,15 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MobileLayout from '../components/MobileLayout'
 import Nav from '../components/Nav'
 import Image from 'next/image'
 import LoginImage from '../public/Login.svg'
 import OtpInput from 'react-otp-input'
+import { verifyEmail, sendOTP } from '../Redux/Actions/authActions'
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const Verification = () => {
   const [otp, setOtp] = React.useState('')
+  const dispatch = useDispatch()
+  const router = useRouter()
+  const { email } = router.query
+  console.log(email)
+
+  useEffect(() => {
+    router.isReady && dispatch(sendOTP({ email }))
+  }, [router])
+
   const handleChange = (otp) => {
     setOtp(otp)
     return console.log(otp)
+  }
+  const handlesendOTP = () => {
+    dispatch(sendOTP({ email }))
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(verifyEmail({ email, code: otp }))
   }
   return (
     <MobileLayout>
@@ -33,10 +52,10 @@ const Verification = () => {
             />
           </div>
           <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
-            <h2>I didnt receive code. <span className={'text-blue-500 cursor-pointer'}>Resend Code</span></h2>
+            <h2>I didnt receive code. <span className={'text-blue-500 cursor-pointer'} onClick={() => handlesendOTP()}>Resend Code</span></h2>
           </div>
           <div className={'w-full m-2'}>
-            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]'}>VERIFY NOW</button>
+            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]'} onClick={(e) => handleSubmit(e)}>VERIFY NOW</button>
           </div>
         </div>
       </div>
