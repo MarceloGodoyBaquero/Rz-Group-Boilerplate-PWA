@@ -8,6 +8,52 @@ import MobileLayout from "../components/MobileLayout";
 import { useDispatch } from "react-redux";
 import { signUp } from "../redux/actions/authActions";
 
+function validate(input) {
+    let errors = {};
+    if(!input.firstName){
+        errors.firstName = "First Name is required";
+    }
+   else if(input.firstName.trim() === ''){
+    errors.firstName = "Name may not be empty"
+}
+    if(!input.lastName){
+        errors.lastName = "Last Name is required";
+    } else if(input.lastName.trim() === ''){
+      errors.firstName = "Name may not be empty"
+  }
+    if (!input.email) {
+        errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(input.email)) {
+        errors.email = "Email is invalid";
+    }
+    if(!input.idNumber){
+        errors.idNumber = "ID Number is required";
+    } else if(!/^\d{10}$/.test(input.idNumber)){
+        errors.idNumber = "ID Number is invalid";
+    }
+    if(!input.phoneNumber){
+        errors.phoneNumber = "Phone Number is required";
+    } else if(!/^\d{10}$/.test(input.phoneNumber)){
+        errors.phoneNumber = "Phone Number is invalid";
+    }
+    if(!input.roles.length){
+        errors.roles = "Role is required";
+    }
+    if (!input.password) {
+        errors.password = "Password is required";
+    } else if (input.password.length < 8) {
+        errors.password = "Password must be at least 6 characters";
+    } else if (!(/^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ]/.test(input.password))) {
+      errors.password = "Password must contain at least one uppercase letter, one lowercase letter and one number";
+    }
+    if (!input.repeatPassword) {
+        errors.repeatPassword = "Confirm password is required";
+    } else if (input.password !== input.repeatPassword) {
+        errors.repeatPassword = "Passwords must match";
+    }
+    return errors;
+}
+
 export default function SignIn() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -19,15 +65,43 @@ export default function SignIn() {
        email: "",
        idNumber: "",
        phoneNumber: "",
-       password: ""
+       password: "",
+       repeatPassword: "",
+       roles: []
    });
+   const [error, setError] = useState({});
 
    const handleInputChange = function(e) {
-        setInput({
-            ...input,
-            [e.target.name]: e.target.value
-        });
+    setError(validate({
+      ...input,
+      [e.target.name]: e.target.value 
+  }))
+  setInput({
+      ...input,
+      [e.target.name]:e.target.value
+  })
       }
+  const handleCheckboxChange = function(e) {
+    setError(validate({
+      ...input,
+      roles: e.currentTarget.value 
+  }))
+      setInput({
+        ...input,
+        roles: [e.currentTarget.value]
+      })
+  }
+  const handleSubmit = function(e) {
+    e.preventDefault();
+    const errors = validate(input);
+    console.log(errors)
+    if(Object.keys(errors).length > 0){
+        alert("Please fill in all the required fields");
+    } else {
+      dispatch(signUp(input));
+      alert('ta listo papa')
+    }
+  }
 
 console.log(input);
   return (
@@ -45,15 +119,13 @@ console.log(input);
 
           <div className={'w-full m-2 pl-5 pr-5 flex flex-row justify-between'}>
             <label>
-              <input className={''} type={'radio'} name={"radio"} value={'Owner'}/>
-              Owner
-            </label>
-            <label>
-              <input type={'radio'} name={"radio"} value={'Driver'}/>
+              <input type={'radio'} name={"radio"} value={'driver'}
+              onChange={(e) => handleCheckboxChange(e)}/>
               Driver
             </label>
             <label>
-              <input type={'radio'} name={"radio"} value={'Rider'}/>
+              <input type={'radio'} name={"radio"} value={'client'}
+              onChange={(e) => handleCheckboxChange(e)}/>
               Rider
             </label>
           </div>
@@ -101,19 +173,22 @@ console.log(input);
 
           <div className={'w-full m-2 flex h-[50px] items-center'}>
             <input placeholder={"Password"}
+            onChange={(e) => handleInputChange(e)}
+            name={"password"}
+            value={input.password}
                    type={showPassword ? "text" : "password"}
                    className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}/>
             {!showPassword ? <EyeIcon onClick={() => setShowPassword(!showPassword)}
                                       className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}/> :
               <EyeSlashIcon onClick={() => setShowPassword(!showPassword)}
                             className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}
-                   onChange={(e) => handleInputChange(e)}
-                   name={"password"}
-                   value={input.password}
                             />}
           </div>
           <div className={'w-full m-2 flex h-[50px] items-center'}>
             <input placeholder={" Repeat Password"}
+                   onChange={(e) => handleInputChange(e)}
+                   name={"repeatPassword"}
+                   value={input.repeatPassword}
                    type={showPassword ? "text" : "password"}
                    className={"indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]"}/>
             {!showPassword ? <EyeIcon onClick={() => setShowPassword(!showPassword)}
@@ -122,7 +197,7 @@ console.log(input);
                             className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}/>}
           </div>
           <div className={'w-full m-2'}>
-            <button className={"w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]"}>SIGN UP</button>
+            <button className={"w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]"}onClick={(e) => handleSubmit(e)}>SIGN UP</button>
           </div>
         </div>
         <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
