@@ -1,10 +1,10 @@
+import React from 'react'
 import '../styles/globals.css'
-import {Provider} from "react-redux";
-import store from '../Redux/Store';
+import { Provider } from 'react-redux'
+import store from '../Redux/Store'
+import PropTypes from 'prop-types'
 
-/* axios.defaults.baseURL = process.env.API_URL || 'http://localhost:3001'; */
-
-function MyApp({Component, pageProps}) {
+export default function MyApp ({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <Component {...pageProps} />
@@ -12,4 +12,7 @@ function MyApp({Component, pageProps}) {
   )
 }
 
-export default MyApp
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  pageProps: PropTypes.object.isRequired
+}
