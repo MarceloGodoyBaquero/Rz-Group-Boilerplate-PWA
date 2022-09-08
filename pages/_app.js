@@ -1,8 +1,9 @@
 import '../styles/globals.css'
 import {Provider} from "react-redux";
 import store from '../Redux/Store';
+import axios from 'axios';
 
-/* axios.defaults.baseURL = process.env.API_URL || 'http://localhost:3001'; */
+axios.defaults.baseURL = process.env.API_URL || 'http://localhost:3001';
 
 function MyApp({Component, pageProps}) {
   return (

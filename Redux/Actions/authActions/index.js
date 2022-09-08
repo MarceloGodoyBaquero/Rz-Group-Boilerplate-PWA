@@ -1,16 +1,27 @@
-import {SIGN_IN, SIGN_UP, SIGN_OUT, SEND_OTP, VERIFY_EMAIL, RECOVER_PASSWORD} from "./ActionsCreators";
+import {SIGN_IN, SIGN_UP, SIGN_OUT, SEND_OTP, VERIFY_EMAIL, RECOVER_PASSWORD} from "./actionsCreator";
 import axios from "axios";
 
 export function signUp(obj){
 return function(dispatch){
- axios.post('http://localhost:3001/api/auth/signup', obj)
+ axios.post('https://rz-group-backend.herokuapp.com/api/auth/signup', obj)
   .then((res)=>{
     dispatch({
       type: SIGN_UP,
       payload: res.data
     })
   }).catch((err)=>{
-    alert(err)
+    if(err.response.data.includes('idNumber')){
+      alert('The ID number you entered is already in use')
+    }
+    else if(err.response.data.includes('Email')){
+      alert('The email you entered is already in use')
+    }
+    else if(err.response.data.includes('phoneNumber')){
+      alert('The phone number you entered is already in use')
+    }
+    else {
+      alert('Something went wrong')
+    }
   })
 }
 }

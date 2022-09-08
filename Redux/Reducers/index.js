@@ -1,7 +1,6 @@
-import {SIGN_IN, SIGN_UP, SIGN_OUT, RECOVER_PASSWORD, VERIFY_EMAIL, SEND_OTP} from '../Actions/authActions/ActionsCreators';
+import {SIGN_IN, SIGN_UP, SIGN_OUT, RECOVER_PASSWORD, VERIFY_EMAIL, SEND_OTP} from '../Actions/authActions/actionsCreator';
 
 const initialState = {
-  counter: 0,
   user: {},
 }
 

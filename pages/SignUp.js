@@ -5,7 +5,7 @@ import {useRouter} from "next/router";
 import {EyeIcon, EyeSlashIcon} from "@heroicons/react/24/solid";
 import {useState} from "react";
 import MobileLayout from "../components/MobileLayout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../redux/actions/authActions";
 
 function validate(input) {
@@ -58,6 +58,7 @@ export default function SignIn() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
   const [input, setInput] = useState(
     {
        firstName: "",
@@ -99,7 +100,9 @@ export default function SignIn() {
         alert("Please fill in all the required fields");
     } else {
       dispatch(signUp(input));
-      alert('ta listo papa')
+      if(Object.keys(user).length > 0){
+        alert('sucessfully signed up');
+      }
     }
   }
 
@@ -117,7 +120,7 @@ console.log(input);
             <h2>Please complete all the fields</h2>
           </div>
 
-          <div className={'w-full m-2 pl-5 pr-5 flex flex-row justify-between'}>
+          <div className={'w-full m-2 pl-5 pr-5 flex flex-row justify-evenly'}>
             <label>
               <input type={'radio'} name={"radio"} value={'driver'}
               onChange={(e) => handleCheckboxChange(e)}/>
