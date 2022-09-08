@@ -25,7 +25,7 @@ export default function ForgetPassword () {
             <h2>Email sent to ex***@gmail.com</h2>
           </div>
           <div className={'w-full m-2'}>
-            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]'}>Send</button>
+            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'}>Send</button>
           </div>
         </div>
       </div>

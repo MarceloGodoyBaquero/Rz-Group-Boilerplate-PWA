@@ -35,13 +35,13 @@ export default function SignIn () {
                             className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}/>}
           </div>
           <div className={'w-full m-2'}>
-            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]'}>SIGN IN</button>
+            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'}>SIGN IN</button>
           </div>
         </div>
         <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
           <h2>Have not any account? <span onClick={() => router.push('/SignUp')}
-                                          className={'text-[#3A56FF] font-bold cursor-pointer'}>Sign up</span></h2>
-          <h2 onClick={() => router.push('/ForgetPassword')} className={'mt-2 text-[#3A56FF] font-bold cursor-pointer'}>I forget my password</h2>
+                                          className={'text-[#5B211F] font-bold cursor-pointer'}>Sign up</span></h2>
+          <h2 onClick={() => router.push('/ForgetPassword')} className={'mt-2 text-[#5B211F] font-bold cursor-pointer'}>I forget my password</h2>
         </div>
       </div>
     </MobileLayout>
