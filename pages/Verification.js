@@ -5,29 +5,29 @@ import Image from 'next/image'
 import Otp from '../public/Images/Otp.svg'
 import OtpInput from 'react-otp-input'
 import { verifyEmail, sendOTP } from '../Redux/Actions/authActions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
 const Verification = () => {
   const [otp, setOtp] = React.useState('')
   const dispatch = useDispatch()
   const router = useRouter()
-  const { email } = router.query
-  console.log(email)
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
-    router.isReady && dispatch(sendOTP({ email }))
-  }, [router])
+    console.log(user.email)
+    dispatch(sendOTP({ email: user.email }))
+  }, [])
 
   const handleChange = (otp) => {
     return setOtp(otp)
   }
   const handlesendOTP = () => {
-    dispatch(sendOTP({ email }))
+    dispatch(sendOTP({ email: user.email }))
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(verifyEmail({ email, code: otp }))
+    dispatch(verifyEmail({ email: user.email, code: otp }, router))
   }
   return (
     <MobileLayout>

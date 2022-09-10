@@ -7,7 +7,7 @@ export const SEND_OTP = 'SEND_OTP'
 export const VERIFY_EMAIL = 'VERIFY_EMAIL'
 export const RECOVER_PASSWORD = 'RECOVER_PASSWORD'
 
-export function signUp (obj) {
+export function signUp (obj, router) {
   return function (dispatch) {
     axios.post('https://rz-group-backend.herokuapp.com/api/auth/signup', obj)
       .then((res) => {
@@ -17,13 +17,14 @@ export function signUp (obj) {
           payload: res.data
         })
         alert('tamos listos papa')
-        window.location.href = `/Verification?email=${res.data.email}`
+        router.push('/Verification')
       }).catch((err) => {
         alert(err.response.data)
+        console.log(err.response.data)
       })
   }
 }
-export function signIn (obj) {
+export function signIn (obj, router) {
   return function (dispatch) {
     axios.post('https://rz-group-backend.herokuapp.com/api/auth/signin', obj)
       .then((res) => {
@@ -31,6 +32,8 @@ export function signIn (obj) {
           type: SIGN_IN,
           payload: res.data
         })
+        localStorage.setItem('token', res.data.accessToken)
+        router.push('/Dashboard')
       }
       ).catch((err) => {
         alert(err)
@@ -44,19 +47,23 @@ export function signOut () {
   }
 }
 
-export function sendOTP (obj) {
+export function sendOTP (obj, router = null) {
   return function (dispatch) {
     axios.post('https://rz-group-backend.herokuapp.com/api/auth/sendOTP', obj)
-      .then(dispatch({
-        type: SEND_OTP
-      })
-      ).catch((err) => {
+      .then(res => {
+        dispatch({
+          type: SEND_OTP
+        })
+        if (router) {
+          router.push('/ChangePassword?email=' + obj.email)
+        }
+      }).catch((err) => {
         console.log(err)
       })
   }
 }
 
-export function verifyEmail (obj) {
+export function verifyEmail (obj, router) {
   return function (dispatch) {
     axios.post('https://rz-group-backend.herokuapp.com/api/auth/verify', obj)
       .then(res => {
@@ -64,7 +71,7 @@ export function verifyEmail (obj) {
           type: VERIFY_EMAIL
         })
         alert('Email verified')
-        window.location.replace('www.google.com')
+        router.push('/SignIn')
       }
       ).catch((err) => {
         alert(err.response)
@@ -72,12 +79,16 @@ export function verifyEmail (obj) {
   }
 }
 
-export function recoverPassword (obj) {
+export function recoverPassword (obj, router) {
   return function (dispatch) {
     axios.post('https://rz-group-backend.herokuapp.com/api/auth/recovery', obj)
-      .then(dispatch({
-        type: RECOVER_PASSWORD
-      })
+      .then(res => {
+        dispatch({
+          type: RECOVER_PASSWORD
+        })
+        alert('Password changed')
+        router.push('/SignIn')
+      }
       ).catch((err) => {
         console.log(err)
       })

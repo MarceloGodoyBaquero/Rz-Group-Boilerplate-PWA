@@ -2,10 +2,21 @@ import React from 'react'
 import Nav from '../components/Nav'
 import Image from 'next/image'
 import ForgetPasswordImage from '../public/Images/ForgetPassword.svg'
-
+import { useRouter } from 'next/router'
 import MobileLayout from '../components/MobileLayout'
+import { useDispatch } from 'react-redux'
+import { sendOTP } from '../Redux/Actions/authActions'
 
 export default function ForgetPassword () {
+  const router = useRouter()
+  const [email, setEmail] = React.useState('')
+  const dispatch = useDispatch()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(sendOTP({ email }, router))
+  }
+  console.log(email)
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
@@ -19,13 +30,16 @@ export default function ForgetPassword () {
           </div>
           <div className={'w-full m-2'}>
             <input placeholder={'Email'}
+            name={'email'}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}/>
           </div>
           <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
             <h2>Email sent to ex***@gmail.com</h2>
           </div>
           <div className={'w-full m-2'}>
-            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'}>Send</button>
+            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'} onClick={(e) => handleSubmit(e)}>Send</button>
           </div>
         </div>
       </div>

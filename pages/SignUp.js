@@ -27,7 +27,7 @@ function validate (input) {
   }
   if (!input.idNumber) {
     errors.idNumber = 'ID Number is required'
-  } else if (!/^\d{10}$/.test(input.idNumber)) {
+  } else if (input.idNumber.length < 3) {
     errors.idNumber = 'ID Number is invalid'
   }
   if (!input.phoneNumber) {
@@ -98,7 +98,7 @@ export default function SignIn () {
     if (Object.keys(errors).length > 0) {
       alert('Please fill in all the required fields')
     } else {
-      dispatch(signUp(input))
+      dispatch(signUp(input, router))
     }
   }
 

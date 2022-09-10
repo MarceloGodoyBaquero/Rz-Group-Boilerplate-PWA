@@ -4,12 +4,31 @@ import Image from 'next/image'
 import LoginImage from '../public/Images/Login.svg'
 import { useRouter } from 'next/router'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
+import { signIn } from '../Redux/Actions/authActions'
+import { useDispatch } from 'react-redux'
 
 import MobileLayout from '../components/MobileLayout'
 
 export default function SignIn () {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
+  const [input, setInput] = useState({
+    email: '',
+    password: ''
+  })
+  const dispatch = useDispatch()
+  function handleChange (e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  function handleSubmit (e) {
+    e.preventDefault()
+    dispatch(signIn(input, router))
+  }
+
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
@@ -22,10 +41,16 @@ export default function SignIn () {
           </div>
           <div className={'w-full m-2'}>
             <input placeholder={'Email'}
-                   className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}/>
+                   className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
+                   name={'email'}
+                   value={input.email}
+                   onChange={(e) => handleChange(e)}/>
           </div>
           <div className={'w-full m-2 flex h-[50px] items-center'}>
             <input placeholder={'Password'}
+                   name={'password'}
+                   value={input.password}
+                   onChange={(e) => handleChange(e)}
                    type={showPassword ? 'text' : 'password'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}/>
             {!showPassword
@@ -35,13 +60,14 @@ export default function SignIn () {
                             className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}/>}
           </div>
           <div className={'w-full m-2'}>
-            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'}>SIGN IN</button>
+            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'}
+            onClick={(e) => handleSubmit(e)}>SIGN IN</button>
           </div>
         </div>
         <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
-          <h2>Have not any account? <span onClick={() => router.push('/SignUp')}
+          <h2>Don&apos;t have an account yet? <span onClick={() => router.push('/SignUp')}
                                           className={'text-[#5B211F] font-bold cursor-pointer'}>Sign up</span></h2>
-          <h2 onClick={() => router.push('/ForgetPassword')} className={'mt-2 text-[#5B211F] font-bold cursor-pointer'}>I forget my password</h2>
+          <h2 onClick={() => router.push('/ForgetPassword')} className={'mt-2 text-[#5B211F] font-bold cursor-pointer'}>I forgot my password</h2>
         </div>
       </div>
     </MobileLayout>
