@@ -33,7 +33,11 @@ export function signIn (obj, router) {
           payload: res.data
         })
         localStorage.setItem('token', res.data.accessToken)
-        router.push('/Dashboard')
+        if (!res.data.isVerified) {
+          router.push('/Verification')
+        } else {
+          router.push('/Dashboard')
+        }
       }
       ).catch((err) => {
         alert(err)

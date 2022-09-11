@@ -1,20 +1,19 @@
 module.exports = {
-  reactStrictMode: true,
-};
+  reactStrictMode: true
+}
 
-const withPWA = require("next-pwa");
+const withPWA = require('next-pwa')
 
 module.exports = withPWA({
   pwa: {
-    dest: "public",
+    dest: 'public',
     register: true,
-    skipWaiting: true,
-  },
-});
-
+    skipWaiting: true
+  }
+})
 
 /* module.exports = {
   env: {
-    API_URL: 'https://rz-group-backend.herokuapp.com/' 
+    API_URL: 'https://rz-group-backend.herokuapp.com/'
   },
 } */

@@ -106,7 +106,7 @@ export default function SignIn () {
                 className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}/>}
           </div>
           <div className={'w-full m-2'}>
-            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]'}
+            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'}
             onClick={(e) => handleSubmit(e)}>Change</button>
           </div>
         </div>

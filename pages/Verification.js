@@ -52,10 +52,10 @@ const Verification = () => {
           </div>
           <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
 
-            <h2>Didn&rsquo;t received the code? <span className={'text-blue-500 cursor-pointer'} onClick={() => handlesendOTP()}>Resend Code</span></h2>
+            <h2>Didn&rsquo;t received the code? <span className={'text-[#5B211F] cursor-pointer'} onClick={() => handlesendOTP()}>Resend Code</span></h2>
           </div>
           <div className={'w-full m-2'}>
-            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#3A56FF]'} onClick={(e) => handleSubmit(e)}>VERIFY NOW</button>
+            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'} onClick={(e) => handleSubmit(e)}>VERIFY NOW</button>
 
           </div>
         </div>

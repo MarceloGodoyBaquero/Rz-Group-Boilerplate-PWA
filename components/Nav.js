@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { ArrowDownOnSquareIcon, ArrowLeftIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
+import Image from 'next/image'
+import EditIcon from '../public/Images/EditProfile.svg'
 
-export default function Nav ({ location }) {
+export default function Nav ({ location, cosito }) {
   const [supportsPWA, setSupportsPWA] = useState(false)
   const [promptInstall, setPromptInstall] = useState(null)
   const router = useRouter()
@@ -38,11 +40,13 @@ export default function Nav ({ location }) {
       </div>
       <div className={'w-1/6 flex items-center justify-center'}>
         {supportsPWA && <ArrowDownOnSquareIcon className={'h-1/3 cursor-pointer'} onClick={(e) => install(e)}/>}
+        {cosito && <Image src={EditIcon} width={30} height={30} className={'h-1/3 cursor-pointer'} onClick={() => router.push('/EditProfile')}/>}
       </div>
     </nav>
   )
 }
 
 Nav.propTypes = {
-  location: PropTypes.string
+  location: PropTypes.string,
+  cosito: PropTypes.bool
 }
