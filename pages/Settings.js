@@ -1,7 +1,7 @@
 import React from 'react'
 import MobileLayout from '../components/MobileLayout'
 import Image from 'next/image'
-import defaultImage from '../public/images/fakeimg.png'
+import defaultImage from '../public/Images/fakeimg.png'
 import Nav from '../components/Nav'
 import { LockClosedIcon, BellAlertIcon, Cog8ToothIcon, CreditCardIcon, ChevronRightIcon, EnvelopeIcon, PhoneIcon, LinkIcon, LanguageIcon, BanknotesIcon } from '@heroicons/react/24/solid'
 import { GoSignOut, GoMailRead } from 'react-icons/go'

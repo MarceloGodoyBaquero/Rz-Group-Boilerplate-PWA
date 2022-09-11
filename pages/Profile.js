@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import MobileLayout from '../components/MobileLayout'
 import Nav from '../components/Nav'
-import defaultImage from '../public/images/fakeimg.png'
+import defaultImage from '../public/Images/fakeimg.png'
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
 
 function ProfileMobile () {
