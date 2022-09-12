@@ -66,8 +66,6 @@ export default function Fuec () {
       dispatch(signUp(input, router))
     }
   }
-
-  console.log(input)
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
