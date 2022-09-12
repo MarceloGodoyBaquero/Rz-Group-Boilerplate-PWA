@@ -19,8 +19,14 @@ export default function Main () {
           <div>
             <h2 className={'text-black font-bold text-2xl m-5 pt-[2rem]'}>Take a Ride</h2>
             <div className={'flex w-full'}>
-              <button className={'font-bold text-white bg-[#5b211f] w-1/2 rounded-3xl h-[200px] m-5'}>RIDE</button>
-              <button className={'bg-gray-500 w-1/2 rounded-3xl h-[200px] m-5'}>RESERVE</button>
+              <div
+                className={'cursor-pointer flex items-center justify-center text-white bg-Ride w-1/2 rounded-3xl h-[200px] m-5'}>
+                <h2 className={'text-2xl font-bold bg-black p-1 rounded-3xl'}>RIDE</h2>
+              </div>
+              <div
+                className={'cursor-pointer flex items-center justify-center text-white bg-Reserve w-1/2 rounded-3xl h-[200px] m-5'}>
+                <h2 className={'text-2xl font-bold bg-black p-1 rounded-3xl'}>RESERVE</h2>
+              </div>
             </div>
           </div>
           <div>
@@ -35,7 +41,7 @@ export default function Main () {
                     <div className={'w-full flex flex-col justify-center mb-7 '}>
                       <div className={'flex items-center justify-between'}>
                         <h3 className={'font-bold'}>Jhon Smith</h3>
-                        <h3 className={'bg-[orange] rounded-2xl text-white pl-2 pr-2'}>Waiting</h3>
+                        <h3 className={'bg-[orange] rounded-2xl text-white pl-2 pr-2'}>Pending</h3>
                       </div>
                       <div className={'flex items-center justify-evenly'}>
                         <div className={'flex items-center w-full'}>
@@ -44,7 +50,7 @@ export default function Main () {
                         </div>
                         <div className={'flex items-center w-full'}>
                           <ClockIcon className={'w-[16px]'}/>
-                          <h3>2 Hours</h3>
+                          <h3>Pending</h3>
                         </div>
                         <div className={'flex items-center w-full '}>
                           <BanknotesIcon className={'w-[16px]'}/>
