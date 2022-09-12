@@ -1,14 +1,12 @@
 import React from 'react'
 // {useState, useEffect }
 // import { useRouter } from 'next/router'
-
 import MobileLayout from '../components/MobileLayout'
 import Nav from '../components/Nav'
 import { BanknotesIcon, CalendarIcon, ClockIcon } from '@heroicons/react/24/outline'
 
 export default function Main () {
   // const router = useRouter()
-
   const viajes = [1, 2, 3, 4]
 
   return (
