@@ -87,7 +87,7 @@ export default function Fuec () {
             <input placeholder={'Name'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
-                   name={'Name'}
+                   name={'Name1'}
                    value={input.Name1}
             />
           </div>
@@ -120,7 +120,7 @@ export default function Fuec () {
             <input placeholder={'ID Number'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
-                   name={'ID Number'}
+                   name={'idNumber'}
                    type={'number'}
                    value={input.idNumber}
             />
