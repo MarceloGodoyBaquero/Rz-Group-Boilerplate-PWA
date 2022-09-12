@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ArrowDownOnSquareIcon, ArrowLeftIcon } from '@heroicons/react/24/solid'
+import { ArrowDownOnSquareIcon, ArrowLeftIcon, Bars2Icon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
@@ -32,9 +32,12 @@ export default function Nav ({ location, cosito }) {
 
   return (
     <nav className={'bg-white w-full h-13 flex justify-center flex-row shadow-lg mb-3'}>
-      <div onClick={() => router.back()} className={'w-1/6 flex items-center justify-center cursor-pointer'}>
+      {location === 'Home' && <div className={'w-1/6 flex items-center justify-center cursor-pointer'}>
+        <Bars2Icon className={'h-1/3'}/>
+      </div>}
+       {location !== 'Home' && <div onClick={() => router.back()} className={'w-1/6 flex items-center justify-center cursor-pointer'}>
         <ArrowLeftIcon className={'h-1/3'}/>
-      </div>
+       </div>}
       <div className={'w-4/6 flex items-center justify-center'}>
         <h2 className={'font-bold text-2xl'}>{location}</h2>
       </div>
