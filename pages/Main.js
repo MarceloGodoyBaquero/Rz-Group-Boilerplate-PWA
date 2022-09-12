@@ -1,13 +1,13 @@
 import React from 'react'
 // {useState, useEffect }
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 import MobileLayout from '../components/MobileLayout'
 import Nav from '../components/Nav'
 import { BanknotesIcon, CalendarIcon, ClockIcon } from '@heroicons/react/24/outline'
 
 export default function Main () {
-  // const router = useRouter()
+  const router = useRouter()
 
   const viajes = [1, 2, 3, 4]
 
@@ -20,6 +20,7 @@ export default function Main () {
             <h2 className={'text-black font-bold text-2xl m-5 pt-[2rem]'}>Take a Ride</h2>
             <div className={'flex w-full'}>
               <div
+                onClick={() => router.push('/Fuec')}
                 className={'cursor-pointer flex items-center justify-center text-white bg-Ride w-1/2 rounded-3xl h-[200px] m-5'}>
                 <h2 className={'text-2xl font-bold bg-black p-1 rounded-3xl'}>RIDE</h2>
               </div>
