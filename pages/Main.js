@@ -17,7 +17,7 @@ export default function Main () {
         <Nav location={'Home'}/>
         <div className={'h-1/2 flex flex-col justify-center w-full'}>
           <div>
-            <h2 className={'text-black font-bold text-2xl m-5'}>Take a Ride</h2>
+            <h2 className={'text-black font-bold text-2xl m-5 pt-[2rem]'}>Take a Ride</h2>
             <div className={'flex w-full'}>
               <button className={'font-bold text-white bg-[#5b211f] w-1/2 rounded-3xl h-[200px] m-5'}>RIDE</button>
               <button className={'bg-gray-500 w-1/2 rounded-3xl h-[200px] m-5'}>RESERVE</button>
@@ -32,7 +32,7 @@ export default function Main () {
                     <div>
                       <div className={'bg-gray-500 w-[66px] h-[66px] rounded-[50%] mr-3'}></div>
                     </div>
-                    <div className={'w-full flex flex-col justify-center'}>
+                    <div className={'w-full flex flex-col justify-center mb-7 '}>
                       <div className={'flex items-center justify-between'}>
                         <h3 className={'font-bold'}>Jhon Smith</h3>
                         <h3 className={'bg-[orange] rounded-2xl text-white pl-2 pr-2'}>Waiting</h3>
@@ -59,7 +59,7 @@ export default function Main () {
           </div>
         </div>
         <div
-          className={'overflow-auto bg-[#5b211f] w-full rounded-t-3xl mt-5 p-5 h-1/2 flex-grow flex-col items-center justify-center'}>
+          className={'overflow-auto bg-[#5b211f] w-full rounded-t-3xl mt-7 p-4 h-1/2 flex-grow flex-col items-center justify-center'}>
           <div>
             <h2 className={'text-white font-bold text-2xl text-center m-5'}>Your last trips</h2>
           </div>
