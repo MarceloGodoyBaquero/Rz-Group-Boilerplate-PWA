@@ -1,8 +1,10 @@
 
 import { SIGN_IN, SIGN_UP, SIGN_OUT, RECOVER_PASSWORD, VERIFY_EMAIL, SEND_OTP } from '../Actions/authActions/actionsCreator'
+import { FUEC } from '../Actions/fuecActions/actionsCreator'
 
 const initialState = {
-  user: {}
+  user: {},
+  fuec: {}
 }
 
 export default function rootReducer (state = initialState, action) {
@@ -38,6 +40,12 @@ export default function rootReducer (state = initialState, action) {
     case SEND_OTP: {
       return {
         ...state
+      }
+    }
+    case FUEC: {
+      return {
+        ...state,
+        fuec: action.payload
       }
     }
     default:

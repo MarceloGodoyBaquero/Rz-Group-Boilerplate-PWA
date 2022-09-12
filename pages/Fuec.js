@@ -1,28 +1,28 @@
+import React, { useState } from 'react'
 import Nav from '../components/Nav'
 import Image from 'next/image'
 import SignUp from '../public/Images/OnBoarding-1.svg'
-import { useRouter } from 'next/router'
-import { React, useState } from 'react'
+// import { useRouter } from 'next/router'
 import MobileLayout from '../components/MobileLayout'
 import { useDispatch } from 'react-redux'
-import { signUp } from '../Redux/Actions/authActions/'
+import { fuec } from '../Redux/Actions/fuecActions'
 
 function validate (input) {
   const errors = {}
   if (!input.Name1) {
-    errors.Name1 = 'First Name is required'
+    errors.Name1 = 'Name is required'
   } else if (input.Name1.trim() === '') {
     errors.Name1 = 'Name may not be empty'
   }
   if (!input.Origin) {
-    errors.Origin = 'Last Name is required'
+    errors.Origin = 'Origin is required'
   } else if (input.Origin.trim() === '') {
-    errors.Origin = 'Name may not be empty'
+    errors.Origin = 'Origin may not be empty'
   }
   if (!input.Destination) {
-    errors.Destination = 'Email is required'
-  } else if (!/\S+@\S+\.\S+/.test(input.Destination)) {
-    errors.Destination = 'Email is invalid'
+    errors.Destination = 'Destination is required'
+  } else if (input.Destination.trim() === '') {
+    errors.Destination = 'Destination is invalid'
   }
   if (!input.idNumber) {
     errors.idNumber = 'ID Number is required'
@@ -33,7 +33,7 @@ function validate (input) {
 }
 
 export default function Fuec () {
-  const router = useRouter()
+  // const router = useRouter()
   const dispatch = useDispatch()
   const [input, setInput] = useState(
     {
@@ -63,7 +63,7 @@ export default function Fuec () {
     if (Object.keys(errors).length > 0) {
       alert('Please fill in all the required fields')
     } else {
-      dispatch(signUp(input, router))
+      dispatch(fuec(input))
     }
   }
   return (
