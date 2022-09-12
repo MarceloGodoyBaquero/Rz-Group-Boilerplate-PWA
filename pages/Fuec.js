@@ -2,7 +2,6 @@ import Nav from '../components/Nav'
 import Image from 'next/image'
 import SignUp from '../public/Images/OnBoarding-1.svg'
 import { useRouter } from 'next/router'
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 import { React, useState } from 'react'
 import MobileLayout from '../components/MobileLayout'
 import { useDispatch } from 'react-redux'
@@ -35,7 +34,6 @@ function validate (input) {
 
 export default function Fuec () {
   const router = useRouter()
-  const [showPassword, setShowPassword] = useState(false)
   const dispatch = useDispatch()
   const [input, setInput] = useState(
     {
