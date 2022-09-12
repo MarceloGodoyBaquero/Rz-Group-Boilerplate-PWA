@@ -1,0 +1,28 @@
+.menu_items{
+  list-style-type: none;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--border-radius);
+  transition: background var(--speed);
+  padding: 0.5rem;
+}
+.menu_items li{
+  cursor: pointer;
+  margin-bottom: 0.7rem;
+  filter: grayscale(100%) opacity(0.7);
+  transition: 600ms;
+}
+.menu_items li:hover{
+  color: #fffeff;
+  filter: grayscale(0%) opacity(1);
+  transition: 600ms;
+}
+.navbar_menu{
+  position: absolute;
+  right: 0;
+  margin-right: 5%;
+  display: flex;
+  justify-content: space-between;
+ align-items: center;
+}

@@ -4,11 +4,12 @@ import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import EditIcon from '../public/Images/EditProfile.svg'
-
+import Sidebar from './Sidebar'
 export default function Nav ({ location, cosito }) {
   const [supportsPWA, setSupportsPWA] = useState(false)
   const [promptInstall, setPromptInstall] = useState(null)
   const router = useRouter()
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const handler = e => {
@@ -30,11 +31,28 @@ export default function Nav ({ location, cosito }) {
     promptInstall.prompt()
   }
 
+  const showSidebar = () => {
+    setOpen(!open)
+  }
+
   return (
     <nav className={'bg-white w-full h-13 flex justify-center flex-row shadow-lg mb-3'}>
-      {location === 'Home' && <div className={'w-1/6 flex items-center justify-center cursor-pointer'}>
-        <Bars2Icon className={'h-1/3'}/>
+      {location === 'Home' &&
+      <div className={'w-1/6 flex items-center justify-center cursor-pointer'} onClick={() => showSidebar()}>
+        <Bars2Icon className={'h-1/3'} />
       </div>}
+      {location === 'Home' && open
+        ? <Sidebar open={open} setOpen={setOpen}>
+          <div className={'flex flex-col justify-center items-center'}>
+            <ul>
+              <li onClick={() => router.push('/Fuec')}>
+                Crea tu FUEC
+              </li>
+            </ul>
+          </div>
+        </Sidebar>
+        : null
+      }
        {location !== 'Home' && <div onClick={() => router.back()} className={'w-1/6 flex items-center justify-center cursor-pointer'}>
         <ArrowLeftIcon className={'h-1/3'}/>
        </div>}
