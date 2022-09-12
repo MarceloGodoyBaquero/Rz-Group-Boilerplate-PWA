@@ -36,7 +36,7 @@ export function signIn (obj, router) {
         if (!res.data.isVerified) {
           router.push('/Verification')
         } else {
-          router.push('/Dashboard')
+          router.push('/Main')
         }
       }
       ).catch((err) => {
