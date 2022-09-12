@@ -17,6 +17,10 @@ module.exports = {
         // => @media (min-width: 1280px) { ... }
         '2xl': '1536px'
         // => @media (min-width: 1536px) { ... }
+      },
+      backgroundImage: {
+        Ride: "url('../public/Images/Ride-Image.webp')",
+        Reserve: "url('../public/Images/Reserve-Image.jpg')"
       }
     }
   },
