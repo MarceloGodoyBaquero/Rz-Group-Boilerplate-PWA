@@ -1,12 +1,15 @@
 import React from 'react'
 import { Page/* , Text */, View, Document, Image } from '@react-pdf/renderer'
-import Mintransporte from '../../public/Images/Mintransporte.svg'
-import Logo from '../../public/icon-512x512.png'
 import PropTypes from 'prop-types'
 export default function FuecTemplate ({ data }) {
   return (
     <Document>
-      <Page size='A4' style={{}}>
+      <Page size='A4' style={{
+        padding: '20px',
+        fontFamily: 'Helvetica',
+        fontSize: '12px'
+
+      }}>
         <View style={{
           display: 'flex',
           flexDirection: 'column',
@@ -25,10 +28,13 @@ export default function FuecTemplate ({ data }) {
             <View style={{
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               width: '50%'
             }}>
-              <Image src={Mintransporte} />
+              <Image src="https://live.staticflickr.com/65535/52354221810_b4438511ba_h.jpg" style={{
+                width: '100px',
+                height: '100px'
+              }}/>
             </View>
             <View style={{
               display: 'flex',
@@ -36,7 +42,10 @@ export default function FuecTemplate ({ data }) {
               alignItems: 'center',
               width: '50%'
             }}>
-              <Image src={Logo} />
+              <Image src="https://live.staticflickr.com/65535/52352853287_b76a7c159e.jpg" style={{
+                width: '100px',
+                height: '100px'
+              }}/>
             </View>
           </View>
         </View>
