@@ -129,5 +129,6 @@ export default function Fuec () {
         </div>
       </div>
     </MobileLayout>
+
   )
 }
