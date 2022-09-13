@@ -32,8 +32,8 @@ export default function FuecTemplate ({ data }) {
               width: '50%'
             }}>
               <Image src="https://live.staticflickr.com/65535/52354221810_b4438511ba_h.jpg" style={{
-                width: '100px',
-                height: '100px'
+                width: '300px',
+                height: '50px'
               }}/>
             </View>
             <View style={{
