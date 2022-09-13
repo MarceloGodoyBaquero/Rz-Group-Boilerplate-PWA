@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@bubblewrap/cli": "^1.18.1",
     "@headlessui/react": "^1.7.1",
     "@heroicons/react": "^2.0.10",
     "@react-pdf/renderer": "^3.0.0",
