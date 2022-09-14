@@ -38,3 +38,21 @@ yarn-error.log*
 **/public/sw.js.map
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
+
+# android files
+/.gradle/
+/app/
+/gradle/
+twa-manifest.json
+store_icon.png
+settings.gradle
+manifest-checksum.txt
+gradlew.bat
+gradlew
+gradle.properties
+build.gradle
+app-release-unsigned-aligned.apk
+app-release-signed.apk.idsig
+app-release-signed.apk
+app-release-bundle.aab
+android.keystore
