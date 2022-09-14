@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@david.kucsai/react-pdf-table": "^0.4.1",
-    "@headlessui/react": "^1.7.1",
     "@heroicons/react": "^2.0.10",
     "@react-pdf/renderer": "^3.0.0",
     "autoprefixer": "^10.4.8",
