@@ -106,31 +106,31 @@ export default function SignIn () {
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
-        <Nav location={'Sign Up'}/>
+        <Nav location={'Registro'}/>
         <div className={'h-1/2 flex justify-center'}>
           <Image width={'274px'} height={'287px'} src={SignUp} alt="hero" className={'w-3/4'}/>
         </div>
         <div className={'bg-white rounded-xl p-5 m-5 w-5/6 h-fit flex flex-col items-center justify-center shadow-lg'}>
           <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
-            <h2 className={'font-bold text-2xl'}>Sign Up</h2>
-            <h2>Please complete all the fields</h2>
+            <h2 className={'font-bold text-2xl'}>Registro</h2>
+            <h2>Por favor, rellene todos los campos</h2>
           </div>
 
           <div className={'w-full m-2 pl-5 pr-5 flex flex-row justify-evenly'}>
             <label>
               <input type={'radio'} name={'radio'} value={'driver'}
               onChange={(e) => handleCheckboxChange(e)}/>
-              Driver
+              Conductor
             </label>
             <label>
               <input type={'radio'} name={'radio'} value={'client'}
               onChange={(e) => handleCheckboxChange(e)}/>
-              Rider
+              Cliente
             </label>
           </div>
 
           <div className={'w-full m-2'}>
-            <input placeholder={'First Name'}
+            <input placeholder={'Nombre'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
                    name={'firstName'}
@@ -138,7 +138,7 @@ export default function SignIn () {
                    />
           </div>
           <div className={'w-full m-2'}>
-            <input placeholder={'Last Name'}
+            <input placeholder={'Apellido'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
                    name={'lastName'}
@@ -154,7 +154,7 @@ export default function SignIn () {
                    />
           </div>
           <div className={'w-full m-2'}>
-            <input placeholder={'ID number'}
+            <input placeholder={'Cédula'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
                    name={'idNumber'}
@@ -162,7 +162,7 @@ export default function SignIn () {
                    />
           </div>
           <div className={'w-full m-2'}>
-            <input placeholder={'Phone Number'}
+            <input placeholder={'Teléfono'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
                    name={'phoneNumber'}
@@ -171,7 +171,7 @@ export default function SignIn () {
           </div>
 
           <div className={'w-full m-2 flex h-[50px] items-center'}>
-            <input placeholder={'Password'}
+            <input placeholder={'Contraseña'}
             onChange={(e) => handleInputChange(e)}
             name={'password'}
             value={input.password}
@@ -185,7 +185,7 @@ export default function SignIn () {
                             />}
           </div>
           <div className={'w-full m-2 flex h-[50px] items-center'}>
-            <input placeholder={' Repeat Password'}
+            <input placeholder={'Repetir contraseña'}
                    onChange={(e) => handleInputChange(e)}
                    name={'repeatPassword'}
                    value={input.repeatPassword}
@@ -198,14 +198,14 @@ export default function SignIn () {
                             className={'cursor-pointer text-[#B8B8B8] h-[40px] w-1/5'}/>}
           </div>
           <div className={'w-full m-2'}>
-            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'} onClick={(e) => handleSubmit(e)}>SIGN UP</button>
+            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'} onClick={(e) => handleSubmit(e)}>Registrarse</button>
           </div>
         </div>
         <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
-          <h2>Already have an account? <span onClick={() => router.push('/SignIn')}
-                                          className={'text-[#5B211F] font-bold cursor-pointer'}>Sign in</span></h2>
+          <h2>Ya tienes cuenta? <span onClick={() => router.push('/SignIn')}
+                                          className={'text-[#5B211F] font-bold cursor-pointer'}>Iniciar sesión</span></h2>
           <h2 onClick={() => router.push('/ForgetPassword')}
-              className={'mt-2 text-[#5B211F] font-bold cursor-pointer'}>I forgot my password</h2>
+              className={'mt-2 text-[#5B211F] font-bold cursor-pointer'}>Olvidé mi contraseña</h2>
         </div>
       </div>
     </MobileLayout>
