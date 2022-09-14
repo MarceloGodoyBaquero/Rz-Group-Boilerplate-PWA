@@ -10,7 +10,7 @@ export default function Nav ({ location, cosito }) {
   const [supportsPWA, setSupportsPWA] = useState(false)
   const [promptInstall, setPromptInstall] = useState(null)
   const router = useRouter()
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const handler = e => {
