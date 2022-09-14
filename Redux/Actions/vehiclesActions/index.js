@@ -4,6 +4,7 @@ export const CREATE_VEHICLE = 'CREATE_VEHICLE'
 export const GET_VEHICLE_BY_ID = 'GET_VEHICLE_BY_ID'
 export const UPDATE_VEHICLE = 'UPDATE_VEHICLE'
 export const DELETE_VEHICLE = 'DELETE_VEHICLE'
+export const GET_VEHICLES_BY_USER = 'GET_VEHICLES_BY_USER'
 export const GET_ALL_VEHICLES = 'GET_ALL_VEHICLES'
 
 export function createVehicle (obj, router) {
@@ -71,6 +72,20 @@ export function deleteVehicle (id, router) {
       }).catch((err) => {
         alert(err.response.data)
         console.log(err.response.data)
+      })
+  }
+}
+
+export function getVehiclesByUser (id) {
+  return function (dispatch) {
+    axios.get('https://rz-group-backend.herokuapp.com/api/vehicles/' + id)
+      .then(res => {
+        dispatch({
+          type: GET_VEHICLES_BY_USER,
+          payload: res.data
+        })
+      }).catch((err) => {
+        console.log(err)
       })
   }
 }
