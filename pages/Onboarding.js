@@ -35,21 +35,21 @@ export default function Onboarding () {
         <div
           className={'bg-[#5b211f] rounded-t-3xl mt-5 p-5 h-[375px] flex-grow flex-col items-center justify-center'}>
           <div>
-            <h2 className={'text-white font-bold text-2xl text-center m-5'}> Welcome to Rz Group</h2>
+            <h2 className={'text-white font-bold text-2xl text-center m-5'}>Bienvenido a Rz group</h2>
             {tab === 1 &&
-              <h2 className={'text-white text-xl text-center m-5'}>We have exclusive transportation in cities such as:
-                Bogotá, Medellín, Cali, Cartagena among others.</h2>}
+              <h2 className={'text-white text-xl text-center m-5'}>Contamos con transporte exclusivo en ciudades como:
+                <b> Bogotá, Medellín, Cali, Cartagena</b> entre otras.</h2>}
             {tab === 2 &&
-              <h2 className={'text-white text-xl text-center m-5'}>Our service is door to door
-                (airport-hotel-hotel-airport) and is based on respect, punctuality and safety.</h2>}
+              <h2 className={'text-white text-xl text-center m-5'}>Nuestro servicio es puerta a puerta
+                <b> (aeropuerto-hotel-hotel-aeropuerto)</b> y se basa en el respeto, la puntualidad y la seguridad (contamos con
+                protocolos de bioseguridad).</h2>}
             {tab === 3 &&
-              <h2 className={'text-white text-xl text-center m-5'}>We offer service for hours or full day according to
-                the requirement of our client.</h2>}
-
+              <h2 className={'text-white text-xl text-center m-5'}>Ofrecemos servicio <b> por horas o día completo</b> de
+                acuerdo al requerimiento de nuestro cliente.</h2>}
           </div>
           <div className={'w-full'}>
             <button onClick={() => router.push('/SignIn')}
-                    className={'w-full rounded-[25px] h-[50px] text-white bg-[#000000]'}>Get Started
+                    className={'w-full rounded-[25px] h-[50px] text-white bg-[#000000]'}>Empecemos
             </button>
           </div>
           <div className={'flex justify-center mt-10'}>

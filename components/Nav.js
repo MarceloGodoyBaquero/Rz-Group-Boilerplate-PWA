@@ -4,7 +4,8 @@ import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import EditIcon from '../public/Images/EditProfile.svg'
-import Sidebar from './Sidebar'
+import Menu from './Menu'
+
 export default function Nav ({ location, cosito }) {
   const [supportsPWA, setSupportsPWA] = useState(false)
   const [promptInstall, setPromptInstall] = useState(null)
@@ -42,15 +43,8 @@ export default function Nav ({ location, cosito }) {
         <Bars2Icon className={'h-1/3'} />
       </div>}
       {location === 'Home' && open
-        ? <Sidebar open={open} setOpen={setOpen}>
-          <div className={'flex flex-col justify-center items-center'}>
-            <ul>
-              <li onClick={() => router.push('/Fuec')}>
-                Crea tu FUEC
-              </li>
-            </ul>
-          </div>
-        </Sidebar>
+        ? <Menu closeFunc={setOpen}>
+        </Menu>
         : null
       }
        {location !== 'Home' && <div onClick={() => router.back()} className={'w-1/6 flex items-center justify-center cursor-pointer'}>

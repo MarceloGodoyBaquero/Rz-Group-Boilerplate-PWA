@@ -32,13 +32,12 @@ const Verification = () => {
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
-        <Nav location={'Account Verification'}/>
+        <Nav location={'Verificar cuenta'}/>
         <Image width={'274px'} height={'287px'} src={Otp} alt="hero" className={'w-3/4'}/>
         <div className={'bg-white rounded-xl p-5 m-5 w-5/6 h-fit flex flex-col items-center justify-center shadow-lg'}>
           <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
-            <h2 className={'font-bold text-2xl'}>OTP Verification</h2>
-            <h2>An authentication code has been sent to
-              your mail</h2>
+            <h2 className={'font-bold text-2xl'}>Verificación OTP</h2>
+            <h2>Se ha enviado un código de autenticación a su correo</h2>
           </div>
           <div className={'w-full flex justify-center'}>
             <OtpInput
@@ -51,11 +50,10 @@ const Verification = () => {
             />
           </div>
           <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
-
-            <h2>Didn&rsquo;t received the code? <span className={'text-[#5B211F] cursor-pointer'} onClick={() => handlesendOTP()}>Resend Code</span></h2>
+            <h2>No recibiste el código? <span className={'text-[#5B211F] cursor-pointer font-bold'} onClick={() => handlesendOTP()}>Reenviar Código</span></h2>
           </div>
           <div className={'w-full m-2'}>
-            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'} onClick={(e) => handleSubmit(e)}>VERIFY NOW</button>
+            <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'} onClick={(e) => handleSubmit(e)}>VERIFICAR</button>
 
           </div>
         </div>

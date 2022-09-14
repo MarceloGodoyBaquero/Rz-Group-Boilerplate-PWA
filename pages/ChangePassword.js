@@ -61,12 +61,12 @@ export default function SignIn () {
   return (
     <MobileLayout>
       <div className={' md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
-        <Nav location={'Change Password'}/>
+        <Nav location={'Cambiar contraseña'}/>
         <Image width={'274px'} height={'287px'} src={ChangePassword} alt="hero" className={'w-3/4'}/>
         <div className={'bg-white rounded-xl p-5 m-5 w-5/6 h-fit flex flex-col items-center justify-center shadow-lg'}>
         <div className={'w-full m-2 flex h-[50px] items-center'}>
           <input
-              placeholder={'OTP code'}
+              placeholder={'Código OTP'}
               type={'text'}
               name={'code'}
               value={input.code}
@@ -75,7 +75,7 @@ export default function SignIn () {
           </div>
           <div className={'w-full m-2 flex h-[50px] items-center'}>
             <input
-              placeholder={'Password'}
+              placeholder={'Contraseña'}
               name={'password'}
               value={input.password}
               onChange={(e) => handleInputChange(e)}
@@ -91,7 +91,7 @@ export default function SignIn () {
           </div>
           <div className={'w-full m-2 flex h-[50px] items-center'}>
             <input
-              placeholder={'Repeat Password'}
+              placeholder={'Repetir Contraseña'}
               name={'repeatPassword'}
               value={input.repeatPassword}
               onChange={(e) => handleInputChange(e)}
@@ -107,7 +107,7 @@ export default function SignIn () {
           </div>
           <div className={'w-full m-2'}>
             <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'}
-            onClick={(e) => handleSubmit(e)}>Change</button>
+            onClick={(e) => handleSubmit(e)}>Cambiar</button>
           </div>
         </div>
       </div>

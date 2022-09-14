@@ -1,0 +1,1 @@
+export const FUEC = 'FUEC'
