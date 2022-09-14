@@ -5,10 +5,27 @@ import {
   HomeIcon,
   XCircleIcon
 } from '@heroicons/react/24/solid'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
+import { useRouter } from 'next/router'
+import { signOut } from '../Redux/Actions/authActions'
 
 export default function Menu (props) {
+  const router = useRouter()
+  const dispatch = useDispatch()
+
+  const salir = (e) => {
+    e.preventDefault()
+    router.push('/SignIn')
+    dispatch(signOut())
+  }
+
+  const home = (e) => {
+    e.preventDefault()
+    props.closeFunc(false)
+    router.push('/Main')
+  }
+
   const { user } = useSelector(state => state)
   return (
     <div className={'bg-white w-5/6 inset-0 md:w-[533px] md:mr-[107px] md:inset-auto h-screen fixed p-5'}>
@@ -19,7 +36,7 @@ export default function Menu (props) {
           </div>
           <div className={'ml-3'}>
             <h3 className={'font-bold'}>{user?.name}</h3>
-            <h3>{user?.roles.toUpperCase()}</h3>
+            <h3>{user?.roles?.toUpperCase()}</h3>
           </div>
         </div>
         <div>
@@ -27,8 +44,10 @@ export default function Menu (props) {
         </div>
       </div>
       {/* links */}
-      <div>
-        <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>
+      <div className={'h-full'}>
+        <button
+          onClick={(e) => home(e)}
+          className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>
           <div className={'flex flex-row'}>
             <HomeIcon className={'h-[20px] mr-5'}/>
             <h3 className={'font-bold'}>HOME</h3>
@@ -64,7 +83,9 @@ export default function Menu (props) {
             <ChevronRightIcon className={'h-[20px]'}/>
           </div>
         </button>
-        <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>
+        <button
+          onClick={e => salir(e)}
+          className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>
           <div className={'flex flex-row'}>
             <ArrowRightOnRectangleIcon className={'h-[20px] mr-5'}/>
             <h3 className={'font-bold'}>SALIR</h3>
@@ -75,7 +96,6 @@ export default function Menu (props) {
         </button>
       </div>
     </div>
-
   )
 }
 
