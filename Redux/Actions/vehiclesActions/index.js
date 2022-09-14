@@ -7,7 +7,7 @@ export const DELETE_VEHICLE = 'DELETE_VEHICLE'
 export const GET_VEHICLES_BY_USER = 'GET_VEHICLES_BY_USER'
 export const GET_ALL_VEHICLES = 'GET_ALL_VEHICLES'
 
-export function createVehicle (obj, router) {
+export function createVehicle (obj) {
   return function (dispatch) {
     axios.post('https://rz-group-backend.herokuapp.com/api/vehicles/create', obj)
       .then(res => {
@@ -17,7 +17,6 @@ export function createVehicle (obj, router) {
           payload: res.data
         })
         alert('Vehicle created')
-        router.push('/Vehicles')
       }
       ).catch((err) => {
         alert(err.response.data)

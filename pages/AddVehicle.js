@@ -6,34 +6,51 @@ import SignUp from '../public/Images/OnBoarding-1.svg'
 import MobileLayout from '../components/MobileLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { createVehicle } from '../Redux/Actions/vehiclesActions'
-import { UserIcon } from '@heroicons/react/24/solid'
+
+// capacity: ''
 
 function validate (input) {
   const errors = {}
-  if (!input.Name1) {
-    errors.Name1 = 'Name is required'
-  } else if (input.Name1.trim() === '') {
-    errors.Name1 = 'Name may not be empty'
+  if (!input.carPlate) {
+    errors.carPlate = 'Matricula es requerida'
+  } else if (input.carPlate.trim() === '') {
+    errors.carPlate = 'Matricula no puede quedar vacío'
   }
-  if (!input.Origin) {
-    errors.Origin = 'Origin is required'
-  } else if (input.Origin.trim() === '') {
-    errors.Origin = 'Origin may not be empty'
+  if (!input.type) {
+    errors.type = 'Tipo de vehiculo requerido'
+  } else if (input.type.trim() === '') {
+    errors.type = 'Tipo de vehiculo no puede quedar vacío'
   }
-  if (!input.Destination) {
-    errors.Destination = 'Destination is required'
-  } else if (input.Destination.trim() === '') {
-    errors.Destination = 'Destination is invalid'
+  if (!input.brand) {
+    errors.brand = 'Marca requerida'
+  } else if (input.brand.trim() === '') {
+    errors.brand = 'Marca no puede quedar vacío'
   }
-  if (!input.idNumber) {
-    errors.idNumber = 'ID Number is required'
-  } else if (input.idNumber.length < 3) {
-    errors.idNumber = 'ID Number is invalid'
+  if (!input.model) {
+    errors.model = 'Modelo requerido'
+  } else if (input.model.trim() === '') {
+    errors.model = 'Modelo no puede quedar vacío'
+  }
+  if (!input.year) {
+    errors.year = 'Año requerido'
+  } else if (input.year.trim() === '') {
+    errors.year = 'Año no puede quedar vacío'
+  }
+  if (!input.category) {
+    errors.category = 'Categoría requerida'
+  } else if (input.category.trim() === '') {
+    errors.category = 'Categoría no puede quedar vacío'
+  }
+  if (!input.capacity) {
+    errors.capacity = 'Capacidad requerida'
+  } else if (input.capacity > 20) {
+    errors.capacity = 'Capacidad no puede quedar vacío'
   }
   return errors
 }
 
-const years = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010]
+const years = ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010']
+const carTypes = ['Sedan', 'SUV', 'Truck', 'Van', 'Otro']
 
 export default function AddVehicle () {
   // const router = useRouter()
@@ -48,6 +65,8 @@ export default function AddVehicle () {
       year: '',
       category: '',
       capacity: '',
+      numero_interno: '',
+      tarjeta_operacion: '',
       owner: user.id
     })
   // eslint-disable-next-line no-unused-vars
@@ -68,7 +87,7 @@ export default function AddVehicle () {
     const errors = validate(input)
     console.log(errors)
     if (Object.keys(errors).length > 0) {
-      alert('Please fill in all the required fields')
+      alert('Por favor, rellene todos los campos obligatorios')
     } else {
       dispatch(createVehicle(input))
     }
@@ -88,6 +107,7 @@ export default function AddVehicle () {
           </div>
           <div className={'w-full m-2'}>
             <input placeholder={'Matrícula'}
+                   type={'text'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
                    name={'carPlate'}
@@ -101,14 +121,14 @@ export default function AddVehicle () {
                     value={input.type}
             >
               <option value={''}>Tipo de vehiculo</option>
-              <option value={'Car'}>Carro</option>
-              <option value={'Motorcycle'}>Moto</option>
-              <option value={'Truck'}>Camión</option>
+              {carTypes.map((type, index) => (
+                <option key={index} value={type}>{type}</option>
+              ))}
             </select>
           </div>
-
           <div className={'w-full m-2'}>
             <input placeholder={'Marca'}
+                   type={'text'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
                    name={'brand'}
@@ -117,6 +137,7 @@ export default function AddVehicle () {
           </div>
           <div className={'w-full m-2'}>
             <input placeholder={'Modelo'}
+                   type={'text'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
                    name={'model'}
@@ -134,12 +155,41 @@ export default function AddVehicle () {
             </select>
           </div>
           <div className={'w-full m-2'}>
+            <select className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
+                    onChange={(e) => handleInputChange(e)}
+                    name={'category'}
+                    value={input.category}
+            >
+              <option value={''}>Categoría</option>
+              <option value={'Confort'}>Confort</option>
+              <option value={'Luxury'}>Luxury</option>
+            </select>
+          </div>
+          <div className={'w-full m-2'}>
             <input placeholder={'Capacidad'}
-                   type={'number'}
+                   type={'text'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
                    name={'capacity'}
                    value={input.capacity}
+            />
+          </div>
+          <div className={'w-full m-2'}>
+            <input placeholder={'Número interno'}
+                   type={'text'}
+                   className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
+                   onChange={(e) => handleInputChange(e)}
+                   name={'numero_interno'}
+                   value={input.numero_interno}
+            />
+          </div>
+          <div className={'w-full m-2'}>
+            <input placeholder={'Número de tarjeta de operación'}
+                   type={'text'}
+                   className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
+                   onChange={(e) => handleInputChange(e)}
+                   name={'tarjeta_operacion'}
+                   value={input.tarjeta_operacion}
             />
           </div>
           <div className={'w-full m-2'}>

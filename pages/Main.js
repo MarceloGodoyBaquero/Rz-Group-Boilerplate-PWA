@@ -22,7 +22,7 @@ export default function Main () {
       {user.roles === 'driver' &&
         <DriverLayout/>
       }
-      {user.roles === 'passenger' &&
+      {user.roles === 'client' &&
         <RiderLayout/>
       }
     </MobileLayout>

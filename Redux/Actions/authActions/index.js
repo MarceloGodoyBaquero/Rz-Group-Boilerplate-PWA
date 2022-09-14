@@ -16,7 +16,7 @@ export function signUp (obj, router) {
           type: SIGN_UP,
           payload: res.data
         })
-        alert('tamos listos papa')
+        alert('cuenta creada')
         router.push('/Verification')
       }).catch((err) => {
         alert(err.response.data)
