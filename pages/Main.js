@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // {useState, useEffect }
 import { useRouter } from 'next/router'
 
 import MobileLayout from '../components/MobileLayout'
 import Nav from '../components/Nav'
 import { BanknotesIcon, CalendarIcon, ClockIcon } from '@heroicons/react/24/outline'
+import { useSelector } from 'react-redux'
 
 export default function Main () {
   const router = useRouter()
-
   const viajes = [1, 2, 3, 4]
+  const { user } = useSelector(state => state)
+
+  useEffect(() => {
+    if (user?.accessToken) {
+      console.log(user)
+    } else {
+      router.push('/SignIn')
+    }
+  }, [user])
 
   return (
     <MobileLayout>
@@ -33,34 +42,34 @@ export default function Main () {
           <div>
             <h2 className={'text-black font-bold text-2xl m-5'}>Your actives rides</h2>
             <div>
-            {viajes.slice(0, 1).map((viaje, index) => (
-              <div key={index} className={'flex flex-col items-center justify-center'}>
-                <div className={'bg-white w-full m-3 rounded p-3 flex'}>
-                  <div>
-                    <div className={'bg-gray-500 w-[66px] h-[66px] rounded-[50%] mr-3'}></div>
-                  </div>
-                  <div className={'w-full flex flex-col justify-center'}>
-                    <div className={'flex items-center justify-between m-1'}>
-                      <h3 className={'font-bold'}>Jhon Smith</h3>
-                      <h3 className={'bg-orange-400 rounded-2xl text-white pl-2 pr-2'}>Pending</h3>
+              {viajes.slice(0, 1).map((viaje, index) => (
+                <div key={index} className={'flex flex-col items-center justify-center'}>
+                  <div className={'bg-white w-full m-3 rounded p-3 flex'}>
+                    <div>
+                      <div className={'bg-gray-500 w-[66px] h-[66px] rounded-[50%] mr-3'}></div>
                     </div>
-                    <div className={'flex items-center justify-evenly'}>
-                      <div className={'flex items-center w-full'}>
-                        <CalendarIcon className={'w-[16px]'}/>
-                        <h3>Today</h3>
+                    <div className={'w-full flex flex-col justify-center'}>
+                      <div className={'flex items-center justify-between m-1'}>
+                        <h3 className={'font-bold'}>Jhon Smith</h3>
+                        <h3 className={'bg-orange-400 rounded-2xl text-white pl-2 pr-2'}>Pending</h3>
                       </div>
-                      <div className={'flex items-center w-full'}>
-                        <ClockIcon className={'w-[16px]'}/>
-                        <h3>Pending</h3>
-                      </div>
-                      <div className={'flex items-center w-full '}>
-                        <BanknotesIcon className={'w-[16px]'}/>
-                        <h3>$200.00</h3>
+                      <div className={'flex items-center justify-evenly'}>
+                        <div className={'flex items-center w-full'}>
+                          <CalendarIcon className={'w-[16px]'}/>
+                          <h3>Today</h3>
+                        </div>
+                        <div className={'flex items-center w-full'}>
+                          <ClockIcon className={'w-[16px]'}/>
+                          <h3>Pending</h3>
+                        </div>
+                        <div className={'flex items-center w-full '}>
+                          <BanknotesIcon className={'w-[16px]'}/>
+                          <h3>$200.00</h3>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>))}
+                </div>))}
             </div>
           </div>
         </div>
