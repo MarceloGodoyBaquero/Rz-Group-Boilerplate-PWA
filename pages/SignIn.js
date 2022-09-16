@@ -34,7 +34,7 @@ export default function SignIn () {
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
         <Nav location={'Iniciar Sesión'}/>
         <Image width={'274px'} height={'287px'} src={LoginImage} alt="hero" className={'w-3/4'}/>
-        <div className={'bg-white rounded-xl p-5 m-5 w-5/6 h-fit flex flex-col items-center justify-center shadow-lg'}>
+        <form className={'bg-white rounded-xl p-5 m-5 w-5/6 h-fit flex flex-col items-center justify-center shadow-lg'}>
           <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
             <h2 className={'font-bold text-2xl'}>Login</h2>
             <h2>Con tu email y contraseña</h2>
@@ -48,6 +48,7 @@ export default function SignIn () {
           </div>
           <div className={'w-full m-2 flex h-[50px] items-center'}>
             <input placeholder={'Contraseña'}
+                   autoComplete={'on'}
                    name={'password'}
                    value={input.password}
                    onChange={(e) => handleChange(e)}
@@ -63,7 +64,7 @@ export default function SignIn () {
             <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'}
             onClick={(e) => handleSubmit(e)}>Ingresar</button>
           </div>
-        </div>
+        </form>
         <div className={'m-2 w-full h-fit flex flex-col items-center justify-center'}>
           <h2>Todavía no tienes cuenta? <span onClick={() => router.push('/SignUp')}
                                           className={'text-[#5B211F] font-bold cursor-pointer'}>Registrate</span></h2>
