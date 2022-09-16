@@ -16,12 +16,12 @@ export default function AdminLayout () {
             <h1 className={'text-2xl'}>Menú de Administrador</h1>
             <button
               className={'w-5/6 h-[70px] bg-blue-500 text-white font-bold rounded-full p-2 m-2'}
-              onClick={() => alert('redir us')}>
+              onClick={() => router.push('/admin/users')}>
               VER USUARIOS
             </button>
             <button
               className={'w-5/6 h-[70px] bg-blue-500 text-white font-bold rounded-full p-2 m-2'}
-              onClick={() => alert('redir vehi')}>
+              onClick={() => router.push('/admin/vehicles')}>
               VER VEHÍCULOS
             </button>
             <button

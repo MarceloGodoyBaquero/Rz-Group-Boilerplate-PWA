@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import MobileLayout from '../components/MobileLayout'
 import { useSelector } from 'react-redux'
@@ -8,6 +8,8 @@ import AdminLayout from '../components/AdminLayout'
 import Validation from './Validation'
 
 export default function Main () {
+  const [showing, setShowing] = useState(false)
+
   const router = useRouter()
   const { user } = useSelector(state => state)
 
@@ -19,20 +21,30 @@ export default function Main () {
     }
   }, [user])
 
+  useEffect(
+    () => {
+      setShowing(true)
+    }, []
+  )
+
+  if (!showing) {
+    return null
+  }
+
   return (
-    <MobileLayout>
-      {user.roles === 'driver' &&
+      <MobileLayout>
+        {
+          user.roles === 'admin' &&
+          <AdminLayout/>
+        }
+        {user.roles === 'driver' &&
         user.isAproved
-        ? <DriverLayout/>
-        : <Validation/>
-      }
-      {user.roles === 'client' &&
-        <RiderLayout/>
-      }
-      {
-        user.roles === 'admin' &&
-        <AdminLayout/>
-      }
-    </MobileLayout>
+          ? <DriverLayout/>
+          : <Validation/>
+        }
+        {user.roles === 'client' &&
+          <RiderLayout/>
+        }
+      </MobileLayout>
   )
 }
