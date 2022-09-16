@@ -1,12 +1,14 @@
 
 import { SIGN_IN, SIGN_UP, SIGN_OUT, RECOVER_PASSWORD, VERIFY_EMAIL, SEND_OTP } from '../Actions/authActions/actionsCreator'
 import { FUEC } from '../Actions/fuecActions/actionsCreator'
-
+let userLocal
+if (typeof window !== 'undefined') {
+  userLocal = JSON.parse(localStorage.getItem('user'))
+}
 const initialState = {
-  user: {},
+  user: userLocal || {},
   fuec: {}
 }
-
 export default function rootReducer (state = initialState, action) {
   switch (action.type) {
     case SIGN_UP: {

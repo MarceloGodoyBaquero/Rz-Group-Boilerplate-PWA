@@ -4,6 +4,7 @@ import MobileLayout from '../components/MobileLayout'
 import { useSelector } from 'react-redux'
 import DriverLayout from '../components/DriverLayout'
 import RiderLayout from '../components/RiderLayout'
+import Validation from './Validation'
 
 export default function Main () {
   const router = useRouter()
@@ -20,9 +21,11 @@ export default function Main () {
   return (
     <MobileLayout>
       {user.roles === 'driver' &&
-        <DriverLayout/>
+        user.isAproved
+        ? <DriverLayout/>
+        : <Validation/>
       }
-      {user.roles === 'passenger' &&
+      {user.roles === 'client' &&
         <RiderLayout/>
       }
     </MobileLayout>

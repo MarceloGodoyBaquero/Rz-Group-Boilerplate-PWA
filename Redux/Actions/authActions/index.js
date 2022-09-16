@@ -32,6 +32,7 @@ export function signIn (obj, router) {
           type: SIGN_IN,
           payload: res.data
         })
+        localStorage.setItem('user', JSON.stringify(res.data))
         localStorage.setItem('token', res.data.accessToken)
         if (!res.data.isVerified) {
           router.push('/Verification')
