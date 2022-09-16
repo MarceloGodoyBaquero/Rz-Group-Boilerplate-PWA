@@ -1,11 +1,12 @@
 
 import { SIGN_IN, SIGN_UP, SIGN_OUT, RECOVER_PASSWORD, VERIFY_EMAIL, SEND_OTP } from '../Actions/authActions/actionsCreator'
 import { FUEC } from '../Actions/fuecActions/actionsCreator'
-import { } from '../Actions/vehiclesActions/actionsCreator'
+import { GET_VEHICLES_BY_USER } from '../Actions/vehiclesActions/actionsCreator'
 
 const initialState = {
   user: {},
-  fuec: {}
+  fuec: {},
+  vehicles: []
 }
 
 export default function rootReducer (state = initialState, action) {
@@ -47,6 +48,12 @@ export default function rootReducer (state = initialState, action) {
       return {
         ...state,
         fuec: action.payload
+      }
+    }
+    case GET_VEHICLES_BY_USER: {
+      return {
+        ...state,
+        vehicles: action.payload
       }
     }
     default:

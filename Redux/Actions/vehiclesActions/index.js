@@ -77,8 +77,9 @@ export function deleteVehicle (id, router) {
 
 export function getVehiclesByUser (id) {
   return function (dispatch) {
-    axios.get('https://rz-group-backend.herokuapp.com/api/vehicles/' + id)
+    axios.get(`https://rz-group-backend.herokuapp.com/api/user/vehicles/${id}`)
       .then(res => {
+        console.log(res)
         dispatch({
           type: GET_VEHICLES_BY_USER,
           payload: res.data

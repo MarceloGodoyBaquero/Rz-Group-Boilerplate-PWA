@@ -7,8 +7,6 @@ import MobileLayout from '../components/MobileLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { createVehicle } from '../Redux/Actions/vehiclesActions'
 
-// capacity: ''
-
 function validate (input) {
   const errors = {}
   if (!input.carPlate) {
@@ -161,8 +159,8 @@ export default function AddVehicle () {
                     value={input.category}
             >
               <option value={''}>Categoría</option>
-              <option value={'Confort'}>Confort</option>
-              <option value={'Luxury'}>Luxury</option>
+              <option value={'confort'}>Confort</option>
+              <option value={'luxury'}>Luxury</option>
             </select>
           </div>
           <div className={'w-full m-2'}>
