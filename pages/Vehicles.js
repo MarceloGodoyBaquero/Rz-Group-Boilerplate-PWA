@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import MobileLayout from '../components/MobileLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { getVehiclesByUser } from '../Redux/Actions/vehiclesActions'
+import CarCard from '../components/CarCard'
 
 export default function AddVehicle () {
   const router = useRouter()
@@ -29,8 +30,17 @@ export default function AddVehicle () {
             </div>
           }
           {vehicles.length > 0 &&
-            <div>
-              Mapeo de cards de vehiculos
+            <div className={'w-full items-center flex justify-center'}>
+              {vehicles.map((vehicle, index) => {
+                return <CarCard
+                  key={index}
+                  brand={vehicle.brand}
+                  model={vehicle.model}
+                  year={vehicle.year}
+                  plate={vehicle.carPlate}
+                  aprobado={vehicle.isApproved}
+                />
+              })}
             </div>
           }
         </div>
