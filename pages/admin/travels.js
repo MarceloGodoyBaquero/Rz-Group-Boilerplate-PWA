@@ -1,22 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Nav from '../../components/Nav'
-import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
 import MobileLayout from '../../components/MobileLayout'
 import axios from 'axios'
 
 export default function travels ({ data }) {
-  const { user } = useSelector(state => state)
-  // const [travels, setTravels] = useState([])
-
-  // useEffect(() => {
-  //   axios.get('https://rz-group-backend.herokuapp.com/api/services/all')
-  //     .then(res => {
-  //       console.log(res.data)
-  //       setTravels(res.data)
-  //     })
-  // }, [])
-
   const fetcheo = async (e, id) => {
     e.preventDefault()
     console.log(id)

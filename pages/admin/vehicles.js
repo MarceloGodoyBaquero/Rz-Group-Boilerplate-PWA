@@ -1,22 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Nav from '../../components/Nav'
-import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
 import MobileLayout from '../../components/MobileLayout'
-import axios from 'axios'
 
 export default function vehicles ({ data }) {
-  const { user } = useSelector(state => state)
-  // const [vehicles, setVehicles] = useState([])
-
-  // useEffect(() => {
-  //   axios.get('https://rz-group-backend.herokuapp.com/api/vehicles/all')
-  //     .then(res => {
-  //       console.log(res.data)
-  //       setVehicles(res.data)
-  //     })
-  // }, [])
-
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>

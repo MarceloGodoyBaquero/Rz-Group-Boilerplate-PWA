@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Nav from '../../components/Nav'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
 import MobileLayout from '../../components/MobileLayout'
-import axios from 'axios'
 import ReactPaginate from 'react-paginate'
 // import axios from 'axios'
 
 export default function users ({ data }) {
-  const { user } = useSelector(state => state)
   const router = useRouter()
   // const [users, setUsers] = useState([])
 
