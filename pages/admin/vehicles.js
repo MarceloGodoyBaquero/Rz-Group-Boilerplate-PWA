@@ -5,22 +5,22 @@ import { useSelector } from 'react-redux'
 import MobileLayout from '../../components/MobileLayout'
 import axios from 'axios'
 
-export default function users () {
+export default function vehicles ({ data }) {
   const { user } = useSelector(state => state)
-  const [vehicles, setVehicles] = useState([])
+  // const [vehicles, setVehicles] = useState([])
 
-  useEffect(() => {
-    axios.get('https://rz-group-backend.herokuapp.com/api/vehicles/all')
-      .then(res => {
-        console.log(res.data)
-        setVehicles(res.data)
-      })
-  }, [])
+  // useEffect(() => {
+  //   axios.get('https://rz-group-backend.herokuapp.com/api/vehicles/all')
+  //     .then(res => {
+  //       console.log(res.data)
+  //       setVehicles(res.data)
+  //     })
+  // }, [])
 
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
-        <Nav location={'Usuarios'}/>
+        <Nav location={'Vehículos'}/>
         <div className={'flex flex-col justify-center w-full'}>
           <div className={'flex justify-center w-full items-center'}>
             <input
@@ -30,7 +30,7 @@ export default function users () {
             />
           </div>
           {
-            vehicles.map((vehicle, index) => {
+            data.map((vehicle, index) => {
               return (
                 <div key={index} className={'m-5 bg-white flex flex-col justify-center items-center'}>
                   <h1 className={''}>Marca: {vehicle.brand}</h1>
@@ -44,4 +44,15 @@ export default function users () {
       </div>
     </MobileLayout>
   )
+}
+
+export async function getServerSideProps () {
+  const res = await fetch('https://rz-group-backend.herokuapp.com/api/vehicles/all')
+  const data = await res.json()
+  console.log(data)
+  return {
+    props: {
+      data
+    }
+  }
 }

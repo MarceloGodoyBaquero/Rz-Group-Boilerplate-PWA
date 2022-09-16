@@ -4,18 +4,28 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import MobileLayout from '../../components/MobileLayout'
 import axios from 'axios'
+import ReactPaginate from 'react-paginate'
+// import axios from 'axios'
 
-export default function users () {
+export default function users ({ data }) {
   const { user } = useSelector(state => state)
-  const [users, setUsers] = useState([])
+  const router = useRouter()
+  // const [users, setUsers] = useState([])
 
-  useEffect(() => {
-    axios.get('https://rz-group-backend.herokuapp.com/api/user')
-      .then(res => {
-        console.log(res.data)
-        setUsers(res.data)
-      })
-  }, [])
+  // useEffect(() => {
+  //   axios.get('https://rz-group-backend.herokuapp.com/api/user')
+  //     .then(res => {
+  //       console.log(res.data)
+  //       setUsers(res.data)
+  //     })
+  // }, [])
+
+  // const fetchUsers = async (id) => {
+  //   axios.get('https://rz-group-backend.herokuapp.com/api/user/' + id)
+  //     .then(res => {
+  //       console.log(res.data)
+  //     })
+  // }
 
   return (
     <MobileLayout>
@@ -29,10 +39,22 @@ export default function users () {
               placeholder={'Buscar usuario por ID'}
             />
           </div>
+          <div className={'flex flex-row items-center justify-center'}>
+            <ReactPaginate
+              className={'flex flex-row items-center justify-center'}
+              breakLabel={'...'}
+              nextLabel={'>'}
+              previousLabel={'<'}
+              pageRangeDisplayed={5}
+              pageCount={10}
+            />
+          </div>
           {
-            users.map((user, index) => {
+            data.map((user, index) => {
               return (
-                <div key={index} className={'m-5 bg-white flex flex-col justify-center items-center'}>
+                <div
+                  onClick={() => router.push(`/admin/users/${user._id}`)}
+                  key={index} className={'m-5 bg-white flex flex-col justify-center items-center'}>
                   <h1 className={''}>Nombre: {user.firstName}</h1>
                   <h1 className={''}>Apellido: {user.lastName}</h1>
                   <h1 className={''}>ID: {user.idNumber}</h1>
@@ -44,4 +66,15 @@ export default function users () {
       </div>
     </MobileLayout>
   )
+}
+
+export async function getServerSideProps (page) {
+  const res = await fetch(`https://rz-group-backend.herokuapp.com/api/user?skip=${1}&limit=10`)
+  const data = await res.json()
+  console.log(data)
+  return {
+    props: {
+      data
+    }
+  }
 }
