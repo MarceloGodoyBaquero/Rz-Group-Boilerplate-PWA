@@ -21,7 +21,7 @@ export default function AddVehicle () {
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
         <Nav location={'Tus vehículos'}/>
         <div className={'flex w-full h-full items-center justify-center'}>
-          {!vehicles.length &&
+          {!vehicles?.length &&
             <div className={'w-full m-2 flex flex-col items-center'}>
               <h3 className={'text-2xl mb-5'}>¡Parece que aún no tienes vehículos!</h3>
               <button className={'w-5/6 rounded-[25px] h-[50px] text-white bg-[#5B211F]'}
@@ -29,9 +29,9 @@ export default function AddVehicle () {
               </button>
             </div>
           }
-          {vehicles.length > 0 &&
+          {vehicles?.length > 0 &&
             <div className={'w-full items-center flex justify-center'}>
-              {vehicles.map((vehicle, index) => {
+              {vehicles?.map((vehicle, index) => {
                 return <CarCard
                   key={index}
                   brand={vehicle.brand}
