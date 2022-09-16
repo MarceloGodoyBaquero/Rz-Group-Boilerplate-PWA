@@ -21,7 +21,9 @@ export default function Main () {
   return (
     <MobileLayout>
       {user.roles === 'driver' &&
-        <DriverLayout/>
+        user.isAproved
+        ? <DriverLayout/>
+        : <Validation/>
       }
       {user.roles === 'client' &&
         <RiderLayout/>

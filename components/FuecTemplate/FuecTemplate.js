@@ -1,7 +1,6 @@
 import React from 'react'
 import { Page, Text, View, Document, Image, Font } from '@react-pdf/renderer'
 import PropTypes from 'prop-types'
-/* import { Table, TableCell, TableBody, TableHeader } from '@david.kucsai/react-pdf-table' */
 
 Font.register({
   family: 'Arial',
