@@ -12,7 +12,7 @@ export default function Main () {
 
   const router = useRouter()
   const { user } = useSelector(state => state)
-
+  const [showing, setShowing] = useState(false)
   useEffect(() => {
     if (user?.accessToken) {
       console.log(user)
@@ -21,30 +21,31 @@ export default function Main () {
     }
   }, [user])
 
-  useEffect(
-    () => {
-      setShowing(true)
-    }, []
-  )
+  useEffect(() => {
+    setShowing(true)
+  }, [])
 
-  if (!showing) {
-    return null
-  }
+  if (!showing) return null
 
   return (
-      <MobileLayout>
-        {
-          user.roles === 'admin' &&
-          <AdminLayout/>
-        }
-        {user.roles === 'driver' &&
-        user.isAproved
-          ? <DriverLayout/>
-          : <Validation/>
-        }
-        {user.roles === 'client' &&
-          <RiderLayout/>
-        }
+    <>
+    {
+      user?.roles === 'driver' && user.isAproved === 'Aproved'
+        ? <MobileLayout>
+        <DriverLayout />
       </MobileLayout>
+        : user?.roles === 'driver' && user.isAproved === 'notAproved' &&
+      <MobileLayout>
+        <Validation />
+      </MobileLayout>
+    }
+    {
+      user?.roles === 'rider'
+        ? <MobileLayout>
+        <RiderLayout />
+      </MobileLayout>
+        : null
+    }
+    </>
   )
 }
