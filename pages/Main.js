@@ -4,6 +4,7 @@ import MobileLayout from '../components/MobileLayout'
 import { useSelector } from 'react-redux'
 import DriverLayout from '../components/DriverLayout'
 import RiderLayout from '../components/RiderLayout'
+import AdminLayout from '../components/AdminLayout'
 
 export default function Main () {
   const router = useRouter()
@@ -24,6 +25,10 @@ export default function Main () {
       }
       {user.roles === 'client' &&
         <RiderLayout/>
+      }
+      {
+        user.roles === 'admin' &&
+        <AdminLayout/>
       }
     </MobileLayout>
   )
