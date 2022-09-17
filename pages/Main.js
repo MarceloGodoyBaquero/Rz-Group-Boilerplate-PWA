@@ -11,8 +11,8 @@ export default function Main () {
   const { user } = useSelector(state => state)
   const [showing, setShowing] = useState(false)
   useEffect(() => {
-    if (user?.roles === 'admin') {
-      router.push('/admin')
+    if (user?.roles) {
+      console.log('user')
     } else {
       router.push('/SignIn')
     }
