@@ -7,22 +7,10 @@ import ReactPaginate from 'react-paginate'
 
 export default function users ({ data }) {
   const router = useRouter()
-  // const [users, setUsers] = useState([])
 
-  // useEffect(() => {
-  //   axios.get('https://rz-group-backend.herokuapp.com/api/user')
-  //     .then(res => {
-  //       console.log(res.data)
-  //       setUsers(res.data)
-  //     })
-  // }, [])
-
-  // const fetchUsers = async (id) => {
-  //   axios.get('https://rz-group-backend.herokuapp.com/api/user/' + id)
-  //     .then(res => {
-  //       console.log(res.data)
-  //     })
-  // }
+  const handlePagination = (page) => {
+    router.push(`/admin/users?page=${page.selected + 1}`)
+  }
 
   return (
     <MobileLayout>
@@ -31,19 +19,24 @@ export default function users ({ data }) {
         <div className={'flex flex-col justify-center w-full'}>
           <div className={'flex justify-center w-full items-center'}>
             <input
-              className={'m-5 text-center h-[70px] w-full rounded-full border-2 border-blue-500'}
+              className={'m-5 text-center h-10 w-full rounded-full border-2 border-blue-500'}
               type={'search'}
               placeholder={'Buscar usuario por ID'}
             />
           </div>
-          <div className={'flex flex-row items-center justify-center'}>
+          <div className={'flex w-full flex-row items-center justify-center'}>
             <ReactPaginate
-              className={'flex flex-row items-center justify-center'}
+              className={'flex w-full flex-row items-center justify-evenly'}
               breakLabel={'...'}
-              nextLabel={'>'}
-              previousLabel={'<'}
-              pageRangeDisplayed={5}
-              pageCount={10}
+              nextLabel={'siguiente'}
+              previousLabel={'anterior'}
+              initialPage={0}
+              pageRangeDisplayed={3}
+              pageCount={3}
+              onPageChange={handlePagination}
+              activeClassName={'bg-blue-500 flex items-center justify-center font-bold text-white h-7 w-7 rounded-full'}
+              nextLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
+              previousLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
             />
           </div>
           {
@@ -59,16 +52,30 @@ export default function users ({ data }) {
               )
             })
           }
+          <div className={'flex w-full flex-row items-center justify-center'}>
+            <ReactPaginate
+              className={'flex w-full flex-row items-center justify-evenly'}
+              breakLabel={'...'}
+              nextLabel={'siguiente'}
+              previousLabel={'anterior'}
+              initialPage={0}
+              pageRangeDisplayed={3}
+              pageCount={3}
+              onPageChange={handlePagination}
+              activeClassName={'bg-blue-500 flex items-center justify-center font-bold text-white h-7 w-7 rounded-full'}
+              nextLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
+              previousLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
+            />
+          </div>
         </div>
       </div>
     </MobileLayout>
   )
 }
 
-export async function getServerSideProps (page) {
-  const res = await fetch(`https://rz-group-backend.herokuapp.com/api/user?skip=${1}&limit=10`)
+export async function getServerSideProps (context) {
+  const res = await fetch(`https://rz-group-backend.herokuapp.com/api/user?skip=${context.query.page - 1}&limit=10`)
   const data = await res.json()
-  console.log(data)
   return {
     props: {
       data
