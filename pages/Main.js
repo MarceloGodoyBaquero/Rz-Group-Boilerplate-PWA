@@ -8,8 +8,6 @@ import AdminLayout from '../components/AdminLayout'
 import Validation from './Validation'
 
 export default function Main () {
-  const [showing, setShowing] = useState(false)
-
   const router = useRouter()
   const { user } = useSelector(state => state)
   const [showing, setShowing] = useState(false)
@@ -26,26 +24,34 @@ export default function Main () {
   }, [])
 
   if (!showing) return null
-
-  return (
-    <>
-    {
-      user?.roles === 'driver' && user.isAproved === 'Aproved'
-        ? <MobileLayout>
-        <DriverLayout />
-      </MobileLayout>
-        : user?.roles === 'driver' && user.isAproved === 'notAproved' &&
-      <MobileLayout>
-        <Validation />
-      </MobileLayout>
-    }
-    {
-      user?.roles === 'rider'
-        ? <MobileLayout>
-        <RiderLayout />
-      </MobileLayout>
-        : null
-    }
-    </>
-  )
+  else {
+    return (
+      <>
+        {
+          user?.role === 'admin' && user.isAproved === 'Aproved'
+            ? <MobileLayout>
+              <AdminLayout/>
+            </MobileLayout>
+            : null
+        }
+        {
+          user?.roles === 'driver' && user.isAproved === 'Aproved'
+            ? <MobileLayout>
+              <DriverLayout/>
+            </MobileLayout>
+            : user?.roles === 'driver' && user.isAproved === 'notAproved' &&
+            <MobileLayout>
+              <Validation/>
+            </MobileLayout>
+        }
+        {
+          user?.roles === 'rider'
+            ? <MobileLayout>
+              <RiderLayout/>
+            </MobileLayout>
+            : null
+        }
+      </>
+    )
+  }
 }
