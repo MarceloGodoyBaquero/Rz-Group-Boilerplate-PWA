@@ -4,7 +4,6 @@ import MobileLayout from '../components/MobileLayout'
 import { useSelector } from 'react-redux'
 import DriverLayout from '../components/DriverLayout'
 import RiderLayout from '../components/RiderLayout'
-import AdminLayout from '../components/AdminLayout'
 import Validation from './Validation'
 
 export default function Main () {
@@ -12,8 +11,8 @@ export default function Main () {
   const { user } = useSelector(state => state)
   const [showing, setShowing] = useState(false)
   useEffect(() => {
-    if (user?.accessToken) {
-      console.log(user)
+    if (user?.roles === 'admin') {
+      router.push('/admin')
     } else {
       router.push('/SignIn')
     }
@@ -27,13 +26,6 @@ export default function Main () {
   else {
     return (
       <>
-        {
-          user?.role === 'admin' && user.isAproved === 'Aproved'
-            ? <MobileLayout>
-              <AdminLayout/>
-            </MobileLayout>
-            : null
-        }
         {
           user?.roles === 'driver' && user.isAproved === 'Aproved'
             ? <MobileLayout>
