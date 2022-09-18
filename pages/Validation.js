@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import React, { useEffect, useState } from 'react'
-import validationHero from '../public/images/OnBoarding-3.svg'
+import validationHero from '../public/Images/OnBoarding-3.svg'
 import Image from 'next/image'
 const Nav = dynamic(() => import('../components/Nav'), { ssr: false })
 
