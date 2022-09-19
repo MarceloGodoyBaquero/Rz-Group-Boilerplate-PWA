@@ -3,8 +3,10 @@ import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import axios from 'axios'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 export default function users ({ data }) {
+  const router = useRouter()
   console.log(data)
 
   const deleteUser = async (id) => {
@@ -12,6 +14,15 @@ export default function users ({ data }) {
     axios.delete('https://rz-group-backend.herokuapp.com/api/user/' + id)
       .then(res => {
         console.log(res.data)
+      })
+  }
+
+  const aprobateUser = async (id) => {
+    console.log(id)
+    axios.post('https://rz-group-backend.herokuapp.com/api/admin/approve/' + id)
+      .then(res => {
+        console.log(res)
+        router.reload()
       })
   }
 
@@ -85,7 +96,9 @@ export default function users ({ data }) {
             onClick={() => deleteUser(data._id)}
             className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
           </button>
-          <button className={'bg-green-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>APROBAR</button>
+          <button
+            onClick={() => aprobateUser(data._id)}
+            className={'bg-green-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>APROBAR</button>
           <button className={'bg-orange-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>REPORTAR</button>
           <button className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>MODIFICAR</button>
         </div>
