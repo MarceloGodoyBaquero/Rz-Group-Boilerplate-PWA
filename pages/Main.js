@@ -27,11 +27,11 @@ export default function Main () {
   return (
     <>
     {
-      user?.roles === 'driver' && user.isAproved === 'Aproved'
+      user?.roles === 'driver' && user.isAproved === 'aproved'
         ? <MobileLayout>
         <DriverLayout />
       </MobileLayout>
-        : user?.roles === 'driver' && user.isAproved === 'notAproved' &&
+        : user?.roles === 'driver' && user.isAproved !== 'aproved' &&
       <MobileLayout>
         <Validation />
       </MobileLayout>
