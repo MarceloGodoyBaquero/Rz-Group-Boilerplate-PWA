@@ -84,17 +84,6 @@ export default function Menu (props) {
             <ChevronRightIcon className={'h-[20px]'}/>
           </div>
         </button>
-        <button
-          onClick={e => salir(e)}
-          className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>
-          <div className={'flex flex-row'}>
-            <ArrowRightOnRectangleIcon className={'h-[20px] mr-5'}/>
-            <h3 className={'font-bold'}>SALIR</h3>
-          </div>
-          <div>
-            <ChevronRightIcon className={'h-[20px]'}/>
-          </div>
-        </button>
         <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'} onClick={() => {
           router.push('/Fuec')
         }}>
@@ -103,6 +92,15 @@ export default function Menu (props) {
             <h3 className={'font-bold'}>Crea tu FUEC</h3>
           </div>
         </button>
+        <button
+          onClick={e => salir(e)}
+          className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>
+          <div className={'flex flex-row'}>
+            <ArrowRightOnRectangleIcon className={'h-[20px] mr-5'}/>
+            <h3 className={'font-bold'}>SALIR</h3>
+          </div>
+        </button>
+
       </div>
     </div>
   )
