@@ -14,7 +14,7 @@ export default function users ({ data }) {
 
   return (
     <MobileLayout>
-      <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
+      <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
         <Nav location={'Usuarios'}/>
         <div className={'flex flex-col justify-center w-full'}>
           <div className={'flex justify-center w-full items-center'}>
@@ -24,7 +24,7 @@ export default function users ({ data }) {
               placeholder={'Buscar usuario por ID'}
             />
           </div>
-          <div className={'flex w-full flex-row items-center justify-center'}>
+          <div className={'mt-1 mb-1 flex w-full flex-row items-center justify-center'}>
             <ReactPaginate
               className={'flex w-full flex-row items-center justify-evenly'}
               breakLabel={'...'}
@@ -32,7 +32,7 @@ export default function users ({ data }) {
               previousLabel={'anterior'}
               initialPage={0}
               pageRangeDisplayed={3}
-              pageCount={3}
+              pageCount={data.maxPage}
               onPageChange={handlePagination}
               activeClassName={'bg-blue-500 flex items-center justify-center font-bold text-white h-7 w-7 rounded-full'}
               nextLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
@@ -40,7 +40,7 @@ export default function users ({ data }) {
             />
           </div>
           {
-            data.map((user, index) => {
+            data.data.map((user, index) => {
               return (
                 <div
                   onClick={() => router.push(`/admin/users/${user._id}`)}
@@ -60,7 +60,7 @@ export default function users ({ data }) {
               previousLabel={'anterior'}
               initialPage={0}
               pageRangeDisplayed={3}
-              pageCount={3}
+              pageCount={data.maxPage}
               onPageChange={handlePagination}
               activeClassName={'bg-blue-500 flex items-center justify-center font-bold text-white h-7 w-7 rounded-full'}
               nextLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
