@@ -13,7 +13,7 @@ export default function index () {
   }, [])
 
   if (!showing) return null
-  if (!user.role === 'admin') router.push('/')
+  if (user.roles !== 'admin') router.push('/')
   return (
     <MobileLayout>
       <AdminLayout/>
