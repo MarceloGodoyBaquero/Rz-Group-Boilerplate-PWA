@@ -11,8 +11,8 @@ export default function Main () {
   const { user } = useSelector(state => state)
   const [showing, setShowing] = useState(false)
   useEffect(() => {
-    if (user?.roles) {
-      console.log('user')
+    if (user?.accessToken) {
+      console.log(user)
     } else {
       router.push('/SignIn')
     }
@@ -27,11 +27,11 @@ export default function Main () {
     return (
       <>
         {
-          user?.roles === 'driver' && user.isAproved === 'Aproved'
+          user?.roles === 'driver' && user.isAproved === 'aproved'
             ? <MobileLayout>
               <DriverLayout/>
             </MobileLayout>
-            : user?.roles === 'driver' && user.isAproved === 'notAproved' &&
+            : user?.roles === 'driver' && user.isAproved !== 'aproved' &&
             <MobileLayout>
               <Validation/>
             </MobileLayout>
