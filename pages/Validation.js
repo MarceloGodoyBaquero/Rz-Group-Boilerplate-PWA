@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import validationHero from '../public/images/Onboarding-3.svg'
+import validationHero from '../public/Images/OnBoarding-3.svg'
 import Image from 'next/image'/*  */
 import { IdentificationIcon, CreditCardIcon, DocumentTextIcon, CloudArrowUpIcon, CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Player, Controls } from '@lottiefiles/react-lottie-player'

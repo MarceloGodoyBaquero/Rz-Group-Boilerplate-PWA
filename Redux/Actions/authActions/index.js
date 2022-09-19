@@ -36,6 +36,8 @@ export function signIn (obj, router) {
         localStorage.setItem('token', res.data.accessToken)
         if (!res.data.isVerified) {
           router.push('/Verification')
+        } else if (res.data.roles === 'admin') {
+          router.push('/admin')
         } else {
           router.push('/Main')
         }

@@ -5,10 +5,10 @@ import React from 'react'
 //   HomeIcon,
 //   XCircleIcon
 // } from '@heroicons/react/24/solid'
-import { useDispatch, useSelector } from 'react-redux'
 // import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { TruckIcon } from '@heroicons/react/24/outline'
+import PropTypes from 'prop-types'
 
 export default function CarCard ({ brand, model, year, plate, aprobado }) {
   const router = useRouter()
@@ -35,5 +35,9 @@ export default function CarCard ({ brand, model, year, plate, aprobado }) {
 }
 
 CarCard.propTypes = {
-  // closeFunc: PropTypes.func
+  brand: PropTypes.string,
+  model: PropTypes.string,
+  year: PropTypes.string,
+  plate: PropTypes.string,
+  aprobado: PropTypes.bool
 }

@@ -23,26 +23,27 @@ export default function Main () {
   }, [])
 
   if (!showing) return null
-
-  return (
-    <>
-    {
-      user?.roles === 'driver' && user.isAproved === 'aproved'
-        ? <MobileLayout>
-        <DriverLayout />
-      </MobileLayout>
-        : user?.roles === 'driver' && user.isAproved !== 'aproved' &&
-      <MobileLayout>
-        <Validation />
-      </MobileLayout>
-    }
-    {
-      user?.roles === 'rider'
-        ? <MobileLayout>
-        <RiderLayout />
-      </MobileLayout>
-        : null
-    }
-    </>
-  )
+  else {
+    return (
+      <>
+        {
+          user?.roles === 'driver' && user.isAproved === 'aproved'
+            ? <MobileLayout>
+              <DriverLayout/>
+            </MobileLayout>
+            : user?.roles === 'driver' && user.isAproved !== 'aproved' &&
+            <MobileLayout>
+              <Validation/>
+            </MobileLayout>
+        }
+        {
+          user?.roles === 'rider'
+            ? <MobileLayout>
+              <RiderLayout/>
+            </MobileLayout>
+            : null
+        }
+      </>
+    )
+  }
 }
