@@ -9,7 +9,7 @@ Font.register({
     { src: 'https://cdn.jsdelivr.net/npm/@canvas-fonts/arial-bold@1.0.4/Arial Bold.ttf', fontWeight: 'bold' }
   ]
 })
-export default function FuecTemplate ({ data }) {
+export default function FuecTemplate (props) {
   return (
     <Document>
       <Page size='A4' style={{
@@ -837,7 +837,7 @@ export default function FuecTemplate ({ data }) {
                         fontSize: '9px',
                         marginBottom: '5px'
                       }}>
-                        JUAN PABLO {/* dinamico */}
+                        {props.name} {/* dinamico */}
                       </Text>
                     </View>
                   </View>
@@ -1305,5 +1305,6 @@ export default function FuecTemplate ({ data }) {
   )
 }
 FuecTemplate.propTypes = {
-  data: PropTypes.object
+  props: PropTypes.object,
+  name: PropTypes.string
 }

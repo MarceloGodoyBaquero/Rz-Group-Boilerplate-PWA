@@ -3,7 +3,8 @@ import {
   ArrowRightOnRectangleIcon, BellIcon, CalendarIcon,
   ChevronRightIcon, Cog8ToothIcon,
   HomeIcon,
-  XCircleIcon
+  XCircleIcon,
+  DocumentTextIcon
 } from '@heroicons/react/24/solid'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -92,6 +93,14 @@ export default function Menu (props) {
           </div>
           <div>
             <ChevronRightIcon className={'h-[20px]'}/>
+          </div>
+        </button>
+        <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'} onClick={() => {
+          router.push('/Fuec')
+        }}>
+        <div className={'flex flex-row'}>
+            <DocumentTextIcon className={'h-[20px] mr-5'}/>
+            <h3 className={'font-bold'}>Crea tu FUEC</h3>
           </div>
         </button>
       </div>

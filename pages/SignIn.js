@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 import { signIn } from '../Redux/Actions/authActions'
 import { useDispatch } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import MobileLayout from '../components/MobileLayout'
 
@@ -32,6 +34,7 @@ export default function SignIn () {
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
+      <ToastContainer/>
         <Nav location={'Iniciar Sesión'}/>
         <Image width={'274px'} height={'287px'} src={LoginImage} alt="hero" className={'w-3/4'}/>
         <form className={'bg-white rounded-xl p-5 m-5 w-5/6 h-fit flex flex-col items-center justify-center shadow-lg'}>

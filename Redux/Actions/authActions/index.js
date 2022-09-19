@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { toast } from 'react-toastify'
 export const SIGN_UP = 'SIGN_UP'
 export const SIGN_IN = 'SIGN_IN'
 export const SIGN_OUT = 'SIGN_OUT'
@@ -9,24 +9,32 @@ export const RECOVER_PASSWORD = 'RECOVER_PASSWORD'
 
 export function signUp (obj, router) {
   return function (dispatch) {
-    axios.post('https://rz-group-backend.herokuapp.com/api/auth/signup', obj)
-      .then((res) => {
-        console.log(res.data)
-        dispatch({
-          type: SIGN_UP,
-          payload: res.data
-        })
-        alert('cuenta creada')
-        router.push('/Verification')
-      }).catch((err) => {
-        alert(err.response.data)
-        console.log(err.response.data)
+    toast.promise(axios.post('https://rz-group-backend.herokuapp.com/api/auth/signup', obj), {
+      pending: 'Cargando...',
+      success: 'Usuario creado con éxito',
+      error: 'Error al crear usuario'
+    }).then((res) => {
+      dispatch({
+        type: SIGN_UP,
+        payload: res.data
       })
+      setTimeout(() => {
+        router.push('/Verification')
+      }, 2000)
+    }).catch((err) => {
+      // show a toast with the error
+      toast.error(err.response.data.msg)
+    })
   }
 }
 export function signIn (obj, router) {
   return function (dispatch) {
-    axios.post('https://rz-group-backend.herokuapp.com/api/auth/signin', obj)
+    toast.promise(
+      axios.post('https://rz-group-backend.herokuapp.com/api/auth/signin', obj), {
+        pending: 'Iniciando sesión...',
+        success: 'Sesión iniciada con éxito',
+        error: 'Error al iniciar sesión'
+      })
       .then((res) => {
         dispatch({
           type: SIGN_IN,
@@ -35,11 +43,17 @@ export function signIn (obj, router) {
         localStorage.setItem('user', JSON.stringify(res.data))
         localStorage.setItem('token', res.data.accessToken)
         if (!res.data.isVerified) {
-          router.push('/Verification')
+          setTimeout(() => {
+            router.push('/Verification')
+          }, 2000)
         } else if (res.data.roles === 'admin') {
-          router.push('/admin')
+          setTimeout(() => {
+            router.push('/admin')
+          }, 2000)
         } else {
-          router.push('/Main')
+          setTimeout(() => {
+            router.push('/Main')
+          }, 2000)
         }
       }
       ).catch((err) => {
@@ -72,16 +86,21 @@ export function sendOTP (obj, router = null) {
 
 export function verifyEmail (obj, router) {
   return function (dispatch) {
-    axios.post('https://rz-group-backend.herokuapp.com/api/auth/verify', obj)
+    toast.promise(axios.post('https://rz-group-backend.herokuapp.com/api/auth/verify', obj), {
+      pending: 'Verificando...',
+      success: 'Email verificado con éxito',
+      error: 'Error al verificar email'
+    })
       .then(res => {
         dispatch({
           type: VERIFY_EMAIL
         })
-        alert('Email verified')
-        router.push('/SignIn')
+        setTimeout(() => {
+          router.push('/SignIn')
+        }, 2000)
       }
       ).catch((err) => {
-        alert(err.response)
+        console.log(err)
       })
   }
 }

@@ -7,6 +7,8 @@ import { React, useState } from 'react'
 import MobileLayout from '../components/MobileLayout'
 import { useDispatch } from 'react-redux'
 import { signUp } from '../Redux/Actions/authActions/'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function validate (input) {
   const errors = {}
@@ -95,8 +97,9 @@ export default function SignIn () {
     e.preventDefault()
     const errors = validate(input)
     console.log(errors)
+    // return a toast error with the message of the error
     if (Object.keys(errors).length > 0) {
-      alert('Please fill in all the required fields')
+      toast.error(Object.values(errors).join(' '))
     } else {
       dispatch(signUp(input, router))
     }
@@ -105,6 +108,7 @@ export default function SignIn () {
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
+        <ToastContainer/>
         <Nav location={'Registro'}/>
         <div className={'h-1/2 flex justify-center'}>
           <Image width={'274px'} height={'287px'} src={SignUp} alt="hero" className={'w-3/4'}/>

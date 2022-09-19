@@ -21,7 +21,7 @@ export default function DriverLayout () {
             <div
               onClick={() => router.push('/AddVehicle')}
               className={'cursor-pointer flex items-center justify-center text-white bg-Reserve w-1/2 rounded-3xl h-[200px] m-5'}>
-              <h2 className={'text-2xl font-bold bg-black p-1 rounded-3xl'}>ADD VEHICLE</h2>
+              <h2 className={'text-2xl font-bold bg-black p-1 rounded-3xl text-center'}>ADD VEHICLE</h2>
             </div>
           </div>
         </div>
