@@ -32,10 +32,10 @@ export default function users ({ data }) {
                   onClick={() => router.push(`/admin/users/${user._id}`)}
                   key={index} className={index % 2 === 0 ? 'ml-5 mr-5 mt-2 mb-2 bg-white flex flex-row justify-center items-center' : 'ml-5 mr-5 mt-2 mb-2 bg-gray-100 flex flex-row justify-center items-center'}>
                   <div className={user.isAproved === 'aproved'
-                    ? 'h-[75px] bg-green-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'
+                    ? 'h-[80px] bg-green-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'
                     : user.isAproved === 'inReview'
-                      ? 'h-[75px] bg-orange-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'
-                      : 'h-[75px] bg-red-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'}>
+                      ? 'h-[80px] bg-orange-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'
+                      : 'h-[80px] bg-red-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'}>
                     <UserIcon className={'h-10 w-10 text-white'}/>
                     {user.isAproved === 'aproved' ? <h3>Aprobado</h3> : user.isAproved === 'inReview' ? <h3>Pendiente</h3> : <h3>No aprobado</h3>}
                   </div>

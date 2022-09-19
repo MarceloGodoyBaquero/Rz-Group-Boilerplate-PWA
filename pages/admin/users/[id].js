@@ -14,6 +14,7 @@ export default function users ({ data }) {
     axios.delete('https://rz-group-backend.herokuapp.com/api/user/' + id)
       .then(res => {
         console.log(res.data)
+        router.push('/admin/users')
       })
   }
 
