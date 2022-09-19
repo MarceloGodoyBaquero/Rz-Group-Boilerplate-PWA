@@ -140,7 +140,7 @@ export default function Validation () {
   }
 
   return (
-  <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
+  <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
     <Nav location={'Validación Conductor'}/>
     { mounted && next === 1 &&
       <div className={'flex flex-col justify-center w-full'}>
