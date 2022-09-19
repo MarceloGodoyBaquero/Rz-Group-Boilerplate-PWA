@@ -32,21 +32,6 @@ export default function travels ({ data }) {
               placeholder={'Buscar vehiculo por MATRICULA'}
             />
           </div>
-          <div className={'mt-1 mb-1 flex w-full flex-row items-center justify-center'}>
-            <ReactPaginate
-              className={'flex w-full flex-row items-center justify-evenly'}
-              breakLabel={'...'}
-              nextLabel={'siguiente'}
-              previousLabel={'anterior'}
-              initialPage={0}
-              pageRangeDisplayed={3}
-              pageCount={data.maxPage}
-              onPageChange={handlePagination}
-              activeClassName={'bg-blue-500 flex items-center justify-center font-bold text-white h-7 w-7 rounded-full'}
-              nextLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
-              previousLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
-            />
-          </div>
           {
             data.data.map((travels, index) => {
               return (
@@ -59,7 +44,7 @@ export default function travels ({ data }) {
               )
             })
           }
-          <div className={'mt-1 mb-1 flex w-full flex-row items-center justify-center'}>
+          <div className={'mt-1 mb-5 flex w-full flex-row items-center justify-center'}>
             <ReactPaginate
               className={'flex w-full flex-row items-center justify-evenly'}
               breakLabel={'...'}

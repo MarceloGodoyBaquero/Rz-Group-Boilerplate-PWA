@@ -2,6 +2,7 @@ import React from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import axios from 'axios'
+import Image from 'next/image'
 
 export default function users ({ data }) {
   console.log(data)
@@ -16,7 +17,7 @@ export default function users ({ data }) {
 
   return (
     <MobileLayout>
-      <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
+      <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
         <Nav location={'Detalles de Usuario'}/>
         <div className={'p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
           <h1>Nombre: {data.firstName}</h1>
@@ -35,7 +36,49 @@ export default function users ({ data }) {
           <h1>ID: {data.idNumber}</h1>
           <h1>Email: {data.email}</h1>
           <h1>Teléfono: {data.phoneNumber}</h1>
-           <h1>Roles: {data.roles.map(r => r.name)}</h1>
+          <h1>Roles: {data.roles.map(r => r.name).join(', ')}</h1>
+          <div className={'w-full flex flex-col'}>
+            <h2 className={'text-center'}>Curso ESNA:</h2>
+            {data.curso_ESNA
+              ? <a className={'flex justify-center items-center'} href={data.curso_ESNA}>
+                <div className={'w-4/6'}>
+                <Image src={data.curso_ESNA} layout={'responsive'} height={500} width={600}/>
+                </div>
+              </a>
+              : <h2>Pendiente...</h2>}
+            <h2 className={'text-center'}>Curso Primeros Auxilios:</h2>
+            {data.curso_aux
+              ? <a className={'flex justify-center items-center'} href={data.curso_aux}>
+                <div className={'w-4/6'}>
+                <Image src={data.curso_aux} layout={'responsive'} height={500} width={600}/>
+                </div>
+              </a>
+              : <h2>Pendiente...</h2>}
+            <h2 className={'text-center'}>Foto Frontal ID:</h2>
+            {data.idPictureFront
+              ? <a className={'flex justify-center items-center'} href={data.idPictureFront}>
+                <div className={'w-4/6'}>
+                <Image src={data.idPictureFront} layout={'responsive'} height={500} width={600}/>
+                </div>
+              </a>
+              : <h2>Pendiente...</h2>}
+            <h2 className={'text-center'}>Foto Trasera ID:</h2>
+            {data.idPictureBack
+              ? <a className={'flex justify-center items-center'} href={data.idPictureBack}>
+                <div className={'w-4/6'}>
+                <Image src={data.idPictureBack} layout={'responsive'} height={500} width={600}/>
+                </div>
+              </a>
+              : <h2>Pendiente...</h2>}
+            <h2 className={'text-center'}>Foto Frontal Licencia:</h2>
+            {data.licensePictureFront
+              ? <a className={'flex justify-center items-center'} href={data.licensePictureFront}>
+                <div className={'w-4/6'}>
+                <Image src={data.licensePictureFront} layout={'responsive'} height={500} width={600}/>
+                </div>
+              </a>
+              : <h2>Pendiente...</h2>}
+          </div>
         </div>
         <div className={'flex flex-col w-full items-center'}>
           <button

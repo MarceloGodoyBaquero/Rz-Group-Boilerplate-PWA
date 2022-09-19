@@ -12,7 +12,7 @@ export default function vehicles ({ data }) {
 
   return (
     <MobileLayout>
-      <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
+      <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
         <Nav location={'Vehículos'}/>
         <div className={'flex flex-col justify-center w-full'}>
           <div className={'flex justify-center w-full items-center'}>
@@ -22,21 +22,7 @@ export default function vehicles ({ data }) {
               placeholder={'Buscar vehiculo por MATRICULA'}
             />
           </div>
-          <div className={'mt-1 mb-1 flex w-full flex-row items-center justify-center'}>
-            <ReactPaginate
-              className={'flex w-full flex-row items-center justify-evenly'}
-              breakLabel={'...'}
-              nextLabel={'siguiente'}
-              previousLabel={'anterior'}
-              initialPage={0}
-              pageRangeDisplayed={3}
-              pageCount={data.maxPage}
-              onPageChange={handlePagination}
-              activeClassName={'bg-blue-500 flex items-center justify-center font-bold text-white h-7 w-7 rounded-full'}
-              nextLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
-              previousLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
-            />
-          </div>
+
           {
             data.vehicles.map((vehicle, index) => {
               return (
@@ -48,12 +34,13 @@ export default function vehicles ({ data }) {
               )
             })
           }
-          <div className={'mt-1 mb-1 flex w-full flex-row items-center justify-center'}>
+          <div className={'mt-1 mb-5 flex w-full flex-row items-center justify-center'}>
             <ReactPaginate
               className={'flex w-full flex-row items-center justify-evenly'}
               breakLabel={'...'}
               nextLabel={'siguiente'}
               previousLabel={'anterior'}
+              currentPage={data.page + 1}
               initialPage={0}
               pageRangeDisplayed={3}
               pageCount={data.maxPage}
