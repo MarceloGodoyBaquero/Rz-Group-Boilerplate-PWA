@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import axios from 'axios'
@@ -7,6 +7,9 @@ import { useRouter } from 'next/router'
 
 export default function users ({ data }) {
   const router = useRouter()
+  const [inputPopUp, setInputPopUp] = useState(false)
+  const [reason, setReason] = useState('')
+
   console.log(data)
 
   const deleteUser = async (id) => {
@@ -17,10 +20,19 @@ export default function users ({ data }) {
         router.push('/admin/users')
       })
   }
-
   const aprobateUser = async (id) => {
     console.log(id)
     axios.post('https://rz-group-backend.herokuapp.com/api/admin/approve/' + id)
+      .then(res => {
+        console.log(res)
+        router.reload()
+      })
+  }
+  const desaprobateUser = async (id) => {
+    console.log(id)
+    axios.post('https://rz-group-backend.herokuapp.com/api/admin/reject/' + id, {
+      message: reason
+    })
       .then(res => {
         console.log(res)
         router.reload()
@@ -54,7 +66,7 @@ export default function users ({ data }) {
             {data.curso_ESNA
               ? <a className={'flex justify-center items-center'} href={data.curso_ESNA}>
                 <div className={'w-4/6'}>
-                <Image src={data.curso_ESNA} layout={'responsive'} height={500} width={600}/>
+                  <Image src={data.curso_ESNA} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
               : <h2>Pendiente...</h2>}
@@ -62,7 +74,7 @@ export default function users ({ data }) {
             {data.curso_aux
               ? <a className={'flex justify-center items-center'} href={data.curso_aux}>
                 <div className={'w-4/6'}>
-                <Image src={data.curso_aux} layout={'responsive'} height={500} width={600}/>
+                  <Image src={data.curso_aux} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
               : <h2>Pendiente...</h2>}
@@ -70,7 +82,7 @@ export default function users ({ data }) {
             {data.idPictureFront
               ? <a className={'flex justify-center items-center'} href={data.idPictureFront}>
                 <div className={'w-4/6'}>
-                <Image src={data.idPictureFront} layout={'responsive'} height={500} width={600}/>
+                  <Image src={data.idPictureFront} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
               : <h2>Pendiente...</h2>}
@@ -78,7 +90,7 @@ export default function users ({ data }) {
             {data.idPictureBack
               ? <a className={'flex justify-center items-center'} href={data.idPictureBack}>
                 <div className={'w-4/6'}>
-                <Image src={data.idPictureBack} layout={'responsive'} height={500} width={600}/>
+                  <Image src={data.idPictureBack} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
               : <h2>Pendiente...</h2>}
@@ -86,7 +98,7 @@ export default function users ({ data }) {
             {data.licensePictureFront
               ? <a className={'flex justify-center items-center'} href={data.licensePictureFront}>
                 <div className={'w-4/6'}>
-                <Image src={data.licensePictureFront} layout={'responsive'} height={500} width={600}/>
+                  <Image src={data.licensePictureFront} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
               : <h2>Pendiente...</h2>}
@@ -99,7 +111,27 @@ export default function users ({ data }) {
           </button>
           <button
             onClick={() => aprobateUser(data._id)}
-            className={'bg-green-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>APROBAR</button>
+            className={'bg-green-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>APROBAR
+          </button>
+          {
+            inputPopUp
+              ? <div className={'w-5/6'}>
+                <input
+                  onChange={(e) => setReason(e.target.value)}
+                  placeholder={'Razón'}
+                  className={'indent-3 w-4/6 rounded-xl mt-5 h-[50px] font-bold'}/>
+                <button
+                  onClick={() => desaprobateUser(data._id)}
+                  className={'bg-yellow-400 w-1/6 rounded-xl mt-5 h-[50px] font-bold'}>Enviar</button>
+                <button
+                  onClick={() => setInputPopUp(false)}
+                  className={'bg-red-400 w-1/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar</button>
+              </div>
+              : <button
+                onClick={() => setInputPopUp(true)}
+                className={'bg-yellow-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>DESAPROBAR
+              </button>
+          }
           <button className={'bg-orange-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>REPORTAR</button>
           <button className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>MODIFICAR</button>
         </div>
