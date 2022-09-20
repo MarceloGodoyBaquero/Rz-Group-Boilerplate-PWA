@@ -10,7 +10,7 @@ export default function users ({ data }) {
   const [inputPopUp, setInputPopUp] = useState(false)
   const [reason, setReason] = useState('')
 
-  console.log(data)
+  console.table(data)
 
   const deleteUser = async (id) => {
     console.log(id)
@@ -102,6 +102,18 @@ export default function users ({ data }) {
                 </div>
               </a>
               : <h2>Pendiente...</h2>}
+            <h2 className={'text-center'}>Foto Trasera Licencia:</h2>
+            {data.licensePictureBack
+              ? <a className={'flex justify-center items-center'} href={data.licensePictureBack}>
+                <div className={'w-4/6'}>
+                  <Image src={data.licensePictureBack} layout={'responsive'} height={500} width={600}/>
+                </div>
+              </a>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+            <h2 className={'text-center'}>Número de Licencia:</h2>
+            {data.nro_license
+              ? <h2 className={'text-center'}>{data.nro_license}</h2>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
           </div>
         </div>
         <div className={'flex flex-col w-full items-center'}>
