@@ -17,7 +17,7 @@ export default function users ({ data }) {
     axios.delete('https://rz-group-backend.herokuapp.com/api/user/' + id)
       .then(res => {
         console.log(res.data)
-        router.push('/admin/users')
+        router.push('/admin/vehicles')
       })
   }
   const aprobateUser = async (id) => {
@@ -121,10 +121,10 @@ export default function users ({ data }) {
             onClick={() => deleteUser(data._id)}
             className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
           </button>
-          {data.isAproved === 'inReview' && <button
+          <button
             onClick={() => aprobateUser(data._id)}
             className={'bg-green-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>APROBAR
-          </button>}
+          </button>
           {
             inputPopUp
               ? <div className={'w-5/6'}>
@@ -139,7 +139,7 @@ export default function users ({ data }) {
                   onClick={() => setInputPopUp(false)}
                   className={'bg-red-400 w-1/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar</button>
               </div>
-              : data.isAproved === 'inReview' && <button
+              : <button
                 onClick={() => setInputPopUp(true)}
                 className={'bg-yellow-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>DESAPROBAR
               </button>
@@ -153,7 +153,7 @@ export default function users ({ data }) {
 }
 
 export async function getServerSideProps (context) {
-  const res = await fetch('https://rz-group-backend.herokuapp.com/api/user/' + context.query.id)
+  const res = await fetch('https://rz-group-backend.herokuapp.com/api/vehicles/' + context.query.id)
   const data = await res.json()
   console.log(data)
   return {
