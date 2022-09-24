@@ -14,7 +14,7 @@ export default function users ({ data }) {
 
   const deleteUser = async (id) => {
     console.log(id)
-    axios.delete('https://rz-group-backend.herokuapp.com/api/user/' + id)
+    axios.delete('https://rz-group-backend.herokuapp.com/api/admin/vehicle/reject/' + id)
       .then(res => {
         console.log(res.data)
         router.push('/admin/vehicles')
@@ -22,7 +22,7 @@ export default function users ({ data }) {
   }
   const aprobateUser = async (id) => {
     console.log(id)
-    axios.post('https://rz-group-backend.herokuapp.com/api/admin/approve/' + id)
+    axios.post('https://rz-group-backend.herokuapp.com/api/admin/vehicle/approve/' + id)
       .then(res => {
         console.log(res)
         router.reload()
@@ -30,7 +30,7 @@ export default function users ({ data }) {
   }
   const desaprobateUser = async (id) => {
     console.log(id)
-    axios.post('https://rz-group-backend.herokuapp.com/api/admin/reject/' + id, {
+    axios.post('https://rz-group-backend.herokuapp.com/api/admin/vehicle/reject/' + id, {
       message: reason
     })
       .then(res => {
@@ -44,8 +44,9 @@ export default function users ({ data }) {
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
         <Nav location={'Detalles de Usuario'}/>
         <div className={'p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
-          <h1>Nombre: {data.firstName}</h1>
-          <h1>Apellido: {data.lastName}</h1>
+          <h1>Marca: {data.brand.toUpperCase()}</h1>
+          <h1>Modelo: {data.model.toUpperCase()}</h1>
+          <h1>Año: {data.year}</h1>
           <div>
             {
               data.isAproved === 'notAproved' ? <h1 className={'bg-red-500'}>Estado: No aprobado</h1> : null
@@ -57,62 +58,75 @@ export default function users ({ data }) {
               data.isAproved === 'aproved' ? <h1 className={'bg-green-500'}>Estado: Aprobado</h1> : null
             }
           </div>
-          <h1>ID: {data.idNumber}</h1>
-          <h1>Email: {data.email}</h1>
-          <h1>Teléfono: {data.phoneNumber}</h1>
-          <h1>Roles: {data.roles.map(r => r.name).join(', ')}</h1>
+          <h1>Matricula: {data.carPlate.toUpperCase()}</h1>
+          <h1>Tipo: {data.type}</h1>
+          <h1>Categoria: {data.category}</h1>
+          <h1>Capacidad: {data.capacity}</h1>
+          <h1 onClick={() => router.push(`/admin/users/${data.owner?._id}`)} className='hover:text-blue-500 cursor-pointer'>Dueño: {data.owner.firstName + ' ' + data.owner.lastName}</h1>
           <div className={'w-full flex flex-col'}>
-            <h2 className={'text-center'}>Curso ESNA:</h2>
-            {data.curso_ESNA
-              ? <a className={'flex justify-center items-center'} href={data.curso_ESNA}>
+            <h2 className={'text-center'}>Revisión Tecnomecánica:</h2>
+            {data.revision_tecnomecanica
+              ? <a className={'flex justify-center items-center'} href={data.revision_tecnomecanica}>
                 <div className={'w-4/6'}>
-                  <Image src={data.curso_ESNA} layout={'responsive'} height={500} width={600}/>
-                </div>
-              </a>
-              : <h2>Pendiente...</h2>}
-            <h2 className={'text-center'}>Curso Primeros Auxilios:</h2>
-            {data.curso_aux
-              ? <a className={'flex justify-center items-center'} href={data.curso_aux}>
-                <div className={'w-4/6'}>
-                  <Image src={data.curso_aux} layout={'responsive'} height={500} width={600}/>
-                </div>
-              </a>
-              : <h2>Pendiente...</h2>}
-            <h2 className={'text-center'}>Foto Frontal ID:</h2>
-            {data.idPictureFront
-              ? <a className={'flex justify-center items-center'} href={data.idPictureFront}>
-                <div className={'w-4/6'}>
-                  <Image src={data.idPictureFront} layout={'responsive'} height={500} width={600}/>
-                </div>
-              </a>
-              : <h2>Pendiente...</h2>}
-            <h2 className={'text-center'}>Foto Trasera ID:</h2>
-            {data.idPictureBack
-              ? <a className={'flex justify-center items-center'} href={data.idPictureBack}>
-                <div className={'w-4/6'}>
-                  <Image src={data.idPictureBack} layout={'responsive'} height={500} width={600}/>
-                </div>
-              </a>
-              : <h2>Pendiente...</h2>}
-            <h2 className={'text-center'}>Foto Frontal Licencia:</h2>
-            {data.licensePictureFront
-              ? <a className={'flex justify-center items-center'} href={data.licensePictureFront}>
-                <div className={'w-4/6'}>
-                  <Image src={data.licensePictureFront} layout={'responsive'} height={500} width={600}/>
-                </div>
-              </a>
-              : <h2>Pendiente...</h2>}
-            <h2 className={'text-center'}>Foto Trasera Licencia:</h2>
-            {data.licensePictureBack
-              ? <a className={'flex justify-center items-center'} href={data.licensePictureBack}>
-                <div className={'w-4/6'}>
-                  <Image src={data.licensePictureBack} layout={'responsive'} height={500} width={600}/>
+                  <Image src={data.revision_tecnomecanica} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
               : <h2 className={'text-center'}>Pendiente...</h2>}
-            <h2 className={'text-center'}>Número de Licencia:</h2>
-            {data.nro_license
-              ? <h2 className={'text-center'}>{data.nro_license}</h2>
+            <h2 className={'text-center'}>Poliza Contractual:</h2>
+            {data.poliza_contraactual
+              ? <a className={'flex justify-center items-center'} href={data.poliza_contraactual}>
+                <div className={'w-4/6'}>
+                  <Image src={data.poliza_contraactual} layout={'responsive'} height={500} width={600}/>
+                </div>
+              </a>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+              <h2 className={'text-center'}>Fecha de expedición Poliza Contractual:</h2>
+            {data.fecha_exp_poliza
+              ? <h2 className={'text-center'}>{data.fecha_exp_poliza}</h2>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+              <h2 className={'text-center'}>Fecha de Vencimiento Poliza Contractual:</h2>
+            {data.fecha_ven_poliza
+              ? <h2 className={'text-center'}>{data.fecha_ven_poliza}</h2>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+            <h2 className={'text-center'}>SOAT:</h2>
+            {data.soat
+              ? <a className={'flex justify-center items-center'} href={data.soat}>
+                <div className={'w-4/6'}>
+                  <Image src={data.soat} layout={'responsive'} height={500} width={600}/>
+                </div>
+              </a>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+               <h2 className={'text-center'}>Fecha de expedición SOAT:</h2>
+            {data.fecha_exp_soat
+              ? <h2 className={'text-center'}>{data.fecha_exp_soat}</h2>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+              <h2 className={'text-center'}>Fecha de Vencimiento SOAT:</h2>
+            {data.fecha_ven_soat
+              ? <h2 className={'text-center'}>{data.fecha_ven_soat}</h2>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+            <h2 className={'text-center'}>Foto Frontal Tarjeta de Propiedad:</h2>
+            {data.propertyCardFront
+              ? <a className={'flex justify-center items-center'} href={data.propertyCardFront}>
+                <div className={'w-4/6'}>
+                  <Image src={data.propertyCardFront} layout={'responsive'} height={500} width={600}/>
+                </div>
+              </a>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+            <h2 className={'text-center'}>Foto Trasera Tarjeta de Propiedad:</h2>
+            {data.propertyCardBack
+              ? <a className={'flex justify-center items-center'} href={data.propertyCardBack}>
+                <div className={'w-4/6'}>
+                  <Image src={data.propertyCardBack} layout={'responsive'} height={500} width={600}/>
+                </div>
+              </a>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+            <h2 className={'text-center'}>Número Interno:</h2>
+            {data.numero_interno
+              ? <h2 className={'text-center'}>{data.numero_interno}</h2>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+               <h2 className={'text-center'}>Número de Tarjeta de Operación:</h2>
+            {data.tarjeta_operacion
+              ? <h2 className={'text-center'}>{data.tarjeta_operacion}</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
           </div>
         </div>
@@ -121,10 +135,10 @@ export default function users ({ data }) {
             onClick={() => deleteUser(data._id)}
             className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
           </button>
-          <button
+          {data.isAproved === 'inReview' && <button
             onClick={() => aprobateUser(data._id)}
             className={'bg-green-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>APROBAR
-          </button>
+          </button>}
           {
             inputPopUp
               ? <div className={'w-5/6'}>
@@ -139,10 +153,10 @@ export default function users ({ data }) {
                   onClick={() => setInputPopUp(false)}
                   className={'bg-red-400 w-1/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar</button>
               </div>
-              : <button
-                onClick={() => setInputPopUp(true)}
-                className={'bg-yellow-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>DESAPROBAR
-              </button>
+              : data.isAproved === 'inReview' && <button
+              onClick={() => setInputPopUp(true)}
+              className={'bg-yellow-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>DESAPROBAR
+            </button>
           }
           <button className={'bg-orange-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>REPORTAR</button>
           <button className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>MODIFICAR</button>

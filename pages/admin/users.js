@@ -22,7 +22,7 @@ export default function users ({ data }) {
   }, [search])
   console.log(searchData)
   const handlePagination = (page) => {
-    router.push(`/admin/users?page=${page.selected + 1}`)
+    page.selected > 0 && router.push(`/admin/users?page=${page.selected + 1}`)
   }
 
   const handleSearch = (e) => {

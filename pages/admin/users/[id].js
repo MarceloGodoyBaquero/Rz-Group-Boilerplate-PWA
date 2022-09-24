@@ -69,7 +69,7 @@ export default function users ({ data }) {
                   <Image src={data.curso_ESNA} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
-              : <h2>Pendiente...</h2>}
+              : <h2 className={'text-center'}>Pendiente...</h2>}
             <h2 className={'text-center'}>Curso Primeros Auxilios:</h2>
             {data.curso_aux
               ? <a className={'flex justify-center items-center'} href={data.curso_aux}>
@@ -77,23 +77,23 @@ export default function users ({ data }) {
                   <Image src={data.curso_aux} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
-              : <h2>Pendiente...</h2>}
-            <h2 className={'text-center'}>Foto Frontal ID:</h2>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+            <h2 className={'text-center'}>Foto Frontal Cedula:</h2>
             {data.idPictureFront
               ? <a className={'flex justify-center items-center'} href={data.idPictureFront}>
                 <div className={'w-4/6'}>
                   <Image src={data.idPictureFront} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
-              : <h2>Pendiente...</h2>}
-            <h2 className={'text-center'}>Foto Trasera ID:</h2>
+              : <h2 className={'text-center'}>Pendiente...</h2>}
+            <h2 className={'text-center'}>Foto Trasera Cedula:</h2>
             {data.idPictureBack
               ? <a className={'flex justify-center items-center'} href={data.idPictureBack}>
                 <div className={'w-4/6'}>
                   <Image src={data.idPictureBack} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
-              : <h2>Pendiente...</h2>}
+              : <h2 className={'text-center'}>Pendiente...</h2>}
             <h2 className={'text-center'}>Foto Frontal Licencia:</h2>
             {data.licensePictureFront
               ? <a className={'flex justify-center items-center'} href={data.licensePictureFront}>
@@ -101,7 +101,7 @@ export default function users ({ data }) {
                   <Image src={data.licensePictureFront} layout={'responsive'} height={500} width={600}/>
                 </div>
               </a>
-              : <h2>Pendiente...</h2>}
+              : <h2 className={'text-center'}>Pendiente...</h2>}
             <h2 className={'text-center'}>Foto Trasera Licencia:</h2>
             {data.licensePictureBack
               ? <a className={'flex justify-center items-center'} href={data.licensePictureBack}>
