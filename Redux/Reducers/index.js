@@ -2,13 +2,16 @@
 import { SIGN_IN, SIGN_UP, SIGN_OUT, RECOVER_PASSWORD, VERIFY_EMAIL, SEND_OTP } from '../Actions/authActions/actionsCreator'
 import { FUEC } from '../Actions/fuecActions/actionsCreator'
 import { GET_VEHICLES_BY_USER } from '../Actions/vehiclesActions/actionsCreator'
+import {GET_SERVICES} from "../Actions/servicesActions";
+
 let userLocal
 if (typeof window !== 'undefined') {
   userLocal = JSON.parse(localStorage.getItem('user'))
 }
 const initialState = {
   user: userLocal || {},
-  fuec: {}
+  fuec: {},
+  services: [],
 }
 export default function rootReducer (state = initialState, action) {
   switch (action.type) {
@@ -55,6 +58,12 @@ export default function rootReducer (state = initialState, action) {
       return {
         ...state,
         vehicles: action.payload
+      }
+    }
+    case GET_SERVICES: {
+      return {
+        ...state,
+        services: action.payload
       }
     }
     default:

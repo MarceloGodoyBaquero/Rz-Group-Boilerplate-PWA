@@ -1,9 +1,9 @@
 import React from 'react'
 import Nav from './Nav'
-import { BanknotesIcon, CalendarIcon, ClockIcon } from '@heroicons/react/24/outline'
-import { useRouter } from 'next/router'
+import {BanknotesIcon, CalendarIcon, ClockIcon} from '@heroicons/react/24/outline'
+import {useRouter} from 'next/router'
 
-export default function RiderLayout () {
+export default function RiderLayout() {
   const router = useRouter()
   const viajes = [1, 2, 3, 4]
   return (
@@ -25,7 +25,7 @@ export default function RiderLayout () {
           </div>
         </div>
         <div>
-          <h2 className={'text-black font-bold text-2xl m-5'}>Your actives rides</h2>
+          <h2 className={'text-black font-bold text-2xl m-5'}>Tus viajes activos</h2>
           <div>
             {viajes.slice(0, 1).map((viaje, index) => (
               <div key={index} className={'flex flex-col items-center justify-center'}>
@@ -61,7 +61,7 @@ export default function RiderLayout () {
       <div
         className={'overflow-auto bg-[#5b211f] w-full rounded-t-3xl mt-7 p-4 h-1/2 flex-grow flex-col items-center justify-center'}>
         <div>
-          <h2 className={'text-white font-bold text-2xl text-center m-5'}>Your last trips</h2>
+          <h2 className={'text-white font-bold text-2xl text-center m-5'}>Tus ultimos viajes</h2>
         </div>
         <div className={'w-full'}>
           {viajes.map((viaje, index) => (
@@ -92,6 +92,9 @@ export default function RiderLayout () {
                 </div>
               </div>
             </div>))}
+          <div>
+            <h2 onClick={() => router.push('client/travels')} className={'text-white font-bold text-2xl text-center m-2'}>Ver más</h2>
+          </div>
         </div>
       </div>
     </div>

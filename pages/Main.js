@@ -37,7 +37,7 @@ export default function Main () {
             </MobileLayout>
         }
         {
-          user?.roles === 'rider'
+          user?.roles === 'client'
             ? <MobileLayout>
               <RiderLayout/>
             </MobileLayout>
