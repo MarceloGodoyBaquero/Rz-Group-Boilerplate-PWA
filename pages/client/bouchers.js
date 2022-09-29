@@ -20,7 +20,6 @@ export default function travels({data}) {
 
   const finalizados = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   const pendientes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  const enMarcha = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   useEffect(() => {
     dispatch(getServicesUserId(user.id))
@@ -28,7 +27,7 @@ export default function travels({data}) {
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit h-fit flex items-center flex-col'}>
-        <Nav location={'Mis Bouchers'}/>
+        <Nav location={'Mis Vouchers'}/>
         {
           !services.msg === 'not services found' ?
             <div className={'flex flex-col justify-center w-full h-screen items-center'}>

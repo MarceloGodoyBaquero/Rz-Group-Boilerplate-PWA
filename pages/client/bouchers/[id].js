@@ -14,7 +14,7 @@ export default function users(props) {
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
-        <Nav location={'Detalles del Boucher'}/>
+        <Nav location={'Detalles del Voucher'}/>
         <div className={'p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
           <h1>Numero de servicio: {id}</h1>
           <h1>Precio: $50.000</h1>

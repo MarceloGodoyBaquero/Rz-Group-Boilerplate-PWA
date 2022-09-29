@@ -119,6 +119,23 @@ export default function Fuec() {
             />
           </div>
           <div className={'w-full m-2'}>
+            <input type={'date'}
+                   placeholder={'Fecha Inicio'}
+                   className={'pl-5 pr-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
+                   onChange={(e) => handleInputChange(e)}
+                   name={'initialDate'}
+                   value={input.initialDate}
+            />
+          </div>
+          <div className={'w-full m-2'}>
+            <input type={'date'}
+                   className={'pl-5 pr-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
+                   onChange={(e) => handleInputChange(e)}
+                   name={'finalDate'}
+                   value={input.finalDate}
+            />
+          </div>
+          <div className={'w-full m-2'}>
             <input placeholder={'Cantidad de Vehículos'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
