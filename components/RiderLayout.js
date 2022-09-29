@@ -23,7 +23,7 @@ export default function RiderLayout() {
             <div
               onClick={() => router.push('client/bouchers')}
               className={'cursor-pointer flex items-center justify-center text-white bg-Ride w-full rounded-3xl h-[130px] m-3'}>
-              <button className={'text-2xl font-bold bg-black p-1 rounded-3xl'}>Ver bouchers de pago</button>
+              <button className={'text-2xl font-bold bg-black p-1 rounded-3xl'}>Ver vouchers de pago</button>
             </div>
           </div>
         </div>
