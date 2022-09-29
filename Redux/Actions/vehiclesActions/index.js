@@ -27,7 +27,7 @@ export function createVehicle (obj) {
 
 export function getVehicleById (id) {
   return function (dispatch) {
-    axios.get('https://rz-group-backend.herokuapp.com/api/vehicles/' + id)
+    axios.get(`https://rz-group-backend.herokuapp.com/api/vehicles/${id}`)
       .then(res => {
         dispatch({
           type: GET_VEHICLE_BY_ID,

@@ -1,20 +1,12 @@
 import React from 'react'
-// import {
-//   ArrowRightOnRectangleIcon, BellIcon, CalendarIcon,
-//   ChevronRightIcon, Cog8ToothIcon,
-//   HomeIcon,
-//   XCircleIcon
-// } from '@heroicons/react/24/solid'
-// import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { TruckIcon } from '@heroicons/react/24/outline'
 import PropTypes from 'prop-types'
 
-export default function CarCard ({ brand, model, year, plate, aprobado }) {
+export default function CarCard ({ id, brand, model, year, plate, aprobado }) {
   const router = useRouter()
-
   return (
-    <div onClick={() => router.push('/')} className={'mt-5 flex-row flex items-center bg-white w-5/6 rounded'}>
+    <div onClick={() => router.push(`/driver/vehicles/${id}`)} className={'mt-5 flex-row flex items-center bg-white w-5/6 rounded'}>
       <div className={'flex items-center justify-center'}>
         <div className={'w-[80px] h-[80px] rounded'}>
           <TruckIcon className={aprobado ? 'bg-green-500' : 'bg-red-500'}/>
@@ -35,6 +27,7 @@ export default function CarCard ({ brand, model, year, plate, aprobado }) {
 }
 
 CarCard.propTypes = {
+  id: PropTypes.string,
   brand: PropTypes.string,
   model: PropTypes.string,
   year: PropTypes.string,

@@ -33,6 +33,7 @@ export default function AddVehicle () {
             <div className={'mt-5 w-full items-center flex flex-col'}>
               {vehicles?.map((vehicle, index) => {
                 return <CarCard
+                  id={vehicle._id}
                   key={index}
                   brand={vehicle.brand}
                   model={vehicle.model}
