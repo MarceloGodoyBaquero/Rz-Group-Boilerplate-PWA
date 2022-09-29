@@ -8,6 +8,7 @@ import {deleteService} from "../../../Redux/Actions/servicesActions";
 export default function users(props) {
   const router = useRouter()
   const dispatch = useDispatch()
+  const {id} = router.query
   const [popUpAdd, setPopUpAdd] = useState(false)
   const [popUpMOD, setPopUpMOD] = useState(false)
   return (
@@ -15,7 +16,7 @@ export default function users(props) {
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
         <Nav location={'Detalles del Servicio'}/>
         <div className={'p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
-          <h1>Hola</h1>
+          <h1>Numero de servicio: {id}</h1>
         </div>
         <div className={'flex flex-col w-full items-center'}>
           <button onClick={() => dispatch(deleteService(props.params.id))}
@@ -47,20 +48,23 @@ export default function users(props) {
                         className={'bg-green-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>AGREGAR VEHÍCULOS
                 EXTRA</button>
               :
-              <div className={'w-5/6'}>
+              <div className={'w-5/6 flex flex-col'}>
+                <span className={'bg-gray-300 w-full h-0.5 mt-5'}></span>
                 <input
                   onChange={(e) => console.log(e.target.value)}
                   placeholder={'Cantidad de vehículos extra'}
                   type={'number'}
-                  className={'indent-3 w-4/6 rounded-xl mt-5 h-[50px] font-bold'}/>
-                <button
-                  onClick={() => console.log('hola')}
-                  className={'bg-green-400 w-1/6 rounded-xl mt-5 h-[50px] font-bold'}>Enviar
-                </button>
-                <button
-                  onClick={() => setPopUpAdd(false)}
-                  className={'bg-red-400 w-1/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar
-                </button>
+                  className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
+                <div>
+                  <button
+                    onClick={() => console.log('hola')}
+                    className={'bg-green-400 w-4/6 rounded-xl mt-5 h-[50px] font-bold'}>Enviar
+                  </button>
+                  <button
+                    onClick={() => setPopUpAdd(false)}
+                    className={'bg-red-400 w-2/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar
+                  </button>
+                </div>
               </div>
           }
         </div>
