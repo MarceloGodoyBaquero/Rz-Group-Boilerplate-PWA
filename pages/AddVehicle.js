@@ -6,6 +6,7 @@ import SignUp from '../public/Images/OnBoarding-1.svg'
 import MobileLayout from '../components/MobileLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { createVehicle } from '../Redux/Actions/vehiclesActions'
+import { useRouter } from 'next/router'
 
 function validate (input) {
   const errors = {}
@@ -54,6 +55,7 @@ export default function AddVehicle () {
   // const router = useRouter()
   const { user } = useSelector(state => state)
   const dispatch = useDispatch()
+  const router = useRouter()
   const [input, setInput] = useState(
     {
       carPlate: '',
@@ -87,7 +89,7 @@ export default function AddVehicle () {
     if (Object.keys(errors).length > 0) {
       alert('Por favor, rellene todos los campos obligatorios')
     } else {
-      dispatch(createVehicle(input))
+      dispatch(createVehicle(input, router))
     }
   }
   console.log(input)
