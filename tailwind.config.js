@@ -20,7 +20,8 @@ module.exports = {
       },
       backgroundImage: {
         Ride: "url('../public/Images/Ride-Image.webp')",
-        Reserve: "url('../public/Images/Reserve-Image.jpg')"
+        Reserve: "url('../public/Images/Reserve-Image.jpg')",
+        Garage: "url('../public/Images/Garage-Image.jpg')"
       }
     }
   },

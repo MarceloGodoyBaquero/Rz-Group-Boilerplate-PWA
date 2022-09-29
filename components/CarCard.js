@@ -14,7 +14,7 @@ export default function CarCard ({ brand, model, year, plate, aprobado }) {
   const router = useRouter()
 
   return (
-    <div onClick={() => router.push('/')} className={'flex-row flex items-center bg-white w-5/6 rounded'}>
+    <div onClick={() => router.push('/')} className={'mt-5 flex-row flex items-center bg-white w-5/6 rounded'}>
       <div className={'flex items-center justify-center'}>
         <div className={'w-[80px] h-[80px] rounded'}>
           <TruckIcon className={aprobado ? 'bg-green-500' : 'bg-red-500'}/>
