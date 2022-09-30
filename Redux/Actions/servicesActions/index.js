@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { toast } from 'react-toastify'
 export const CREATE_SERVICE = 'CREATE_SERVICE'
 export const GET_SERVICES = 'GET_SERVICES'
 export const GET_SERVICES_OF_USER = 'GET_SERVICES_OF_USER'
@@ -7,14 +7,22 @@ export const GET_SERVICE_ID = 'GET_SERVICE_ID'
 export const UPDATE_SERVICE = 'UPDATE_SERVICE'
 export const DELETE_SERVICE = 'DELETE_SERVICE'
 
-export function createService (payload) {
+export function createService (payload, router) {
   return function (dispatch) {
-    axios.post('https://rz-group-backend.herokuapp.com/api/services/create', payload)
+    toast.promise(
+      axios.post('https://rz-group-backend.herokuapp.com/api/services/create', payload), {
+        pending: 'Creando servicio...',
+        success: 'Servicio creado con éxito',
+        error: 'Error al crear servicio'
+      })
       .then(res => {
         dispatch({
           type: CREATE_SERVICE,
           payload: res.data
         })
+        setTimeout(() => {
+          router.push('/client/travels')
+        }, 2000)
       }).catch(err => console.log(err))
   }
 }

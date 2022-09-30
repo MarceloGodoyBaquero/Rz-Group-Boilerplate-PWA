@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import Nav from '../components/Nav'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import SignUp from '../public/Images/OnBoarding-1.svg'
 // import { useRouter } from 'next/router'
 import MobileLayout from '../components/MobileLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { createService } from '../Redux/Actions/servicesActions'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function validate (input) {
   const errors = {}
@@ -30,6 +33,7 @@ function validate (input) {
 export default function Fuec () {
   // const router = useRouter()
   const { user } = useSelector(state => state)
+  const router = useRouter()
   const [inputConductor, setInputConductor] = useState(0)
   const dispatch = useDispatch()
   const [input, setInput] = useState(
@@ -68,7 +72,7 @@ export default function Fuec () {
       alert('Please fill in all the required fields')
     } else {
       console.log(input)
-      dispatch(createService(input))
+      dispatch(createService(input, router))
     }
   }
 
@@ -94,6 +98,7 @@ export default function Fuec () {
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
+        <ToastContainer />
         <Nav location={'Nuevo servicio'}/>
         <div className={'h-1/2 flex justify-center'}>
           <Image width={'274px'} height={'287px'} src={SignUp} alt="hero" className={'w-3/4'}/>

@@ -63,8 +63,13 @@ export function signIn (obj, router) {
 }
 
 export function signOut () {
-  return {
-    type: SIGN_OUT
+  return function (dispatch) {
+    dispatch({
+      type: SIGN_OUT,
+      payload: {}
+    })
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
   }
 }
 
