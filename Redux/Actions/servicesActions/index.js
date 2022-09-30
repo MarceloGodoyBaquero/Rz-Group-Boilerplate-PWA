@@ -78,6 +78,7 @@ export function deleteService (id) {
   return function (dispatch) {
     axios.delete(`https://rz-group-backend.herokuapp.com/api/services/${id}`)
       .then(res => {
+        console.log(res)
         dispatch({
           type: DELETE_SERVICE,
           payload: res.data

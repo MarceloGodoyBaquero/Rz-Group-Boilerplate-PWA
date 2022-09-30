@@ -84,7 +84,11 @@ export default function Fuec () {
         [e.target.name]: e.target.value
       })
     } else {
-      return setInputConductor(0)
+      setInputConductor(0)
+      return setInput({
+        ...input,
+        [e.target.name]: e.target.value
+      })
     }
   }
   return (

@@ -25,7 +25,7 @@ export default function travels ({ data }) {
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit h-screen flex items-center flex-col'}>
         <Nav location={'Mis servicios'}/>
         {
-          !services.msg === 'not services found'
+          services.msg === 'not services found'
             ? <div className={'flex flex-col justify-center w-full h-screen items-center'}>
               <div className={'flex flex-col justify-center items-center'}>
                 <h1 className={'text-2xl font-bold'}>No tienes servicios creados!</h1>
