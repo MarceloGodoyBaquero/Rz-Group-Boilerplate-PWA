@@ -3,7 +3,6 @@ import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import { deleteService } from '../../../Redux/Actions/servicesActions'
 import { deleteVehicle } from '../../../Redux/Actions/vehiclesActions'
 
 export default function users ({ data }) {
@@ -38,7 +37,7 @@ export default function users ({ data }) {
           <h1>ESTADO: {data.isAproved === 'aproved' ? 'APROBADO' : data.isAproved === 'notAproved' ? 'NO APROBADO' : 'PENDIENTE'}</h1>
         </div>
         <div className={'flex flex-col w-full items-center'}>
-          <button onClick={() => router.push('/VehicleValidations')}
+          <button onClick={() => router.push('/VehicleValidation/' + data._id)}
                   className={'bg-green-400 w-5/6 rounded-full mt-10 mb-5 h-[50px] font-bold'}>CARGAR DOCUMENTACIÓN
           </button>
           <button onClick={() => dispatch(deleteVehicle(data._id, router))}

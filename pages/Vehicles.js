@@ -31,7 +31,7 @@ export default function AddVehicle () {
           }
           {vehicles?.length > 0 &&
             <div className={'mt-5 w-full items-center flex flex-col'}>
-              {vehicles?.map((vehicle, index) => {
+              {vehicles?.filter(e => e.isActive === true)?.map((vehicle, index) => {
                 return <CarCard
                   id={vehicle._id}
                   key={index}

@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import validationHero from '../public/Images/OnBoarding-3.svg'
+import validationHero from '../../public/Images/OnBoarding-3.svg'
 import Image from 'next/image'/*  */
 import { /* IdentificationIcon */ CreditCardIcon, DocumentTextIcon, /*  CloudArrowUpIcon, */ CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Player, Controls } from '@lottiefiles/react-lottie-player'
-import MobileLayout from '../components/MobileLayout'
+import MobileLayout from '../../components/MobileLayout'
 import { useRouter } from 'next/router'
-const Nav = dynamic(() => import('../components/Nav'), { ssr: false })
+const Nav = dynamic(() => import('../../components/Nav'), { ssr: false })
 
 export default function Validation () {
   const { user } = useSelector(state => state)
@@ -27,7 +27,7 @@ export default function Validation () {
     soat_ven: ''
   })
   const router = useRouter()
-  const { vehicleId } = router.query
+  const { id } = router.query
   console.log(router.query)
   const [next, setNext] = useState(1)
   useEffect(() => {
@@ -80,13 +80,15 @@ export default function Validation () {
     formData.append('soat', file3)
     formData.append('propertyCardFront', file4)
     formData.append('propertyCardBack', file5)
-    axios.post(`https://rz-group-backend.herokuapp.com/api/vehicles/upload/${vehicleId}`, formData, {
+    axios.post(`https://rz-group-backend.herokuapp.com/api/vehicles/upload/${id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     }).then(res => {
       successToast()
       setNext(3)
+    }).then(res => {
+      router.push('/Main')
     }).catch(err => {
       errorToast(err.response.data.message)
     })
