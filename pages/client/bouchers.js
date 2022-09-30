@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from '../../components/Nav'
 import MobileLayout from '../../components/MobileLayout'
-import {useRouter} from 'next/router'
-import {useDispatch, useSelector} from "react-redux";
-import {getServices, getServicesUserId} from "../../Redux/Actions/servicesActions";
-import ClientBoucherCard from "../../components/ClientBoucherCard";
-import * as PropTypes from "prop-types";
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { getServices, getServicesUserId } from '../../Redux/Actions/servicesActions'
+import ClientBoucherCard from '../../components/ClientBoucherCard'
+import * as PropTypes from 'prop-types'
 
 ClientBoucherCard.propTypes = {
   estado: PropTypes.string,
   id: PropTypes.number
-};
-export default function travels({data}) {
+}
+export default function travels ({ data }) {
   const [tab, setTab] = useState(1)
   const [subTab, setSubTab] = useState(1)
   const router = useRouter()
   const dispatch = useDispatch()
-  const {services, user} = useSelector(state => state)
+  const { services, user } = useSelector(state => state)
 
   const finalizados = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   const pendientes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -29,8 +29,8 @@ export default function travels({data}) {
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit h-fit flex items-center flex-col'}>
         <Nav location={'Mis Vouchers'}/>
         {
-          !services.msg === 'not services found' ?
-            <div className={'flex flex-col justify-center w-full h-screen items-center'}>
+          !services.msg === 'not services found'
+            ? <div className={'flex flex-col justify-center w-full h-screen items-center'}>
               <div className={'flex flex-col justify-center items-center'}>
                 <h1 className={'text-2xl font-bold'}>No tienes servicios creados!</h1>
                 <button onClick={() => router.push('/FuecForm')}
@@ -39,8 +39,7 @@ export default function travels({data}) {
                 </button>
               </div>
             </div>
-            :
-            <div className={'flex flex-col justify-center w-full items-center'}>
+            : <div className={'flex flex-col justify-center w-full items-center'}>
               <div className={'flex flex-col justify-center w-full items-center'}>
                 <div
                   className={'mt-5 flex bg-white rounded-2xl flex-row justify-around w-5/6 h-[50px] items-center drop-shadow-xl'}>

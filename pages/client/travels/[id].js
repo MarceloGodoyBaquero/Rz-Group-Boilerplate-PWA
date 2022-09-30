@@ -9,7 +9,7 @@ export default function users ({ data }) {
   const router = useRouter()
   const dispatch = useDispatch()
   const { id } = router.query
-  const { service } = useSelector(state => state)
+  const { service, user } = useSelector(state => state)
   const [popUpAdd, setPopUpAdd] = useState(false)
   const [popUpMOD, setPopUpMOD] = useState(false)
   useEffect(() => {
@@ -48,9 +48,21 @@ export default function users ({ data }) {
           <h1>{service?.description}</h1>
         </div>
         <div className={'flex flex-col w-full items-center'}>
-          <button onClick={() => deleteService(service._id)}
-                  className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
-          </button>
+          {
+            service?.status === 'on progress' && user.roles === 'driver'
+              ? <button onClick={() => deleteService(service._id)}
+                        className={'mb-1 mt-5 bg-[#5B211F] w-5/6 rounded-full mt-5 h-[50px] text-white font-bold'}>DESCARGAR
+                FUEC
+              </button>
+              : null
+          }
+          {
+            service?.status !== 'on progress'
+              ? <button onClick={() => deleteService(service._id)}
+                        className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
+              </button>
+              : null
+          }
           {
             !popUpMOD
               ? <button onClick={() => setPopUpMOD(true)}

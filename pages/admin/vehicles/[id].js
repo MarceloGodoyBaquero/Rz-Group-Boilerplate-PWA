@@ -14,7 +14,7 @@ export default function users ({ data }) {
 
   const deleteUser = async (id) => {
     console.log(id)
-    axios.delete('https://rz-group-backend.herokuapp.com/api/admin/vehicle/reject/' + id)
+    axios.delete('https://rz-group-backend.herokuapp.com/api/vehicles/' + id)
       .then(res => {
         console.log(res.data)
         router.push('/admin/vehicles')
@@ -158,7 +158,7 @@ export default function users ({ data }) {
               className={'bg-yellow-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>DESAPROBAR
             </button>
           }
-          <button className={'bg-orange-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>REPORTAR</button>
+          <button onClick={() => setInputPopUp(true)} className={'bg-orange-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>REPORTAR</button>
           <button className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>MODIFICAR</button>
         </div>
       </div>
