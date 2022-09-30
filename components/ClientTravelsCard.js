@@ -1,14 +1,17 @@
-import React from "react";
-import {useRouter} from "next/router";
+import React, { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
-export default function ClientTravelsCard ({ estado, id }) {
+export default function ClientTravelsCard ({ estado, id, data }) {
   const router = useRouter()
+  console.log(data)
   return (
-    <div onClick={() => router.push(`/client/travels/${id}`)} className={'bg-white m-2 flex-row flex h-[50px] items-center w-5/6 rounded'}>
-      <div className={'flex items-center justify-center'}>
-        {estado === 'En marcha' && <h2>Viaje en marcha</h2>}
-        {estado === 'Pendiente' && <h2>Viaje pendiente</h2>}
-        {estado === 'Finalizado' && <h2>Viaje finalizado</h2>}
+    <div onClick={() => router.push(`/client/travels/${id}`)}
+         className={'bg-white m-2 flex-row flex h-[100px] items-center  w-5/6 rounded'}>
+      <div className={'indent-3 flex flex-col justify-center'}>
+        <h1>Origen: {data?.from}</h1>
+        <h1>Destino: {data?.to}</h1>
+        <h1>Inicio: {data?.start_date?.slice(0, 10)}</h1>
+        <h1>Final: {data?.end_date?.slice(0, 10)}</h1>
       </div>
     </div>
   )

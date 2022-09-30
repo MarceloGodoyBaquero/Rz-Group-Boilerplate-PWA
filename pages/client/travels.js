@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from '../../components/Nav'
 import MobileLayout from '../../components/MobileLayout'
-import {useRouter} from 'next/router'
-import {useDispatch, useSelector} from "react-redux";
-import {getServices, getServicesUserId} from "../../Redux/Actions/servicesActions";
-import ClientTravelsCard from "../../components/ClientTravelsCard";
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { getServices, getServicesUserId } from '../../Redux/Actions/servicesActions'
+import ClientTravelsCard from '../../components/ClientTravelsCard'
 
-export default function travels({data}) {
+export default function travels ({ data }) {
   const [tab, setTab] = useState(1)
-  const [subTab, setSubTab] = useState(1)
+  const [subTab, setSubTab] = useState(2)
   const router = useRouter()
   const dispatch = useDispatch()
-  const {services, user} = useSelector(state => state)
+  const { services, user } = useSelector(state => state)
 
   const finalizados = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   const pendientes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -25,8 +25,8 @@ export default function travels({data}) {
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit h-screen flex items-center flex-col'}>
         <Nav location={'Mis servicios'}/>
         {
-          !services.msg === 'not services found' ?
-            <div className={'flex flex-col justify-center w-full h-screen items-center'}>
+          !services.msg === 'not services found'
+            ? <div className={'flex flex-col justify-center w-full h-screen items-center'}>
               <div className={'flex flex-col justify-center items-center'}>
                 <h1 className={'text-2xl font-bold'}>No tienes servicios creados!</h1>
                 <button onClick={() => router.push('/FuecForm')}
@@ -35,8 +35,7 @@ export default function travels({data}) {
                 </button>
               </div>
             </div>
-            :
-            <div className={'flex flex-col justify-center w-full items-center'}>
+            : <div className={'flex flex-col justify-center w-full items-center'}>
               <div className={'flex flex-col justify-center w-full items-center'}>
                 <div
                   className={'mt-5 flex bg-white rounded-2xl flex-row justify-around w-5/6 h-[50px] items-center drop-shadow-xl'}>
@@ -65,16 +64,18 @@ export default function travels({data}) {
                           {
                             subTab === 1 &&
                             <div className={'flex flex-col justify-center w-full items-center'}>
-                              {enMarcha.map((item, index) =>
-                                <ClientTravelsCard key={index} id={index} estado={'En marcha'}/>
-                              )}
+                              {services?.filter(e => e.status === 'pending')?.map((item, index) =>
+                                <ClientTravelsCard key={index} id={index} data={item}/>
+                              ).length === 0
+                                ? <h1 className={'text-2xl font-bold'}>No tienes servicios activos!</h1>
+                                : null}
                             </div>
                           }
                           {
                             subTab === 2 &&
                             <div className={'flex flex-col justify-center w-full items-center'}>
-                              {enMarcha.map((item, index) =>
-                                <ClientTravelsCard key={index} id={index} estado={'Pendiente'}/>
+                              {services?.filter(e => e.status === 'pending')?.map((item, index) =>
+                                <ClientTravelsCard key={index} id={item._id} data={item}/>
                               )}
                             </div>
                           }

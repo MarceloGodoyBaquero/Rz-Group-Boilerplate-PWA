@@ -1,50 +1,50 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Nav from '../components/Nav'
 import Image from 'next/image'
 import SignUp from '../public/Images/OnBoarding-1.svg'
 // import { useRouter } from 'next/router'
 import MobileLayout from '../components/MobileLayout'
-import {useDispatch} from 'react-redux'
-import {fuec} from '../Redux/Actions/fuecActions'
+import { useDispatch, useSelector } from 'react-redux'
+import { createService } from '../Redux/Actions/servicesActions'
 
-function validate(input) {
+function validate (input) {
   const errors = {}
-  if (!input.Name1) {
-    errors.Name1 = 'Name is required'
-  } else if (input.Name1.trim() === '') {
-    errors.Name1 = 'Name may not be empty'
+  if (!input.description) {
+    errors.description = 'Name is required'
+  } else if (input.description.trim() === '') {
+    errors.description = 'Name may not be empty'
   }
-  if (!input.Origin) {
-    errors.Origin = 'Origin is required'
-  } else if (input.Origin.trim() === '') {
-    errors.Origin = 'Origin may not be empty'
+  if (!input.from) {
+    errors.from = 'Origin is required'
+  } else if (input.from.trim() === '') {
+    errors.from = 'Origin may not be empty'
   }
-  if (!input.Destination) {
-    errors.Destination = 'Destination is required'
-  } else if (input.Destination.trim() === '') {
-    errors.Destination = 'Destination is invalid'
-  }
-  if (!input.idNumber) {
-    errors.idNumber = 'ID Number is required'
-  } else if (input.idNumber.length < 3) {
-    errors.idNumber = 'ID Number is invalid'
+  if (!input.to) {
+    errors.to = 'Destination is required'
+  } else if (input.to.trim() === '') {
+    errors.to = 'Destination is invalid'
   }
   return errors
 }
 
-export default function Fuec() {
+export default function Fuec () {
   // const router = useRouter()
+  const { user } = useSelector(state => state)
   const [inputConductor, setInputConductor] = useState(0)
   const dispatch = useDispatch()
   const [input, setInput] = useState(
     {
-      Name1: '',
-      Origin: '',
-      Destination: '',
-      Passengers: '',
-      idNumber: '',
-      Horas: null,
-      Conductor: null,
+      description: '',
+      from: '',
+      to: '',
+      start_date: '',
+      end_date: '',
+      number_vehicles: '',
+      duration: '',
+      serviceType: '',
+      category: '',
+      driver: user.roles === 'driver' ? [user.id] : [],
+      client: user.id
     })
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState({})
@@ -58,6 +58,7 @@ export default function Fuec() {
       ...input,
       [e.target.name]: e.target.value
     })
+    console.log(input)
   }
   const handleSubmit = function (e) {
     e.preventDefault()
@@ -66,17 +67,22 @@ export default function Fuec() {
     if (Object.keys(errors).length > 0) {
       alert('Please fill in all the required fields')
     } else {
-      dispatch(fuec(input))
+      console.log(input)
+      dispatch(createService(input))
     }
   }
 
   const handleServiceSelect = function (e) {
     e.preventDefault()
-    if (e.target.value === 'conductor específico') {
-      return setInputConductor(1)
-    }
-    if (e.target.value === 'Reservación por horas') {
-      return setInputConductor(2)
+    // if (e.target.value === 'conductor específico') {
+    //   return setInputConductor(1)
+    // }
+    if (e.target.value === 'Reservation per Hour') {
+      setInputConductor(2)
+      return setInput({
+        ...input,
+        [e.target.name]: e.target.value
+      })
     } else {
       return setInputConductor(0)
     }
@@ -93,29 +99,20 @@ export default function Fuec() {
             <h2 className={'font-bold text-2xl'}>Crear nuevo servicio</h2>
             <h2 className={'text-center'}>Por favor completar todos los campos</h2>
           </div>
-
-          <div className={'w-full m-2'}>
-            <input placeholder={'Nombre'}
-                   className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
-                   onChange={(e) => handleInputChange(e)}
-                   name={'Name1'}
-                   value={input.Name1}
-            />
-          </div>
           <div className={'w-full m-2'}>
             <input placeholder={'Origen'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
-                   name={'Origin'}
-                   value={input.Origin}
+                   name={'from'}
+                   value={input.from}
             />
           </div>
           <div className={'w-full m-2'}>
             <input placeholder={'Destino'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
-                   name={'Destination'}
-                   value={input.Destination}
+                   name={'to'}
+                   value={input.to}
             />
           </div>
           <div className={'w-full m-2'}>
@@ -123,56 +120,60 @@ export default function Fuec() {
                    placeholder={'Fecha Inicio'}
                    className={'pl-5 pr-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
-                   name={'initialDate'}
-                   value={input.initialDate}
+                   name={'start_date'}
+                   value={input.start_date}
             />
           </div>
           <div className={'w-full m-2'}>
             <input type={'date'}
                    className={'pl-5 pr-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
-                   name={'finalDate'}
-                   value={input.finalDate}
+                   name={'end_date'}
+                   value={input.end_date}
             />
           </div>
           <div className={'w-full m-2'}>
             <input placeholder={'Cantidad de Vehículos'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
-                   name={'Passengers'}
+                   name={'number_vehicles'}
                    type={'number'}
-                   value={input.Passengers}
+                   value={input.number_vehicles.toString()}
             />
           </div>
           <div className={'w-full m-2'}>
             <textarea placeholder={'Descripción del servicio (max 150 caracteres)'}
-                      style={{resize: 'none'}}
+                      style={{ resize: 'none' }}
                       className={'p-5 outline-0 w-full h-[210px] rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                       onChange={(e) => handleInputChange(e)}
-                      name={'idNumber'}
+                      name={'description'}
                       type={'text'}
-                      value={input.idNumber}
+                      value={input.description}
                       maxLength={150}
             />
           </div>
           <div className={'w-full m-2'}>
             <select
+              onChange={(e) => handleInputChange(e)}
+              name={'category'}
               className={'w-full indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}>
-              <option value="default">Clase</option>
-              <option value="Premium">Premium</option>
-              <option value="Confort">Confort</option>
+              <option value="default">Categoría</option>
+              <option value="confort">Confort</option>
+              <option value="luxury">Luxury</option>
             </select>
           </div>
           <div className={'w-full m-2'}>
             <select onChange={(e) => handleServiceSelect(e)}
+                    name={'serviceType'}
                     className={'w-full indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}>
               <option value="default">Tipo de servicio</option>
               <option value="Transfer IN">Transfer IN</option>
               <option value="Transfer OUT">Transfer OUT</option>
-              <option value="Reservación por horas">Reservación por horas</option>
-              <option value="Sitio turísticos a Nivel Cundinamarca">Sitios turísticos a nivel Cundinamarca</option>
-              <option value="conductor específico">Escoger conductor en específico</option>
-              <option value="Conductor de planta">Conductor de planta</option>
+              <option value="Transfer IN & OUT">Transfer IN y OUT</option>
+              <option value="Reservation per Hour">Reservación por horas</option>
+              <option value="tourist trip">Sitios turísticos a nivel Cundinamarca</option>
+              {/* <option value="conductor específico">Escoger conductor en específico</option> */}
+              {/* <option value="Conductor de planta">Conductor de planta</option> */}
             </select>
           </div>
           {inputConductor === 2 && (
@@ -180,9 +181,9 @@ export default function Fuec() {
               <input placeholder={'Cantidad de Horas'}
                      className={'indent-5 border-2 border-[#5B211F] outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                      onChange={(e) => handleInputChange(e)}
-                     name={'Horas'}
+                     name={'duration'}
                      type={'number'}
-                     value={input.Horas}
+                     value={input.duration.toString()}
               />
             </div>
           )}

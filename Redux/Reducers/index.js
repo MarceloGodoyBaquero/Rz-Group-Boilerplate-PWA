@@ -2,7 +2,7 @@
 import { SIGN_IN, SIGN_UP, SIGN_OUT, RECOVER_PASSWORD, VERIFY_EMAIL, SEND_OTP } from '../Actions/authActions/actionsCreator'
 import { FUEC } from '../Actions/fuecActions/actionsCreator'
 import { GET_VEHICLES_BY_USER } from '../Actions/vehiclesActions/actionsCreator'
-import { GET_SERVICES, GET_SERVICES_OF_USER } from '../Actions/servicesActions'
+import { GET_SERVICES, GET_SERVICES_OF_USER, GET_SERVICE_ID } from '../Actions/servicesActions'
 import { GET_VEHICLE_BY_ID } from '../Actions/vehiclesActions'
 
 let userLocal
@@ -13,6 +13,7 @@ const initialState = {
   user: userLocal || {},
   fuec: {},
   services: [],
+  service: {},
   vehicles: [],
   vehicle: {}
 }
@@ -79,6 +80,12 @@ export default function rootReducer (state = initialState, action) {
       return {
         ...state,
         services: action.payload
+      }
+    }
+    case GET_SERVICE_ID: {
+      return {
+        ...state,
+        service: action.payload
       }
     }
     default:

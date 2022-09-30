@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
-import { deleteService } from '../../../Redux/Actions/servicesActions'
+import { useDispatch, useSelector } from 'react-redux'
+import { getServiceId } from '../../../Redux/Actions/servicesActions'
 
-export default function users (props) {
+export default function users ({ data }) {
   const router = useRouter()
   const dispatch = useDispatch()
   const { id } = router.query
+  const { service } = useSelector(state => state)
   const [popUpAdd, setPopUpAdd] = useState(false)
   const [popUpMOD, setPopUpMOD] = useState(false)
+  useEffect(() => {
+    if (id) {
+      console.log(id)
+      return dispatch(getServiceId(id))
+    }
+  }, [id])
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
@@ -19,7 +26,7 @@ export default function users (props) {
           <h1>Numero de servicio: {id}</h1>
         </div>
         <div className={'flex flex-col w-full items-center'}>
-          <button onClick={() => dispatch(deleteService(props.params.id))}
+          <button onClick={() => console.log('hola')}
                   className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
           </button>
           {
