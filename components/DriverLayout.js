@@ -69,7 +69,7 @@ export default function DriverLayout () {
         <div className={'w-full'}>
           <div>
             <h2 onClick={() => router.push('client/travels')}
-                className={'hover:bg-blue-500 w-full flex items-center justify-center rounded-[25px] h-[50px] text-white bg-[white] text-gray-900 font-bold'}>Ver
+                className={'hover:bg-blue-500 w-full flex items-center justify-center rounded-[25px] h-[50px] bg-[white] text-gray-900 font-bold'}>Ver
               historial de servicios</h2>
           </div>
         </div>
