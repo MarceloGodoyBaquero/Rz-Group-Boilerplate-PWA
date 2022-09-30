@@ -3,7 +3,7 @@ import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { getServiceId } from '../../../Redux/Actions/servicesActions'
+import { deleteService, getServiceId } from '../../../Redux/Actions/servicesActions'
 
 export default function users ({ data }) {
   const router = useRouter()
@@ -18,15 +18,37 @@ export default function users ({ data }) {
       return dispatch(getServiceId(id))
     }
   }, [id])
+  /*  _id(pin):"6336223b4af5372b09f8049d"
+  status(pin):"pending"
+  number_vehicles(pin):"4"
+  driver(pin):
+  _id(pin):"6325dfd6bfd56e06fd654b3f"
+  firstName(pin):"Marcelo"
+  lastName(pin):"Godoy"
+  email(pin):"marce.godoybaquero@gmail.com"
+  vehicle(pin):
+  createdAt(pin):"2022-09-29T22:54:51.771Z" */
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
         <Nav location={'Detalles del Servicio'}/>
         <div className={'p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
-          <h1>Numero de servicio: {id}</h1>
+          <h1>Categoría del servicio: {service?.category?.toUpperCase()}</h1>
+          <h1>Tipo de servicio: {service?.serviceType?.toUpperCase()}</h1>
+          <hr className={'m-3'}/>
+          <h1>Desde: {service?.from}</h1>
+          <h1>Hasta: {service?.to}</h1>
+          <hr className={'m-3'}/>
+          <h1>Cantidad de horas: {service?.duration?.length > 0 ? `${service.duration} hs` : 'N/A'}</h1>
+          <h1>Inicio: {service?.start_date?.slice(0, 10)}</h1>
+          <h1>Final: {service?.end_date?.slice(0, 10)}</h1>
+        </div>
+        <div className={'p-5 mt-3 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
+          <h1>Descripción</h1>
+          <h1>{service?.description}</h1>
         </div>
         <div className={'flex flex-col w-full items-center'}>
-          <button onClick={() => console.log('hola')}
+          <button onClick={() => deleteService(service._id)}
                   className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
           </button>
           {

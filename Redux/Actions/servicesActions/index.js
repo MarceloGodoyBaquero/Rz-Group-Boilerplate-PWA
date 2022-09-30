@@ -82,6 +82,6 @@ export function deleteService (id) {
           type: DELETE_SERVICE,
           payload: res.data
         })
-      })
+      }).catch(err => console.log(err))
   }
 }
