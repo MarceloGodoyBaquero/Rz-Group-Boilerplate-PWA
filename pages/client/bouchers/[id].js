@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
-import {useRouter} from 'next/router'
-import {useDispatch} from "react-redux";
-import {deleteService} from "../../../Redux/Actions/servicesActions";
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import { deleteService } from '../../../Redux/Actions/servicesActions'
 
-export default function users(props) {
+export default function users (props) {
   const router = useRouter()
   const dispatch = useDispatch()
-  const {id} = router.query
+  const { id } = router.query
   const [popUpAdd, setPopUpAdd] = useState(false)
   const [popUpMOD, setPopUpMOD] = useState(false)
   return (
@@ -29,8 +29,7 @@ export default function users(props) {
             !popUpAdd
               ? <button onClick={() => setPopUpAdd(true)}
                         className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>AGREGAR COMPROBANTE DE PAGO</button>
-              :
-              <div className={'w-5/6 flex flex-col'}>
+              : <div className={'w-5/6 flex flex-col'}>
                 <span className={'bg-gray-300 w-full h-0.5 mt-5'}></span>
                 <input
                   className={'indent-5 mt-5 border-2 border-[#5B211F] outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
@@ -42,7 +41,7 @@ export default function users(props) {
                   onChange={(e) => console.log(e.target.value)}
                   placeholder={'Cantidad de vehículos extra'}
                   type={'file'}
-                  style={{display: 'none'}}/>
+                  style={{ display: 'none' }}/>
                 </label>
                 <div>
                   <button
