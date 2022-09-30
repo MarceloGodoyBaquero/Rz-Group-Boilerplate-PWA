@@ -45,7 +45,9 @@ export default function users ({ data }) {
           </button>
           {
             !popUpMOD
-              ? <button onClick={() => setPopUpMOD(true)}
+              ? data.isAproved === 'aproved'
+                ? null
+                : <button onClick={() => setPopUpMOD(true)}
                         className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>MODIFICAR</button>
               : <div className={'w-5/6 flex flex-col items-center'}>
                 <span className={'bg-gray-300 w-full h-0.5 mt-5'}></span>
