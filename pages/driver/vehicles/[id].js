@@ -4,6 +4,7 @@ import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { deleteService } from '../../../Redux/Actions/servicesActions'
+import { deleteVehicle } from '../../../Redux/Actions/vehiclesActions'
 
 export default function users ({ data }) {
   const dispatch = useDispatch()
@@ -40,7 +41,7 @@ export default function users ({ data }) {
           <button onClick={() => router.push('/VehicleValidations')}
                   className={'bg-green-400 w-5/6 rounded-full mt-10 mb-5 h-[50px] font-bold'}>CARGAR DOCUMENTACIÓN
           </button>
-          <button onClick={() => console.log('asd')}
+          <button onClick={() => dispatch(deleteVehicle(data._id, router))}
                   className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
           </button>
           {
