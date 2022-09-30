@@ -8,14 +8,10 @@ import ClientTravelsCard from '../../components/ClientTravelsCard'
 
 export default function travels ({ data }) {
   const [tab, setTab] = useState(1)
-  const [subTab, setSubTab] = useState(2)
+  const [subTab, setSubTab] = useState(1)
   const router = useRouter()
   const dispatch = useDispatch()
   const { services, user } = useSelector(state => state)
-
-  const finalizados = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  const pendientes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  const enMarcha = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   useEffect(() => {
     dispatch(getServicesUserId(user.id))
@@ -64,19 +60,21 @@ export default function travels ({ data }) {
                           {
                             subTab === 1 &&
                             <div className={'flex flex-col justify-center w-full items-center'}>
-                              {services?.filter(e => e.status === 'pending')?.map((item, index) =>
-                                <ClientTravelsCard key={index} id={index} data={item}/>
-                              ).length === 0
-                                ? <h1 className={'text-2xl font-bold'}>No tienes servicios activos!</h1>
-                                : null}
+                              {services?.filter(e => e.status === 'on progress').length === 0
+                                ? <h1 className={'text-2xl font-bold'}>¡No tienes servicios activos!</h1>
+                                : services?.filter(e => e.status === 'on progress')?.map((item, index) =>
+                                  <ClientTravelsCard key={index} id={item._id} data={item}/>
+                                )}
                             </div>
                           }
                           {
                             subTab === 2 &&
                             <div className={'flex flex-col justify-center w-full items-center'}>
-                              {services?.filter(e => e.status === 'pending')?.map((item, index) =>
-                                <ClientTravelsCard key={index} id={item._id} data={item}/>
-                              )}
+                              {services?.filter(e => e.status === 'pending').length === 0
+                                ? <h1 className={'text-2xl font-bold'}>¡No tienes servicios en marcha!</h1>
+                                : services?.filter(e => e.status === 'pending')?.map((item, index) =>
+                                  <ClientTravelsCard key={index} id={item._id} data={item}/>
+                                )}
                             </div>
                           }
                         </div>
@@ -84,9 +82,11 @@ export default function travels ({ data }) {
                     </div>}
                   {tab === 2 &&
                     <div className={'mt-5 flex flex-col justify-center w-full items-center'}>
-                      {finalizados.map((item, index) =>
-                        <ClientTravelsCard key={index} id={index} estado={'Finalizado'}/>
-                      )}
+                      {services?.filter(e => e.status === 'finished').length === 0
+                        ? <h1 className={'text-2xl font-bold'}>No tienes servicios finalizados!</h1>
+                        : services?.filter(e => e.status === 'finished')?.map((item, index) =>
+                          <ClientTravelsCard key={index} id={item._id} data={item}/>
+                        )}
                     </div>}
                 </div>
               </div>
