@@ -1,9 +1,11 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 import Nav from '../../components/Nav'
 import MobileLayout from '../../components/MobileLayout'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { getServices, getServicesUserId } from '../../Redux/Actions/servicesActions'
+import { getServices, getServicesUserId, getIncomingServices } from '../../Redux/Actions/servicesActions'
+import { getVehiclesByUser } from '../../Redux/Actions/vehiclesActions'
 import ClientTravelsCard from '../../components/ClientTravelsCard'
 
 export default function travels ({ data }) {
@@ -15,6 +17,8 @@ export default function travels ({ data }) {
 
   useEffect(() => {
     dispatch(getServicesUserId(user.id))
+    dispatch(getIncomingServices(user.id))
+    dispatch(getVehiclesByUser(user.id))
   }, [])
   return (
     <MobileLayout>

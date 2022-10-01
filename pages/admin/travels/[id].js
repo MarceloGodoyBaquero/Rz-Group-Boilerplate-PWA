@@ -21,6 +21,9 @@ export default function travels ({ data, data3 }) {
     }).then(res => {
       console.log(res)
       toast.success('Viaje asignado con éxito')
+    }).catch(err => {
+      console.log(err)
+      toast.error('Este conductor, ya tiene un viaje asignado')
     })
   }
 
@@ -67,8 +70,8 @@ export default function travels ({ data, data3 }) {
             size={'sm'}
             onClose={() => setInputPopUp(false)}
             >
-              <Modal.Header>
-                <h1 className='text-2xl font-bold'>Asignar viaje</h1>
+              <Modal.Header className='text-2xl font-bold'>
+                Asignar viaje
               </Modal.Header>
               <Modal.Body>
               <div className="space-y-6">
