@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useEffect, useState } from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
@@ -8,6 +9,7 @@ import { deleteVehicle } from '../../../Redux/Actions/vehiclesActions'
 export default function users ({ data }) {
   const dispatch = useDispatch()
   const router = useRouter()
+  // eslint-disable-next-line
   const [popUpAdd, setPopUpAdd] = useState(false)
   const [popUpMOD, setPopUpMOD] = useState(false)
 

@@ -3,6 +3,7 @@ import Nav from '../../components/Nav'
 import MobileLayout from '../../components/MobileLayout'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
+// eslint-disable-next-line
 import { getServices, getServicesUserId } from '../../Redux/Actions/servicesActions'
 import ClientBoucherCard from '../../components/ClientBoucherCard'
 import * as PropTypes from 'prop-types'
@@ -13,6 +14,7 @@ ClientBoucherCard.propTypes = {
 }
 export default function travels ({ data }) {
   const [tab, setTab] = useState(1)
+  // eslint-disable-next-line
   const [subTab, setSubTab] = useState(1)
   const router = useRouter()
   const dispatch = useDispatch()

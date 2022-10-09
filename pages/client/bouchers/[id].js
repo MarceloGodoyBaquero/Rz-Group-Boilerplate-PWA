@@ -3,13 +3,16 @@ import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
+// eslint-disable-next-line
 import { deleteService } from '../../../Redux/Actions/servicesActions'
 
 export default function users (props) {
   const router = useRouter()
+  // eslint-disable-next-line
   const dispatch = useDispatch()
   const { id } = router.query
   const [popUpAdd, setPopUpAdd] = useState(false)
+  // eslint-disable-next-line
   const [popUpMOD, setPopUpMOD] = useState(false)
   return (
     <MobileLayout>

@@ -1,5 +1,6 @@
-import React from "react";
-import {useRouter} from "next/router";
+import React from 'react'
+import { useRouter } from 'next/router'
+import PropTypes from 'prop-types'
 
 export default function ClientBoucherCard ({ estado, id }) {
   const router = useRouter()
@@ -11,4 +12,10 @@ export default function ClientBoucherCard ({ estado, id }) {
       </div>
     </div>
   )
+}
+
+// props validation
+ClientBoucherCard.propTypes = {
+  estado: PropTypes.string,
+  id: PropTypes.string
 }
