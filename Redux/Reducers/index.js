@@ -87,7 +87,7 @@ export default function rootReducer (state = initialState, action) {
     case GET_SERVICES_OF_USER : {
       return {
         ...state,
-        services: action.payload
+        services: { ...state.services, ...action.payload }
       }
     }
     case GET_SERVICE_ID: {

@@ -1,20 +1,21 @@
 import React from 'react'
 import Nav from '../../components/Nav'
 import MobileLayout from '../../components/MobileLayout'
-import axios from 'axios'
+/* import axios from 'axios' */
 import ReactPaginate from 'react-paginate'
 import { useRouter } from 'next/router'
 
 export default function travels ({ data }) {
   const router = useRouter()
-  const fetcheo = async (e, id) => {
+  console.log(data)
+  /* const fetcheo = async (e, id) => {
     e.preventDefault()
     console.log(id)
     axios.get(`https://rz-group-backend.herokuapp.com/api/services/${id}`)
       .then(r => {
         console.log(r)
       })
-  }
+  } */
 
   const handlePagination = (page) => {
     router.push(`/admin/travels?page=${page.selected + 1}`)
@@ -35,11 +36,17 @@ export default function travels ({ data }) {
           {
             data.data.map((travels, index) => {
               return (
-                <div onClick={(e) => fetcheo(e, travels._id)}
-                     key={index} className={'m-5 bg-white flex flex-col justify-center items-center'}>
-                  <h1 className={''}>Estado: {travels.status}</h1>
-                  <h1 className={''}>Categoría: {travels.category}</h1>
-                  <h1 className={''}>Fecha: {travels.date.slice(0, 10)}</h1>
+                <div onClick={(e) => router.push(`/admin/travels/${travels._id}`)}
+                     key={index} className={
+                      travels?.status === 'pending'
+                        ? 'm-5 bg-orange-300 flex flex-col justify-center items-center'
+                        : travels?.status === 'on progress'
+                          ? 'm-5 bg-green-300 flex flex-col justify-center items-center'
+                          : 'm-5 bg-red-300 flex flex-col justify-center items-center'
+                      }>
+                  <h1 className={''}>Estado: {travels?.status === 'pending' ? 'Pendiente' : travels?.status === 'on progress' ? 'En progreso' : 'Cancelado' }</h1>
+                  <h1 className={''}>Categoría: {travels?.category}</h1>
+                  <h1 className={''}>Fecha: {travels?.date?.slice(0, 10)}</h1>
                 </div>
               )
             })
@@ -65,8 +72,8 @@ export default function travels ({ data }) {
   )
 }
 
-export async function getServerSideProps () {
-  const res = await fetch('https://rz-group-backend.herokuapp.com/api/admin/services')
+export async function getServerSideProps (context) {
+  const res = await fetch(`https://rz-group-backend.herokuapp.com/api/admin/services?skip=${context.query.page - 1}&limit=10`)
   const data = await res.json()
   console.log(data)
   return {

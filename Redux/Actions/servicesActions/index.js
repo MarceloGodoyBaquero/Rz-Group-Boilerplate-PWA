@@ -58,6 +58,25 @@ export function getServicesUserId (id) {
   }
 }
 
+export function getIncomingServices (id) {
+  return function (dispatch) {
+    axios.get(`https://rz-group-backend.herokuapp.com/api/user/driver/${id}`)
+      .then(res => {
+        console.log(res.data)
+        dispatch({
+          type: GET_SERVICES,
+          payload: res.data
+        })
+      }).catch(err => {
+        console.log(err.response.data)
+        dispatch({
+          type: GET_SERVICES,
+          payload: err.response.data
+        })
+      })
+  }
+}
+
 export function getServiceId (id) {
   return function (dispatch) {
     axios.get(`https://rz-group-backend.herokuapp.com/api/services/${id}`)
