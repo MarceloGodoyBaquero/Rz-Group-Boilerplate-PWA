@@ -16,7 +16,6 @@ export default function travels ({ data }) {
   const { services, user } = useSelector(state => state)
 
   useEffect(() => {
-    dispatch(getServicesUserId(user.id))
     dispatch(getIncomingServices(user.id))
     dispatch(getVehiclesByUser(user.id))
   }, [])

@@ -1,14 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Nav from './Nav'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { getIncomingServices } from '../Redux/Actions/servicesActions'
+import { getVehiclesByUser } from '../Redux/Actions/vehiclesActions'
 export default function DriverLayout () {
   const router = useRouter()
-  const { user } = useSelector(state => state)
+  const dispatch = useDispatch()
+  const { user, services } = useSelector(state => state)
+  useEffect(() => {
+    if (!services.length) {
+      dispatch(getIncomingServices(user.id))
+    }
+  }, [user])
+  useEffect(() => {
+    if (services.length) {
+      toast.warn('Tienes servicios activos/pendientes por favor revisa tu panel de servicios.')
+    }
+  }, [services])
   return (
     <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
       <Nav location={'Home'}/>
+      <ToastContainer/>
       <div className={'h-5/6 flex flex-col justify-center w-full'}>
         <div className={'h-full -mt-14'}>
           <h2 className={'text-black font-bold text-2xl m-5 pt-[2rem]'}>Bienvenido! {user.name}</h2>
