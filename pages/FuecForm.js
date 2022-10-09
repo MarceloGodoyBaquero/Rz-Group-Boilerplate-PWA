@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createService } from '../Redux/Actions/servicesActions'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import 'react-autocomplete-input/dist/bundle.css'
 
 function validate (input) {
   const errors = {}
@@ -30,7 +31,8 @@ function validate (input) {
   return errors
 }
 
-export default function Fuec () {
+// eslint-disable-next-line
+export default function Fuec({datosFiltrados}) {
   // const router = useRouter()
   const { user } = useSelector(state => state)
   const router = useRouter()
@@ -46,6 +48,7 @@ export default function Fuec () {
       number_vehicles: '',
       duration: '',
       serviceType: '',
+      start_time: '',
       category: '',
       driver: user.roles === 'driver' ? [user.id] : [],
       client: user.id
@@ -78,9 +81,9 @@ export default function Fuec () {
 
   const handleServiceSelect = function (e) {
     e.preventDefault()
-    // if (e.target.value === 'conductor específico') {
-    //   return setInputConductor(1)
-    // }
+    if (e.target.value === 'conductor específico') {
+      return setInputConductor(1)
+    }
     if (e.target.value === 'Reservation per Hour') {
       setInputConductor(2)
       return setInput({
@@ -95,10 +98,11 @@ export default function Fuec () {
       })
     }
   }
+
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
-        <ToastContainer />
+        <ToastContainer/>
         <Nav location={'Nuevo servicio'}/>
         <div className={'h-1/2 flex justify-center'}>
           <Image width={'274px'} height={'287px'} src={SignUp} alt="hero" className={'w-3/4'}/>
@@ -142,6 +146,18 @@ export default function Fuec () {
             />
           </div>
           <div className={'w-full m-2'}>
+            <label>
+              <p className={'indent-3 font-bold text-black'}>Hora de llegada</p>
+              <input placeholder={'Hora de llegada'}
+                     className={'indent-1 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
+                     onChange={(e) => handleInputChange(e)}
+                     name={'start_time'}
+                     type={'time'}
+                     value={input.start_time.toString()}
+              />
+            </label>
+          </div>
+          <div className={'w-full m-2'}>
             <input placeholder={'Cantidad de Vehículos'}
                    className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
                    onChange={(e) => handleInputChange(e)}
@@ -181,8 +197,8 @@ export default function Fuec () {
               <option value="Transfer IN & OUT">Transfer IN y OUT</option>
               <option value="Reservation per Hour">Reservación por horas</option>
               <option value="tourist trip">Sitios turísticos a nivel Cundinamarca</option>
-              {/* <option value="conductor específico">Escoger conductor en específico</option> */}
-              {/* <option value="Conductor de planta">Conductor de planta</option> */}
+              {user && user?.roles?.includes('driver') ? null : <option value="conductor específico">Escoger conductor en específico</option>}
+              <option value="Conductor de planta">Conductor de planta</option>
             </select>
           </div>
           {inputConductor === 2 && (
@@ -198,12 +214,16 @@ export default function Fuec () {
           )}
           {inputConductor === 1 && (
             <div className={'w-full m-2'}>
-              <input placeholder={'Nombre del conductor'}
-                     className={'indent-5 border-2 border-[#5B211F] outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
-                     onChange={(e) => handleInputChange(e)}
-                     name={'Conductor'}
-                     value={input.Conductor}
-              />
+              <select onChange={(e) => setInput({ ...input, driver: [e.target.value] })}
+                      name={'driver'}
+                      className={'w-full indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}>
+                {
+                  // eslint-disable-next-line
+                  datosFiltrados?.map((item, index) => {
+                    return <option key={index} value={item._id}>{item.firstName} {item.lastName}</option>
+                  })
+                }
+              </select>
             </div>
           )}
           <div className={'w-full m-2'}>
@@ -215,4 +235,16 @@ export default function Fuec () {
       </div>
     </MobileLayout>
   )
+}
+
+export async function getServerSideProps () {
+  const res = await fetch('https://rz-group-backend.herokuapp.com/api/user?skip=0&limit=50')
+  const datos = await res.json()
+  const datosFiltrados = await datos.data.filter((item) => item.isAproved === 'aproved')
+  console.log(datosFiltrados)
+  return {
+    props: {
+      datosFiltrados
+    }
+  }
 }
