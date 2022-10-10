@@ -1,11 +1,12 @@
 import dynamic from 'next/dynamic'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import validationHero from '../public/Images/OnBoarding-3.svg'
-import Image from 'next/image'/*  */
+import Image from 'next/image'
+import { signOut } from '../Redux/Actions/authActions'
 import {
   IdentificationIcon,
   CreditCardIcon,
@@ -20,7 +21,9 @@ const Nav = dynamic(() => import('../components/Nav'), { ssr: false })
 
 export default function Validation () {
   const { user } = useSelector(state => state)
+  const dispatch = useDispatch()
   const [mounted, setMounted] = useState(false)
+  const [status, setStatus] = useState('')
   const [file, setFile] = useState(null)
   const [file2, setFile2] = useState(null)
   const [file3, setFile3] = useState(null)
@@ -29,18 +32,41 @@ export default function Validation () {
   const [file6, setFile6] = useState(null)
   const [file7, setFile7] = useState(null)
   const [input, setInput] = useState({
-    nro_licencia: ''
+    nro_license: '',
+    nro_license_ven: ''
   })
   const [next, setNext] = useState(1)
   useEffect(() => {
     setMounted(true)
   }, [])
 
+  const handleVerified = () => {
+    setNext(3)
+    toast.success('¡Felicidades! Tu cuenta ha sido aprobada, vuelve a iniciar sesión.', {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    })
+    dispatch(signOut())
+  }
+
   useEffect(() => {
-    if (user?.isAproved === 'inReview') {
-      setNext(3)
-    }
-  }, [user.isAproved])
+    axios.get(`https://rz-group-backend.herokuapp.com/api/user/${user.id}`)
+      .then(res => {
+        setStatus(res.data.isAproved)
+        console.log(res.data.isAproved)
+        status === 'inReview'
+          ? setNext(3)
+          : status === 'aproved'
+            ? handleVerified()
+            : setNext(1)
+        console.log(status)
+      })
+  }, [status])
 
   const nextStep = () => {
     setNext(next + 1)
@@ -71,13 +97,18 @@ export default function Validation () {
       e.preventDefault()
       return errorToast('Por favor suba todos los archivos')
     }
-    if (!input.nro_licencia) {
+    if (!input.nro_license) {
       e.preventDefault()
       return errorToast('Por favor ingrese su numero de licencia')
     }
+    if (!input.nro_license_ven) {
+      e.preventDefault()
+      return errorToast('Por favor ingrese la fecha de vencimiento de su licencia')
+    }
     e.preventDefault()
     const formData = new FormData()
-    formData.append('nro_licencia', input.nro_licencia)
+    formData.append('nro_license', input.nro_license)
+    formData.append('nro_license_ven', input.nro_license_ven)
     formData.append('idPictureFront', file)
     formData.append('idPictureBack', file2)
     formData.append('licensePictureFront', file3)
@@ -94,6 +125,12 @@ export default function Validation () {
       setNext(3)
     }).catch(err => {
       errorToast(err.response.data.message)
+    })
+  }
+  const handleChangeDate = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
     })
   }
   const handleChange = (e) => {
@@ -159,7 +196,7 @@ export default function Validation () {
   return (
     <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
       <Nav location={'Validación Conductor'}/>
-      {mounted && next === 1 &&
+      {mounted && status !== '' && status !== 'aproved' && status !== 'inReview' && next === 1 &&
         <div className={'flex flex-col justify-center w-full'}>
           <div className='flex flex-col justify-center items-center'>
             <div className='flex flex-col justify-center items-center'>
@@ -344,9 +381,16 @@ export default function Validation () {
               <div className={'flex flex-col justify-center items-center mt-5'}>
                 <input placeholder={'Numero de licencia'}
                        className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
-                       name={'nro_licencia'}
-                       value={input.nro_licencia}
+                       name={'nro_license'}
+                       value={input.nro_license}
                        onChange={(e) => handleChange(e)}/>
+              </div>
+              <div className={'flex flex-col justify-center items-center mt-5'}>
+                <label className='text-black font-bold outline-0'> Fecha de vencimiento</label>
+                <input type={'date'}
+                       name={'nro_license_ven'}
+                       value={input.nro_license_ven}
+                       onChange={(e) => handleChangeDate(e)}/>
               </div>
             </div>
 
@@ -499,7 +543,7 @@ export default function Validation () {
         </>
       }
       {
-        mounted && next === 3 &&
+        mounted && status && next === 3 &&
         <>
           <div className='flex flex-col justify-center items-center mt-20'>
             <div className='flex flex-col justify-center items-center'>

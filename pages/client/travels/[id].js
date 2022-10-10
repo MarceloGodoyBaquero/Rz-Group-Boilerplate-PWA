@@ -4,7 +4,8 @@ import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteService, getServiceId } from '../../../Redux/Actions/servicesActions'
-
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import FuecTemplate from '../../../components/FuecTemplate/FuecTemplate'
 export default function users ({ data }) {
   const router = useRouter()
   const dispatch = useDispatch()
@@ -50,18 +51,15 @@ export default function users ({ data }) {
         <div className={'flex flex-col w-full items-center'}>
           {
             service?.status === 'on progress' && user.roles === 'driver'
-              ? <button onClick={() => deleteService(service._id)}
-                        className={'mb-1 mt-5 bg-[#5B211F] w-5/6 rounded-full mt-5 h-[50px] text-white font-bold'}>DESCARGAR
+              ? <PDFDownloadLink document={<FuecTemplate name={user.name} service={service} />} fileName='fuec.pdf' className='w-full flex justify-center items-center'>
+              <button
+                        className={'mb-1 bg-[#5B211F] w-5/6 rounded-full mt-5 h-[50px] text-white font-bold'}>DESCARGAR
                 FUEC
               </button>
-              : null
-          }
-          {
-            service?.status !== 'on progress'
-              ? <button onClick={() => deleteService(service._id)}
-                        className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
-              </button>
-              : null
+            </PDFDownloadLink>
+              : <button onClick={() => deleteService(service._id)}
+              className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
+                </button>
           }
           {
             !popUpMOD

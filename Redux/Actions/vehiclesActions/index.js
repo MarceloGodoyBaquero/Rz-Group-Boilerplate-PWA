@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { toast } from 'react-toastify'
 export const CREATE_VEHICLE = 'CREATE_VEHICLE'
 export const GET_VEHICLE_BY_ID = 'GET_VEHICLE_BY_ID'
 export const UPDATE_VEHICLE = 'UPDATE_VEHICLE'
@@ -16,11 +16,13 @@ export function createVehicle (obj, router) {
           type: CREATE_VEHICLE,
           payload: res.data
         })
-        alert('Vehiculo creado con exito, por favor validalo en tu perfil')
-        router.push('/Main')
+        toast.success('Vehiculo creado con exito, por favor validalo en tu perfil')
+        setTimeout(() => {
+          router.push('/Main')
+        }, 3000)
       }
       ).catch((err) => {
-        alert(err.response.data)
+        toast.error('Error al crear vehiculo')
         console.log(err.response.data)
       })
   }
@@ -49,10 +51,12 @@ export function updateVehicle (id, obj, router) {
           type: UPDATE_VEHICLE,
           payload: res.data
         })
-        alert('Vehicle updated')
-        router.push('/Vehicles')
+        toast.success('El vehiculo se actualizo con exito')
+        setTimeout(() => {
+          router.push('/Vehicles')
+        }, 3000)
       }).catch((err) => {
-        alert(err.response.data)
+        toast.error('Error al actualizar vehiculo')
         console.log(err.response.data)
       })
   }
@@ -67,10 +71,12 @@ export function deleteVehicle (id, router) {
           type: DELETE_VEHICLE,
           payload: res.data
         })
-        alert('Vehicle deleted')
-        router.push('/Vehicles')
+        toast.info('El Vehicle ha sido eliminado')
+        setTimeout(() => {
+          router.push('/Vehicles')
+        }, 3000)
       }).catch((err) => {
-        alert(err.response.data)
+        toast.error('Error al eliminar vehiculo')
         console.log(err.response.data)
       })
   }

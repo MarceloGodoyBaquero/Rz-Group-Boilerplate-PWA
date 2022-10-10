@@ -5,11 +5,12 @@ import PropTypes from 'prop-types'
 
 export default function CarCard ({ id, brand, model, year, plate, aprobado }) {
   const router = useRouter()
+  console.log(aprobado)
   return (
     <div onClick={() => router.push(`/driver/vehicles/${id}`)} className={'mt-5 flex-row flex items-center bg-white w-5/6 rounded'}>
       <div className={'flex items-center justify-center'}>
         <div className={'w-[80px] h-[80px] rounded'}>
-          <TruckIcon className={aprobado ? 'bg-green-500' : 'bg-red-500'}/>
+          <TruckIcon className={aprobado === 'aproved' ? 'bg-green-500' : aprobado === 'inReview' ? 'bg-yellow-500' : 'bg-red-500'}/>
         </div>
       </div>
       <div className={'flex'}>

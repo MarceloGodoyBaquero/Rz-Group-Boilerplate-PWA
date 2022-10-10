@@ -81,6 +81,7 @@ export function getServiceId (id) {
   return function (dispatch) {
     axios.get(`https://rz-group-backend.herokuapp.com/api/services/${id}`)
       .then(res => {
+        console.log(res.data)
         dispatch({
           type: GET_SERVICE_ID,
           payload: res.data

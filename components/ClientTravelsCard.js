@@ -55,7 +55,7 @@ export default function ClientTravelsCard ({ estado, id, data }) {
         </div>
         <div className={'indent-3 flex flex-row justify-between items-center w-[50%] mt-5'}>
           {
-            !data?.driver?.includes(data.client._id) && data.status === 'pending' ? 
+            data.status === 'pending' ? 
             <>
           <Button onClick={()=>showPopup(data._id)} color='success'>Aceptar</Button>
           <Button onClick={()=>{}} color='failure'>Rechazar</Button>

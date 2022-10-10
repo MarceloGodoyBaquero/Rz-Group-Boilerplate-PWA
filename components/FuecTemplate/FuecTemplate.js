@@ -9,7 +9,7 @@ Font.register({
     { src: 'https://cdn.jsdelivr.net/npm/@canvas-fonts/arial-bold@1.0.4/Arial Bold.ttf', fontWeight: 'bold' }
   ]
 })
-export default function FuecTemplate (props) {
+export default function FuecTemplate ({ name, service }) {
   return (
     <Document>
       <Page size='A4' style={{
@@ -48,6 +48,17 @@ export default function FuecTemplate (props) {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              width: '20%'
+            }}>
+              <Image src="https://live.staticflickr.com/65535/52415774878_cda119f7bc_c.jpg" style={{
+                width: '100px',
+                height: '100px'
+              }}/>
+            </View>
+            <View style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
               width: '30%'
             }}>
               <Image src="https://live.staticflickr.com/65535/52352853287_b76a7c159e.jpg" style={{
@@ -58,6 +69,7 @@ export default function FuecTemplate (props) {
           </View>
           <View style={{
             display: 'flex',
+            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
@@ -235,7 +247,7 @@ export default function FuecTemplate (props) {
                 fontSize: '9px',
                 marginLeft: '10px'
               }}>
-              BOGOTÁ - CHIA - ZIPAQUIRÁ / IDA Y VUELTA {/* dinamico */}
+              {service.from.toUpperCase()} - {service.to.toUpperCase() + ' ' + service.serviceType}
               </Text>
             </View>
             <View style={{
@@ -330,7 +342,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      01 {/* dinamico */}
+                      {service.start_date.split('-')[2].split('T')[0]}
                     </Text>
                     </View>
                     <View style={{
@@ -353,7 +365,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      04 {/* dinamico */}
+                      {service.start_date.split('-')[1]}
                     </Text>
                     </View>
                     <View style={{
@@ -376,7 +388,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      2022 {/* dinamico */}
+                      {service.start_date.split('-')[0]}
                     </Text>
                     </View>
                 </View>
@@ -428,7 +440,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      20 {/* dinamico */}
+                       {service.start_date.split('-')[2].split('T')[0]}
                     </Text>
                     </View>
                     <View style={{
@@ -451,7 +463,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      04 {/* dinamico */}
+                      {service.start_date.split('-')[1] === '12' ? '01' : Number(service.start_date.split('-')[1]) + 1}
                     </Text>
                     </View>
                     <View style={{
@@ -474,7 +486,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      2022 {/* dinamico */}
+                      {service.start_date.split('-')[0]}
                     </Text>
                     </View>
                 </View>
@@ -608,7 +620,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      SXZ194 {/* dinamico */}
+                      {service.vehicle[0].carPlate}
                     </Text>
                     </View>
                     <View style={{
@@ -626,7 +638,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      2011 {/* dinamico */}
+                      {service.vehicle[0].year}
                     </Text>
                     </View>
                     <View style={{
@@ -644,7 +656,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      HYUNDAI {/* dinamico */}
+                      {service.vehicle[0].brand}
                     </Text>
                     </View>
                     <View style={{
@@ -740,7 +752,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      374 {/* dinamico */}
+                      {service.vehicle[0].numero_interno}
                     </Text>
                   </View>
                   <View style={{
@@ -759,7 +771,7 @@ export default function FuecTemplate (props) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                    271491  {/* dinamico */}
+                      {service.vehicle[0].tarjeta_operacion}
                     </Text>
                   </View>
                 </View>
@@ -837,7 +849,7 @@ export default function FuecTemplate (props) {
                         fontSize: '9px',
                         marginBottom: '5px'
                       }}>
-                        {props.name} {/* dinamico */}
+                        {name} {/* dinamico */}
                       </Text>
                     </View>
                   </View>
@@ -879,7 +891,7 @@ export default function FuecTemplate (props) {
                         fontFamily: 'Arial',
                         fontSize: '9px'
                       }}>
-                        79453800 {/* dinamico */}
+                        {service.driver[0].idNumber}
                       </Text>
                     </View>
                   </View>
@@ -921,7 +933,7 @@ export default function FuecTemplate (props) {
                         fontFamily: 'Arial',
                         fontSize: '9px'
                       }}>
-                        79453800 {/* dinamico */}
+                        {service.driver[0].nro_license}
                       </Text>
                     </View>
                   </View>
@@ -963,7 +975,7 @@ export default function FuecTemplate (props) {
                         fontFamily: 'Arial',
                         fontSize: '9px'
                       }}>
-                        2023-01-27 {/* dinamico */}
+                        {service.driver[0].nro_license_ven.split('T')[0]}
                       </Text>
                     </View>
                   </View>
@@ -1217,7 +1229,8 @@ export default function FuecTemplate (props) {
                         fontSize: '9px',
                         marginLeft: '20px'
                       }}>
-                        carrera 72 B #8-14
+                        Carrera 18 # 93a - 04 of 206
+                        Bogotá - Colombia
                       </Text>
                     </View>
                     <View style={{
@@ -1240,7 +1253,7 @@ export default function FuecTemplate (props) {
                         fontSize: '9px',
                         marginLeft: '25px'
                       }}>
-                        3156958807
+                        +57 311 590 4808
                       </Text>
                     </View>
                     <View style={{
@@ -1305,6 +1318,6 @@ export default function FuecTemplate (props) {
   )
 }
 FuecTemplate.propTypes = {
-  props: PropTypes.object,
+  service: PropTypes.object,
   name: PropTypes.string
 }

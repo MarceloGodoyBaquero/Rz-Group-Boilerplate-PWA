@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createService } from '../Redux/Actions/servicesActions'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import 'react-autocomplete-input/dist/bundle.css'
 
 function validate (input) {
   const errors = {}
