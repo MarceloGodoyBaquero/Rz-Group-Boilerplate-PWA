@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteService, getServiceId } from '../../../Redux/Actions/servicesActions'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import FuecTemplate from '../../../components/FuecTemplate/FuecTemplate'
+import axios from 'axios'
+
 export default function users ({ data }) {
   const router = useRouter()
   const dispatch = useDispatch()
@@ -13,22 +15,41 @@ export default function users ({ data }) {
   const { service, user } = useSelector(state => state)
   const [popUpAdd, setPopUpAdd] = useState(false)
   const [popUpMOD, setPopUpMOD] = useState(false)
+  const [popUpPago, setPopUpPago] = useState(false)
+  const [pago, setPago] = useState(null)
+  const [tipoDePago, setTipoDePago] = useState('default')
+  const [voucher, setVoucher] = useState(null)
+  const [descripcionPago, setDescripcionPago] = useState(null)
   useEffect(() => {
     if (id) {
       console.log(id)
       return dispatch(getServiceId(id))
     }
   }, [id])
-  /*  _id(pin):"6336223b4af5372b09f8049d"
-  status(pin):"pending"
-  number_vehicles(pin):"4"
-  driver(pin):
-  _id(pin):"6325dfd6bfd56e06fd654b3f"
-  firstName(pin):"Marcelo"
-  lastName(pin):"Godoy"
-  email(pin):"marce.godoybaquero@gmail.com"
-  vehicle(pin):
-  createdAt(pin):"2022-09-29T22:54:51.771Z" */
+  const handleFinalizarServicio = (e, id) => {
+    e.preventDefault()
+    axios.put(`https://rz-group-backend.herokuapp.com/api/services/${id}`, {
+      status: 'completed'
+    }).then(res => {
+      console.log(res.data)
+      router.push('/client/travels')
+    }).catch(err => console.log(err))
+  }
+
+  const handlePago = (e, id) => {
+    e.preventDefault()
+    if (!pago) {
+      return alert('Ingrese el monto')
+    }
+    if (tipoDePago === 'default') {
+      return alert('Ingrese el tipo de pago')
+    }
+    if (tipoDePago === 'Voucher' && !voucher) {
+      return alert('Ingrese el voucher')
+    } else {
+      return alert('Pago realizado')
+    }
+  }
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
@@ -51,19 +72,22 @@ export default function users ({ data }) {
         <div className={'flex flex-col w-full items-center'}>
           {
             service?.status === 'on progress' && user.roles === 'driver'
-              ? <PDFDownloadLink document={<FuecTemplate name={user.name} service={service} />} fileName='fuec.pdf' className='w-full flex justify-center items-center'>
-              <button
-                        className={'mb-1 bg-[#5B211F] w-5/6 rounded-full mt-5 h-[50px] text-white font-bold'}>DESCARGAR
-                FUEC
-              </button>
-            </PDFDownloadLink>
-              : <button onClick={() => deleteService(service._id)}
-              className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
+              ? <PDFDownloadLink document={<FuecTemplate name={user.name} service={service}/>} fileName='fuec.pdf'
+                                 className='w-full flex justify-center items-center'>
+                <button
+                  className={'mb-1 bg-[#5B211F] w-5/6 rounded-full mt-5 h-[50px] text-white font-bold'}>DESCARGAR
+                  FUEC
                 </button>
+              </PDFDownloadLink>
+              : <button onClick={() => deleteService(service._id)}
+                        style={service?.status !== 'on progress' || service?.status !== 'completed' ? { display: 'none' } : { display: 'block' }}
+                        className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
+              </button>
           }
           {
             !popUpMOD
               ? <button onClick={() => setPopUpMOD(true)}
+                        style={service?.status !== 'on progress' || service?.status !== 'completed' ? { display: 'none' } : { display: 'block' }}
                         className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>MODIFICAR</button>
               : <div className={'w-5/6 flex flex-col items-center'}>
                 <span className={'bg-gray-300 w-full h-0.5 mt-5'}></span>
@@ -84,6 +108,7 @@ export default function users ({ data }) {
           {
             !popUpAdd
               ? <button onClick={() => setPopUpAdd(true)}
+                        style={service?.status !== 'on progress' || service?.status !== 'completed' ? { display: 'none' } : { display: 'block' }}
                         className={'bg-green-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>AGREGAR VEHÍCULOS
                 EXTRA</button>
               : <div className={'w-5/6 flex flex-col'}>
@@ -104,6 +129,85 @@ export default function users ({ data }) {
                   </button>
                 </div>
               </div>
+          }
+          {
+            service?.status === 'on progress' && user.roles === 'driver'
+              ? <button
+                onClick={(e) => handleFinalizarServicio(e, service._id)}
+                className={'mb-1 border-[#5B211F] border-2 w-5/6 rounded-full mt-5 h-[50px] text-[#5B211F] font-bold'}>
+                FINALIZAR SERVICIO
+              </button>
+              : null
+          }
+          {
+            service?.status === 'completed'
+              ? <button
+                onClick={(e) => setPopUpPago(true)}
+                style={popUpPago ? { display: 'none' } : { display: 'block' }}
+                className={'mb-1 bg-[#5B211F] w-5/6 rounded-full mt-5 h-[50px] text-white font-bold'}>
+                CARGAR PAGO
+              </button>
+              : null
+          }
+          {
+            popUpPago && service?.status === 'completed'
+              ? <div className={'w-5/6 flex flex-col items-center'}>
+                <select
+                  onChange={(e) => setTipoDePago(e.target.value)}
+                  className={'w-full rounded-xl mt-5 h-[50px] font-bold'}>
+                  <option value={'default'}>Forma de pago?</option>
+                  <option value={'Efectivo'}>Efectivo</option>
+                  <option value={'Voucher'}>Voucher</option>
+                </select>
+                {tipoDePago === 'default'
+                  ? null
+                  : <input
+                    onChange={(e) => setPago(e.target.value)}
+                    placeholder={'Monto?'}
+                    type={'number'}
+                    className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
+                }
+                {
+                  tipoDePago === 'Efectivo'
+                    ? <textarea
+                      onChange={(e) => setPago(e.target.value)}
+                      placeholder={'Descripción'}
+                      className={'indent-3 w-full rounded-xl mt-5 h-[100px] font-bold'}/>
+                    : null
+                }
+                {
+                  tipoDePago === 'Voucher'
+                    ? <div>
+                      <input
+                        onChange={(e) => setPago(e.target.value)}
+                        placeholder={'Empresa Aliada?'}
+                        type={'text'}
+                        className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
+                      <input
+                        onChange={(e) => setPago(e.target.value)}
+                        placeholder={'Hotel?'}
+                        type={'text'}
+                        className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
+                      <input
+                        onChange={(e) => setPago(e.target.value)}
+                        placeholder={'Firma del cliente'}
+                        type={'text'}
+                        className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
+                    </div>
+                    : null
+                }
+                <div className={'w-full'}>
+                  <button
+                    onClick={(e) => handlePago(e, service._id)}
+                    className={'bg-green-400 w-4/6 rounded-xl mt-5 h-[50px] font-bold'}>Enviar
+                  </button>
+                  <button
+                    onClick={() => setPopUpPago(false)}
+                    className={'bg-red-400 w-2/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar
+                  </button>
+                </div>
+              </div>
+              : null
           }
         </div>
       </div>

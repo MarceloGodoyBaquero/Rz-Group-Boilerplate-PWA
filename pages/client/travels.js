@@ -85,9 +85,9 @@ export default function travels ({ data }) {
                     </div>}
                   {tab === 2 &&
                     <div className={'mt-5 flex flex-col justify-center w-full items-center'}>
-                      {services?.filter(e => e.status === 'finished').length === 0
+                      {services?.filter(e => e.status === 'completed').length === 0
                         ? <h1 className={'text-2xl font-bold'}>No tienes servicios finalizados!</h1>
-                        : services?.filter(e => e.status === 'finished')?.map((item, index) =>
+                        : services?.filter(e => e.status === 'completed')?.map((item, index) =>
                           <ClientTravelsCard key={index} id={item._id} data={item}/>
                         )}
                     </div>}
