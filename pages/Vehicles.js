@@ -5,6 +5,8 @@ import MobileLayout from '../components/MobileLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { getVehiclesByUser } from '../Redux/Actions/vehiclesActions'
 import CarCard from '../components/CarCard'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function AddVehicle () {
   const router = useRouter()
@@ -20,6 +22,7 @@ export default function AddVehicle () {
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
         <Nav location={'Tus vehículos'}/>
+        <ToastContainer/>
         <div className={'flex w-full h-fit items-center justify-center'}>
           {!vehicles?.length &&
             <div className={'w-full m-2 flex flex-col items-center'}>
@@ -39,7 +42,7 @@ export default function AddVehicle () {
                   model={vehicle.model}
                   year={vehicle.year}
                   plate={vehicle.carPlate}
-                  aprobado={vehicle.isApproved}
+                  aprobado={vehicle.isAproved}
                 />
               })}
             </div>

@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -13,8 +12,8 @@ import { useRouter } from 'next/router'
 const Nav = dynamic(() => import('../../components/Nav'), { ssr: false })
 
 export default function Validation () {
-  const { user } = useSelector(state => state)
   const [mounted, setMounted] = useState(false)
+  const [status, setStatus] = useState('')
   const [file, setFile] = useState(null)
   const [file2, setFile2] = useState(null)
   const [file3, setFile3] = useState(null)
@@ -30,15 +29,24 @@ export default function Validation () {
   const { id } = router.query
   console.log(router.query)
   const [next, setNext] = useState(1)
+  const reviewVehicle = () => {
+    setNext(3)
+    setTimeout(() => {
+      router.push('/Main')
+    }, 3000)
+  }
   useEffect(() => {
     setMounted(true)
   }, [])
 
   useEffect(() => {
-    if (user?.isAproved === 'inReview') {
-      setNext(3)
-    }
-  }, [user.isAproved])
+    axios.get(`https://rz-group-backend.herokuapp.com/api/vehicles/${id}`)
+      .then(res => {
+        setStatus(res.data.isAproved)
+        status === 'aproved' && router.push('/Main')
+        status === 'inReview' && reviewVehicle()
+      })
+  }, [status])
 
   const nextStep = () => {
     setNext(next + 1)
@@ -85,10 +93,11 @@ export default function Validation () {
         'Content-Type': 'multipart/form-data'
       }
     }).then(res => {
-      successToast()
       setNext(3)
-    }).then(res => {
-      router.push('/Main')
+      setTimeout(() => {
+        router.push('/Vehicles')
+        successToast()
+      }, 5000)
     }).catch(err => {
       errorToast(err.response.data.message)
     })
@@ -240,7 +249,7 @@ export default function Validation () {
         <div className={'flex flex-col justify-center items-center mt-4 mr-6'}>
         <h3 className='text-black font-bold outline-0'>Fecha de expedición</h3>
         <input placeholder={'Numero de licencia'}
-                   className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#e2e3e2]'}
+                   className={'outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#e2e3e2]'}
                    name={'poliza_exp'}
                    type={'date'}
                    value={input.poliza_exp}
@@ -249,7 +258,7 @@ export default function Validation () {
         <div className={'flex flex-col justify-center items-center mt-4'}>
         <h3 className='text-black font-bold outline-0'>Fecha de Vencimiento</h3>
         <input placeholder={'Numero de licencia'}
-                   className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#e2e3e2]'}
+                   className={'outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#e2e3e2]'}
                    name={'poliza_ven'}
                    type={'date'}
                    value={input.poliza_ven}
@@ -299,7 +308,7 @@ export default function Validation () {
         <div className={'flex flex-col justify-center items-center mt-4 mr-6'}>
         <h3 className='text-black font-bold outline-0'>Fecha de expedición</h3>
         <input placeholder={'Numero de licencia'}
-                   className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#e2e3e2]'}
+                   className={'outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#e2e3e2]'}
                    name={'soat_exp'}
                    type={'date'}
                    value={input.soat_exp}
@@ -308,7 +317,7 @@ export default function Validation () {
         <div className={'flex flex-col justify-center items-center mt-4'}>
         <h3 className='text-black font-bold outline-0'>Fecha de Vencimiento</h3>
         <input placeholder={'Numero de licencia'}
-                   className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#e2e3e2]'}
+                   className={'outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#e2e3e2]'}
                    name={'soat_ven'}
                    type={'date'}
                    value={input.soat_ven}
@@ -426,7 +435,7 @@ export default function Validation () {
         </div>
         <div className='flex flex-col justify-center items-center text-center'>
         <h3 className={'ml-8 mr-8 text-xl mt-10'}>
-          La solicitud para validar tu cuenta ha sido enviada. Este proceso puede tardar hasta 48 horas. Te notificaremos por correo electrónico cuando tu cuenta haya sido validada.
+          La solicitud para validar tu vehiculo ha sido enviada. Este proceso puede tardar hasta 48 horas. Te notificaremos por correo electrónico cuando tu cuenta haya sido validada.
         </h3>
         </div>
       </div>

@@ -9,6 +9,7 @@ import { deleteVehicle } from '../../../Redux/Actions/vehiclesActions'
 export default function users ({ data }) {
   const dispatch = useDispatch()
   const router = useRouter()
+  console.log(data)
   // eslint-disable-next-line
   const [popUpAdd, setPopUpAdd] = useState(false)
   const [popUpMOD, setPopUpMOD] = useState(false)
@@ -35,13 +36,17 @@ export default function users ({ data }) {
           <h1>Tarjeta de Operación: {data.tarjeta_operacion}</h1>
         </div>
         <div
-          className={'font-bold mt-3 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex items-center flex-col justify-evenly'}>
+          className={`font-bold mt-3 p-5 w-5/6 drop-shadow-2xl rounded-xl flex items-center flex-col justify-evenly ${data.isAproved === 'aproved' ? 'bg-green-400' : data.isAproved === 'inReview' ? 'bg-yellow-300' : 'bg-red-400'}` }>
           <h1>ESTADO: {data.isAproved === 'aproved' ? 'APROBADO' : data.isAproved === 'notAproved' ? 'NO APROBADO' : 'PENDIENTE'}</h1>
         </div>
         <div className={'flex flex-col w-full items-center'}>
-          <button onClick={() => router.push('/VehicleValidation/' + data._id)}
+          {
+            data.isAproved !== 'aproved'
+              ? <button onClick={() => router.push('/VehicleValidation/' + data._id)}
                   className={'bg-green-400 w-5/6 rounded-full mt-10 mb-5 h-[50px] font-bold'}>CARGAR DOCUMENTACIÓN
           </button>
+              : null
+          }
           <button onClick={() => dispatch(deleteVehicle(data._id, router))}
                   className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
           </button>

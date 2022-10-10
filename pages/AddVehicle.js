@@ -7,6 +7,8 @@ import MobileLayout from '../components/MobileLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { createVehicle } from '../Redux/Actions/vehiclesActions'
 import { useRouter } from 'next/router'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function validate (input) {
   const errors = {}
@@ -97,6 +99,7 @@ export default function AddVehicle () {
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
         <Nav location={'Agregar vehiculo'}/>
+        <ToastContainer/>
         <div className={'h-1/2 flex justify-center'}>
           <Image width={'274px'} height={'287px'} src={SignUp} alt="hero" className={'w-3/4'}/>
         </div>
@@ -194,7 +197,7 @@ export default function AddVehicle () {
           </div>
           <div className={'w-full m-2'}>
             <button className={'w-full rounded-[25px] h-[50px] text-white bg-[#5B211F]'}
-                    onClick={(e) => handleSubmit(e)}>Create Ride
+                    onClick={(e) => handleSubmit(e)}>Crear vehiculo
             </button>
           </div>
         </div>

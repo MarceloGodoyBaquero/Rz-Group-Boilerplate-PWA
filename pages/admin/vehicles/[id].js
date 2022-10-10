@@ -82,11 +82,13 @@ export default function users ({ data }) {
               : <h2 className={'text-center'}>Pendiente...</h2>}
               <h2 className={'text-center'}>Fecha de expedición Poliza Contractual:</h2>
             {data.fecha_exp_poliza
-              ? <h2 className={'text-center'}>{data.fecha_exp_poliza}</h2>
+              ? <h2 className={'text-center font-bold'}>{
+                data.fecha_exp_poliza.split('T')[0]
+              }</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
               <h2 className={'text-center'}>Fecha de Vencimiento Poliza Contractual:</h2>
             {data.fecha_ven_poliza
-              ? <h2 className={'text-center'}>{data.fecha_ven_poliza}</h2>
+              ? <h2 className={'text-center font-bold'}>{data.fecha_ven_poliza.split('T')[0]}</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
             <h2 className={'text-center'}>SOAT:</h2>
             {data.soat
@@ -98,11 +100,11 @@ export default function users ({ data }) {
               : <h2 className={'text-center'}>Pendiente...</h2>}
                <h2 className={'text-center'}>Fecha de expedición SOAT:</h2>
             {data.fecha_exp_soat
-              ? <h2 className={'text-center'}>{data.fecha_exp_soat}</h2>
+              ? <h2 className={'text-center font-bold'}>{data.fecha_exp_soat.split('T')[0]}</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
               <h2 className={'text-center'}>Fecha de Vencimiento SOAT:</h2>
             {data.fecha_ven_soat
-              ? <h2 className={'text-center'}>{data.fecha_ven_soat}</h2>
+              ? <h2 className={'text-center font-bold'}>{data.fecha_ven_soat.split('T')[0]}</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
             <h2 className={'text-center'}>Foto Frontal Tarjeta de Propiedad:</h2>
             {data.propertyCardFront
