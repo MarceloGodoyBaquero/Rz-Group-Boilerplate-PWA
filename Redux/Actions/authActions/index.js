@@ -57,7 +57,11 @@ export function signIn (obj, router) {
         }
       }
       ).catch((err) => {
-        alert(err)
+        if (err.response.data.includes('password')) {
+          toast.error('Contraseña incorrecta')
+        } else {
+          toast.error('Ocurrió un error al iniciar sesión, intente de nuevo')
+        }
       })
   }
 }
