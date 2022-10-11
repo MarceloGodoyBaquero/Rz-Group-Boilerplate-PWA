@@ -4,7 +4,7 @@ import MobileLayout from '../../components/MobileLayout'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 // eslint-disable-next-line
-import { getServices, getServicesUserId } from '../../Redux/Actions/servicesActions'
+import {getServices, getServicesUserId} from '../../Redux/Actions/servicesActions'
 import ClientBoucherCard from '../../components/ClientBoucherCard'
 import * as PropTypes from 'prop-types'
 
@@ -20,8 +20,8 @@ export default function travels ({ data }) {
   const dispatch = useDispatch()
   const { services, user } = useSelector(state => state)
 
-  const finalizados = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  const pendientes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  const finalizados = []
+  const pendientes = []
 
   useEffect(() => {
     dispatch(getServicesUserId(user.id))
@@ -59,6 +59,12 @@ export default function travels ({ data }) {
                         {
                           subTab === 1 &&
                           <div className={'flex flex-col justify-center w-full items-center'}>
+                            {
+                              !pendientes?.length &&
+                              <div className={'flex flex-col justify-center w-full items-center'}>
+                                <h1 className={'text-2xl font-bold'}>No tienes pagos pendientes!</h1>
+                              </div>
+                            }
                             {pendientes.map((item, index) =>
                               <ClientBoucherCard key={index} id={index} estado={'Pendiente'}/>
                             )}
@@ -68,6 +74,12 @@ export default function travels ({ data }) {
                     </div>}
                   {tab === 2 &&
                     <div className={'mt-5 flex flex-col justify-center w-full items-center'}>
+                      {
+                        !finalizados?.length &&
+                        <div className={'flex flex-col justify-center w-full items-center'}>
+                          <h1 className={'text-2xl font-bold'}>No tienes pagos finalizados!</h1>
+                        </div>
+                      }
                       {finalizados.map((item, index) =>
                         <ClientBoucherCard key={index} id={index} estado={'Finalizado'}/>
                       )}

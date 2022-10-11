@@ -1,23 +1,28 @@
 /* eslint-disable */
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import Nav from '../../components/Nav'
 import MobileLayout from '../../components/MobileLayout'
-import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import { getServices, getServicesUserId, getIncomingServices } from '../../Redux/Actions/servicesActions'
-import { getVehiclesByUser } from '../../Redux/Actions/vehiclesActions'
+import {useRouter} from 'next/router'
+import {useDispatch, useSelector} from 'react-redux'
+import {getServices, getServicesUserId, getIncomingServices} from '../../Redux/Actions/servicesActions'
+import {getVehiclesByUser} from '../../Redux/Actions/vehiclesActions'
 import ClientTravelsCard from '../../components/ClientTravelsCard'
 
-export default function travels ({ data }) {
+export default function travels({data}) {
   const [tab, setTab] = useState(1)
   const [subTab, setSubTab] = useState(1)
   const router = useRouter()
   const dispatch = useDispatch()
-  const { services, user } = useSelector(state => state)
+  const {services, user} = useSelector(state => state)
 
   useEffect(() => {
-    dispatch(getIncomingServices(user.id))
-    dispatch(getVehiclesByUser(user.id))
+    if (user?.roles === 'client') {
+      return dispatch(getServicesUserId(user.id))
+    }
+    if (user?.roles === 'driver') {
+      dispatch(getIncomingServices(user.id))
+      dispatch(getVehiclesByUser(user.id))
+    }
   }, [])
   return (
     <MobileLayout>

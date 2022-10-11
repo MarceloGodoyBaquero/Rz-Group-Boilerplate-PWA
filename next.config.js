@@ -11,9 +11,9 @@ module.exports = withPWA({
   pwa: {
     dest: 'public',
     register: true,
-    skipWaiting: true,
-    disable: true,
-    mode: 'production'
+    skipWaiting: true
+    // disable: true,
+    // mode: 'production'
     //  los ultimos 2 parametros quitan advertencias de la consola
   },
   images: {

@@ -3,7 +3,13 @@ import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteService, getServiceId } from '../../../Redux/Actions/servicesActions'
+import {
+  createService,
+  deleteService,
+  getServiceId,
+  getServicesUserId,
+  updateService
+} from '../../../Redux/Actions/servicesActions'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import FuecTemplate from '../../../components/FuecTemplate/FuecTemplate'
 import axios from 'axios'
@@ -13,6 +19,8 @@ export default function users ({ data }) {
   const dispatch = useDispatch()
   const { id } = router.query
   const { service, user } = useSelector(state => state)
+  const [dateNow, setDateNow] = useState(null)
+  const [diasRestantes, setDiasRestantes] = useState(null)
   const [popUpAdd, setPopUpAdd] = useState(false)
   const [popUpMOD, setPopUpMOD] = useState(false)
   const [popUpPago, setPopUpPago] = useState(false)
@@ -20,6 +28,13 @@ export default function users ({ data }) {
   const [tipoDePago, setTipoDePago] = useState('default')
   const [voucher, setVoucher] = useState(null)
   const [descripcionPago, setDescripcionPago] = useState(null)
+  const [vehiclesCant, setVehiclesCant] = useState(0)
+  const [servicioEdit, setServicioEdit] = useState({
+    from: service.from,
+    to: service.to,
+    start_date: service.start_date,
+    end_date: service.end_date
+  })
   useEffect(() => {
     if (id) {
       console.log(id)
@@ -36,6 +51,35 @@ export default function users ({ data }) {
     }).catch(err => console.log(err))
   }
 
+  useEffect(() => {
+    setServicioEdit({
+      from: service?.from,
+      to: service?.to,
+      start_date: service?.start_date,
+      end_date: service?.end_date
+    })
+  }, [service])
+
+  const daysBetween = (date1, date2) => {
+    const oneDay = 24 * 60 * 60 * 1000
+    const firstDate = new Date(date1)
+    const secondDate = new Date(date2)
+    return Math.round(Math.abs((firstDate - secondDate) / oneDay))
+  }
+
+  useEffect(() => {
+    const date = new Date()
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+    if (month < 10) {
+      setDateNow(`${day}-0${month}-${year}`)
+    }
+    if (month >= 10) {
+      setDateNow(`${day}-${month}-${year}`)
+    }
+  }, [dateNow])
+
   const handlePago = (e, id) => {
     e.preventDefault()
     if (!pago) {
@@ -50,6 +94,49 @@ export default function users ({ data }) {
       return alert('Pago realizado')
     }
   }
+
+  const handleModificacion = (e, id) => {
+    e.preventDefault()
+    dispatch(updateService(service._id, servicioEdit))
+    return dispatch(getServiceId(id))
+  }
+
+  const handleChangeModificacion = (e) => {
+    e.preventDefault()
+    setServicioEdit({
+      ...servicioEdit,
+      [e.target.name]: e.target.value
+    })
+    console.log(servicioEdit)
+  }
+
+  const handleAddVehicle = (e) => {
+    e.preventDefault()
+    const servicio = {
+      description: service.description + ' refuerzo',
+      from: service.from,
+      to: service.to,
+      start_date: service.start_date,
+      end_date: service.end_date,
+      number_vehicles: 1,
+      duration: service.duration,
+      serviceType: service.serviceType,
+      start_time: service.start_time,
+      category: service.category,
+      driver: user.roles === 'driver' ? [user.id] : [],
+      client: user.id
+    }
+    for (let i = 0; i < vehiclesCant; i++) {
+      dispatch(createService(servicio, router))
+    }
+  }
+
+  const handleDelete = (e, id) => {
+    e.preventDefault()
+    dispatch(deleteService(id))
+    router.push('/client/travels').then(dispatch(getServicesUserId(user.id)))
+  }
+
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
@@ -79,25 +166,40 @@ export default function users ({ data }) {
                   FUEC
                 </button>
               </PDFDownloadLink>
-              : <button onClick={() => deleteService(service._id)}
-                        style={service?.status !== 'on progress' || service?.status !== 'completed' ? { display: 'none' } : { display: 'block' }}
+              : <button onClick={(e) => handleDelete(e, service._id)}
+                        style={service?.status === 'pending' && user?.id === service?.client?._id ? { display: 'block' } : { display: 'none' }}
                         className={'bg-red-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>ELIMINAR
               </button>
           }
           {
+            daysBetween(service?.start_date?.slice(0, 10), dateNow) > 1 &&
+            <button onClick={(e) => alert('viaje cancelado')}
+                    style={service?.status === 'on progress' && user?.id === service?.client?._id ? { display: 'block' } : { display: 'none' }}
+                    className={'bg-[#5B211F] w-5/6 rounded-full mt-5 h-[50px] text-white font-bold'}>
+              CANCELAR
+            </button>
+          }
+          {
             !popUpMOD
               ? <button onClick={() => setPopUpMOD(true)}
-                        style={service?.status !== 'on progress' || service?.status !== 'completed' ? { display: 'none' } : { display: 'block' }}
+                        style={service?.status === 'pending' && user?.id === service?.client?._id ? { display: 'block' } : { display: 'none' }}
                         className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>MODIFICAR</button>
               : <div className={'w-5/6 flex flex-col items-center'}>
                 <span className={'bg-gray-300 w-full h-0.5 mt-5'}></span>
-                <input className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'} placeholder={'Origen'}/>
-                <input className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'} placeholder={'Destino'}/>
-                <input className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'} placeholder={'Fecha de Inicio'}/>
-                <input className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}
+                <input onChange={(e) => handleChangeModificacion(e)} name={'from'}
+                       className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'} placeholder={'Origen'}/>
+                <input onChange={(e) => handleChangeModificacion(e)} name={'to'}
+                       className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'} placeholder={'Destino'}/>
+                <input onChange={(e) => handleChangeModificacion(e)} name={'start_date'}
+                       className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'} type={'date'}
+                       placeholder={'Fecha de Inicio'}/>
+                <input onChange={(e) => handleChangeModificacion(e)} name={'end_date'}
+                       className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'} type={'date'}
                        placeholder={'Fecha de Finalización'}/>
                 <div className={'w-full'}>
-                  <button className={'bg-blue-400 w-4/6 rounded-xl mt-5 h-[50px] font-bold'}>Guardar</button>
+                  <button onClick={(e) => handleModificacion(e, service._id)}
+                          className={'bg-blue-400 w-4/6 rounded-xl mt-5 h-[50px] font-bold'}>Guardar
+                  </button>
                   <button onClick={() => setPopUpMOD(false)}
                           className={'bg-red-400 w-2/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar
                   </button>
@@ -108,19 +210,19 @@ export default function users ({ data }) {
           {
             !popUpAdd
               ? <button onClick={() => setPopUpAdd(true)}
-                        style={service?.status !== 'on progress' || service?.status !== 'completed' ? { display: 'none' } : { display: 'block' }}
+                        style={service?.status === 'on progress' && user?.id === service?.client?._id ? { display: 'block' } : { display: 'none' }}
                         className={'bg-green-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>AGREGAR VEHÍCULOS
                 EXTRA</button>
               : <div className={'w-5/6 flex flex-col'}>
                 <span className={'bg-gray-300 w-full h-0.5 mt-5'}></span>
                 <input
-                  onChange={(e) => console.log(e.target.value)}
+                  onChange={(e) => setVehiclesCant(e.target.value)}
                   placeholder={'Cantidad de vehículos extra'}
                   type={'number'}
                   className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
                 <div>
                   <button
-                    onClick={() => console.log('hola')}
+                    onClick={(e) => handleAddVehicle(e)}
                     className={'bg-green-400 w-4/6 rounded-xl mt-5 h-[50px] font-bold'}>Enviar
                   </button>
                   <button
@@ -170,7 +272,7 @@ export default function users ({ data }) {
                 {
                   tipoDePago === 'Efectivo'
                     ? <textarea
-                      onChange={(e) => setPago(e.target.value)}
+                      onChange={(e) => setDescripcionPago(e.target.value)}
                       placeholder={'Descripción'}
                       className={'indent-3 w-full rounded-xl mt-5 h-[100px] font-bold'}/>
                     : null

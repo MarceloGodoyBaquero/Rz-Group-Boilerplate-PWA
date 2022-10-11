@@ -46,52 +46,52 @@ export default function Menu (props) {
       </div>
       {/* links */}
       <div className={'h-full'}>
-        <button
-          onClick={(e) => home(e)}
-          className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>
-          <div className={'flex flex-row'}>
-            <HomeIcon className={'h-[20px] mr-5'}/>
-            <h3 className={'font-bold'}>HOME</h3>
-          </div>
-          <div>
-            <ChevronRightIcon className={'h-[20px]'}/>
-          </div>
-        </button>
-        <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>
-          <div className={'flex flex-row'}>
-            <CalendarIcon className={'h-[20px] mr-5'}/>
-            <h3 className={'font-bold'}>HISTORIAL</h3>
-          </div>
-          <div>
-            <ChevronRightIcon className={'h-[20px]'}/>
-          </div>
-        </button>
-        <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>
-          <div className={'flex flex-row'}>
-            <BellIcon className={'h-[20px] mr-5'}/>
-            <h3 className={'font-bold'}>NOTIFICACIONES</h3>
-          </div>
-          <div>
-            <ChevronRightIcon className={'h-[20px]'}/>
-          </div>
-        </button>
-        <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>
-          <div className={'flex flex-row'}>
-            <Cog8ToothIcon className={'h-[20px] mr-5'}/>
-            <h3 className={'font-bold'}>CONFIGURACIÓN</h3>
-          </div>
-          <div>
-            <ChevronRightIcon className={'h-[20px]'}/>
-          </div>
-        </button>
-        <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'} onClick={() => {
-          router.push('/Fuec')
-        }}>
-        <div className={'flex flex-row'}>
-            <DocumentTextIcon className={'h-[20px] mr-5'}/>
-            <h3 className={'font-bold'}>Crea tu FUEC</h3>
-          </div>
-        </button>
+        {/* <button */}
+        {/*  onClick={(e) => home(e)} */}
+        {/*  className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}> */}
+        {/*  <div className={'flex flex-row'}> */}
+        {/*    <HomeIcon className={'h-[20px] mr-5'}/> */}
+        {/*    <h3 className={'font-bold'}>HOME</h3> */}
+        {/*  </div> */}
+        {/*  <div> */}
+        {/*    <ChevronRightIcon className={'h-[20px]'}/> */}
+        {/*  </div> */}
+        {/* </button> */}
+        {/* <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}> */}
+        {/*  <div className={'flex flex-row'}> */}
+        {/*    <CalendarIcon className={'h-[20px] mr-5'}/> */}
+        {/*    <h3 className={'font-bold'}>HISTORIAL</h3> */}
+        {/*  </div> */}
+        {/*  <div> */}
+        {/*    <ChevronRightIcon className={'h-[20px]'}/> */}
+        {/*  </div> */}
+        {/* </button> */}
+        {/* <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}> */}
+        {/*  <div className={'flex flex-row'}> */}
+        {/*    <BellIcon className={'h-[20px] mr-5'}/> */}
+        {/*    <h3 className={'font-bold'}>NOTIFICACIONES</h3> */}
+        {/*  </div> */}
+        {/*  <div> */}
+        {/*    <ChevronRightIcon className={'h-[20px]'}/> */}
+        {/*  </div> */}
+        {/* </button> */}
+        {/* <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}> */}
+        {/*  <div className={'flex flex-row'}> */}
+        {/*    <Cog8ToothIcon className={'h-[20px] mr-5'}/> */}
+        {/*    <h3 className={'font-bold'}>CONFIGURACIÓN</h3> */}
+        {/*  </div> */}
+        {/*  <div> */}
+        {/*    <ChevronRightIcon className={'h-[20px]'}/> */}
+        {/*  </div> */}
+        {/* </button> */}
+        {/* <button className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'} onClick={() => { */}
+        {/*  router.push('/Fuec') */}
+        {/* }}> */}
+        {/* <div className={'flex flex-row'}> */}
+        {/*    <DocumentTextIcon className={'h-[20px] mr-5'}/> */}
+        {/*    <h3 className={'font-bold'}>Crea tu FUEC</h3> */}
+        {/*  </div> */}
+        {/* </button> */}
         <button
           onClick={e => salir(e)}
           className={'mt-5 mb-5 w-full flex flex-row items-center justify-between'}>

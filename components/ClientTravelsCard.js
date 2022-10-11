@@ -55,14 +55,13 @@ export default function ClientTravelsCard ({ estado, id, data }) {
         </div>
         <div className={'indent-3 flex flex-row justify-between items-center w-[50%] mt-5'}>
           {
-            data.status === 'pending' ? 
+            data.status === 'pending' && user?.roles?.includes('driver') ?
             <>
           <Button onClick={()=>showPopup(data._id)} color='success'>Aceptar</Button>
           <Button onClick={()=>{}} color='failure'>Rechazar</Button>
           </>
           : null
           }
-          
           <Button onClick={() => router.push(`/client/travels/${id}`)} color='info'>Ver mas</Button>
         </div>
           <Modal
