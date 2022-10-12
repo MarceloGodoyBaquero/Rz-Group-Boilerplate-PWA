@@ -1,10 +1,13 @@
 import React from 'react'
 import {
-  ArrowRightOnRectangleIcon, BellIcon, CalendarIcon,
-  ChevronRightIcon, Cog8ToothIcon,
-  HomeIcon,
-  XCircleIcon,
-  DocumentTextIcon
+  ArrowRightOnRectangleIcon,
+  // BellIcon,
+  // CalendarIcon,
+  // ChevronRightIcon,
+  // Cog8ToothIcon,
+  // HomeIcon,
+  XCircleIcon
+  // DocumentTextIcon
 } from '@heroicons/react/24/solid'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -20,7 +23,7 @@ export default function Menu (props) {
     router.push('/SignIn')
     dispatch(signOut())
   }
-
+  // eslint-disable-next-line
   const home = (e) => {
     e.preventDefault()
     props.closeFunc(false)
