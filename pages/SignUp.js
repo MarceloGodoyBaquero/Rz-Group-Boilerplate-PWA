@@ -57,6 +57,7 @@ function validate (input) {
 
 export default function SignIn () {
   const router = useRouter()
+  const [company, setCompany] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const dispatch = useDispatch()
   const [input, setInput] = useState(
@@ -68,6 +69,7 @@ export default function SignIn () {
       phoneNumber: '',
       password: '',
       repeatPassword: '',
+      company_code: '',
       roles: []
     })
   // eslint-disable-next-line no-unused-vars
@@ -172,6 +174,51 @@ export default function SignIn () {
                    value={input.phoneNumber}
                    />
           </div>
+          {
+            input.roles[0] === 'client'
+              ? (
+                <>
+                <div className='flex flex-col justify-center items-center'>
+                  <div className='flex flex-col justify-center items-center'>
+                    <h2 className='font-bold text-md mb-8'>
+                      ¿Vienes de parte de una empresa?
+                    </h2>
+                    <div className='flex flex-row justify-evenly items-center w-full mb-5'>
+                    <div className='flex flex-row justify-center items-center'>
+                      <label className='mr-5'>Si</label>
+                      <input type="checkbox"
+                            className='mr-2 rounded-full'
+                            checked={company}
+                            onChange={() => setCompany(true)}/>
+                    </div>
+                    <div>
+                      <label className='mr-5'>No</label>
+                      <input type="checkbox"
+                            className='mr-2 rounded-full'
+                            name='company_code'
+                            checked={!company}
+                            onChange={() => setCompany(false)}/>
+                    </div>
+                    </div>
+                  </div>
+                  {
+                    company && (
+                      <div className={'w-full m-2'}>
+                <input placeholder='Introduce el codigo'
+                        className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
+                        onChange={(e) => handleInputChange(e)}
+                        name={'company_code'}
+                        value={input.company_code}
+                />
+              </div>
+                    )
+                  }
+
+              </div>
+              </>
+                )
+              : null
+          }
 
           <div className={'w-full m-2 flex h-[50px] items-center'}>
             <input placeholder={'Contraseña'}

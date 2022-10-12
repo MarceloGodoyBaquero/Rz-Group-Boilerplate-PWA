@@ -114,3 +114,22 @@ export function deleteService (id) {
       }).catch(err => console.log(err))
   }
 }
+
+export function cancelService (id) {
+  return function (dispatch) {
+    toast.promise(axios.post(`https://rz-group-backend.herokuapp.com/api/services/cancel/${id}`), {
+      pending: 'Cancelando servicio...',
+      success: 'Servicio cancelado con éxito',
+      error: 'Error al cancelar servicio'
+    }).then(res => {
+      dispatch({
+        type: DELETE_SERVICE,
+        payload: res.data
+      })
+      setTimeout(() => {
+        window.location.href = '/client/travels'
+      }, 4000)
+    }).catch(err =>
+      console.log(err))
+  }
+}
