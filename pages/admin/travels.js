@@ -44,6 +44,7 @@ export default function travels ({ data }) {
                           ? 'm-5 bg-green-300 flex flex-col justify-center items-center'
                           : 'm-5 bg-red-300 flex flex-col justify-center items-center'
                       }>
+                  <h1 className={'font-bold text-2xl'}>{travels?.status}</h1>
                   <h1 className={''}>Estado: {travels?.status === 'pending' ? 'Pendiente' : travels?.status === 'on progress' ? 'En progreso' : 'Cancelado' }</h1>
                   <h1 className={''}>Categoría: {travels?.category}</h1>
                   <h1 className={''}>Fecha: {travels?.date?.slice(0, 10)}</h1>
@@ -51,7 +52,7 @@ export default function travels ({ data }) {
               )
             })
           }
-          <div className={'mt-1 mb-5 flex w-full flex-row items-center justify-center'}>
+          <div className={'mt-5 mb-5 flex w-full flex-row items-center justify-center'}>
             <ReactPaginate
               className={'flex w-full flex-row items-center justify-evenly'}
               breakLabel={'...'}

@@ -18,6 +18,8 @@ export default function users ({ data }) {
       .then(res => {
         console.log(res.data)
         router.push('/admin/vehicles')
+      }).catch(err => {
+        console.log(err)
       })
   }
   const aprobateUser = async (id) => {
@@ -62,7 +64,8 @@ export default function users ({ data }) {
           <h1>Tipo: {data.type}</h1>
           <h1>Categoria: {data.category}</h1>
           <h1>Capacidad: {data.capacity}</h1>
-          <h1 onClick={() => router.push(`/admin/users/${data.owner?._id}`)} className='hover:text-blue-500 cursor-pointer'>Dueño: {data.owner.firstName + ' ' + data.owner.lastName}</h1>
+          <h1 onClick={() => router.push(`/admin/users/${data.owner?._id}`)}
+              className='hover:text-blue-500 cursor-pointer'>Dueño: {data.owner.firstName + ' ' + data.owner.lastName}</h1>
           <div className={'w-full flex flex-col'}>
             <h2 className={'text-center'}>Revisión Tecnomecánica:</h2>
             {data.revision_tecnomecanica
@@ -80,13 +83,13 @@ export default function users ({ data }) {
                 </div>
               </a>
               : <h2 className={'text-center'}>Pendiente...</h2>}
-              <h2 className={'text-center'}>Fecha de expedición Poliza Contractual:</h2>
+            <h2 className={'text-center'}>Fecha de expedición Poliza Contractual:</h2>
             {data.fecha_exp_poliza
               ? <h2 className={'text-center font-bold'}>{
                 data.fecha_exp_poliza.split('T')[0]
               }</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
-              <h2 className={'text-center'}>Fecha de Vencimiento Poliza Contractual:</h2>
+            <h2 className={'text-center'}>Fecha de Vencimiento Poliza Contractual:</h2>
             {data.fecha_ven_poliza
               ? <h2 className={'text-center font-bold'}>{data.fecha_ven_poliza.split('T')[0]}</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
@@ -98,11 +101,11 @@ export default function users ({ data }) {
                 </div>
               </a>
               : <h2 className={'text-center'}>Pendiente...</h2>}
-               <h2 className={'text-center'}>Fecha de expedición SOAT:</h2>
+            <h2 className={'text-center'}>Fecha de expedición SOAT:</h2>
             {data.fecha_exp_soat
               ? <h2 className={'text-center font-bold'}>{data.fecha_exp_soat.split('T')[0]}</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
-              <h2 className={'text-center'}>Fecha de Vencimiento SOAT:</h2>
+            <h2 className={'text-center'}>Fecha de Vencimiento SOAT:</h2>
             {data.fecha_ven_soat
               ? <h2 className={'text-center font-bold'}>{data.fecha_ven_soat.split('T')[0]}</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
@@ -126,7 +129,7 @@ export default function users ({ data }) {
             {data.numero_interno
               ? <h2 className={'text-center'}>{data.numero_interno}</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
-               <h2 className={'text-center'}>Número de Tarjeta de Operación:</h2>
+            <h2 className={'text-center'}>Número de Tarjeta de Operación:</h2>
             {data.tarjeta_operacion
               ? <h2 className={'text-center'}>{data.tarjeta_operacion}</h2>
               : <h2 className={'text-center'}>Pendiente...</h2>}
@@ -150,18 +153,22 @@ export default function users ({ data }) {
                   className={'indent-3 w-4/6 rounded-xl mt-5 h-[50px] font-bold'}/>
                 <button
                   onClick={() => desaprobateUser(data._id)}
-                  className={'bg-yellow-400 w-1/6 rounded-xl mt-5 h-[50px] font-bold'}>Enviar</button>
+                  className={'bg-yellow-400 w-1/6 rounded-xl mt-5 h-[50px] font-bold'}>Enviar
+                </button>
                 <button
                   onClick={() => setInputPopUp(false)}
-                  className={'bg-red-400 w-1/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar</button>
+                  className={'bg-red-400 w-1/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar
+                </button>
               </div>
               : data.isAproved === 'inReview' && <button
               onClick={() => setInputPopUp(true)}
               className={'bg-yellow-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>DESAPROBAR
             </button>
           }
-          <button onClick={() => setInputPopUp(true)} className={'bg-orange-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>REPORTAR</button>
-          <button className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>MODIFICAR</button>
+          <button onClick={() => setInputPopUp(true)}
+                  className={'bg-orange-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>REPORTAR
+          </button>
+          {/* <button className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>MODIFICAR</button> */}
         </div>
       </div>
     </MobileLayout>

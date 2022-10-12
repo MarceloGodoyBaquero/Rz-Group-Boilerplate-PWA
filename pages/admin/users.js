@@ -48,19 +48,44 @@ export default function users ({ data }) {
               return (
                 <div
                   onClick={() => router.push(`/admin/users/${user._id}`)}
-                  key={index} className={index % 2 === 0 ? 'ml-5 mr-5 mt-2 mb-2 bg-white flex flex-row justify-center items-center' : 'ml-5 mr-5 mt-2 mb-2 bg-gray-100 flex flex-row justify-center items-center'}>
-                  <div className={user.isAproved === 'aproved'
-                    ? 'h-[80px] bg-green-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'
-                    : user.isAproved === 'inReview'
-                      ? 'h-[80px] bg-orange-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'
-                      : 'h-[80px] bg-red-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'}>
-                    <UserIcon className={'h-10 w-10 text-white'}/>
-                    {user.isAproved === 'aproved' ? <h3>Aprobado</h3> : user.isAproved === 'inReview' ? <h3>Pendiente</h3> : <h3>No aprobado</h3>}
-                  </div>
+                  key={index}
+                  className={index % 2 === 0 ? 'rounded-2xl ml-5 mr-5 mt-5 mb-2 pl-0 bg-white flex flex-row justify-center items-center drop-shadow-2xl' : 'rounded-2xl ml-5 mr-5 mt-5 mb-2 bg-gray-100 flex flex-row justify-center items-center drop-shadow-2xl'}>
+                  {
+                    user.roles[0].name.includes('client')
+                      ? <div
+                        className={' border-4 border-green-500 w-[100px] h-[100px] m-0 h-full rounded-full p-0 flex flex-col items-center justify-center'}>
+                        <h3 className={'font-bold'}>Cliente</h3>
+                      </div>
+                      : user.roles[0].name.includes('admin')
+                        ? <div
+                          className={' border-4 border-green-500 w-[100px] h-[100px] m-0 h-full rounded-full p-0 flex flex-col items-center justify-center'}>
+                          <h3 className={'font-bold'}>Admin</h3>
+                        </div>
+                        : <div
+                          style={user.roles[0].name.includes('client') ? { visibility: 'hidden' } : { visibility: 'visible' }}
+                          className={user.isAproved === 'aproved'
+                            ? 'bg-green-300 border-4 border-green-500 w-[100px] h-[100px] m-0 h-full rounded-full p-0 flex flex-col items-center justify-center'
+                            : user.isAproved === 'inReview'
+                              ? 'bg-orange-300 border-4 border-orange-500 w-[100px] h-[100px] rounded-xl m-0 p-0 flex flex-col items-center justify-center'
+                              : 'text-center bg-red-300 border-4 border-red-500 w-[100px] h-[100px] rounded-xl m-0 p-0 flex flex-col items-center justify-center'}>
+                          <UserIcon className={'h-10 w-10 text-white'}/>
+                          {user.isAproved === 'aproved'
+                            ? <h3>Aprobado</h3>
+                            : user.isAproved === 'inReview'
+                              ? <h3>Pendiente</h3>
+                              : <h3>No aprobado</h3>}
+                        </div>
+                  }
                   <div className={'w-3/4 flex flex-col items-center justify-center'}>
-                  <h1 className={''}>Nombre: {user.firstName}</h1>
-                  <h1 className={''}>Apellido: {user.lastName}</h1>
-                  <h1 className={''}>ID: {user.idNumber}</h1>
+                    <h1
+                      className={'mt-2 cursor-pointer bg-gradient-to-l from-gray-300 font-bold text-center w-full bg- h-[30px] rounded-r-xl'}>Nombre: {user.firstName} {user.lastName}</h1>
+                    <h1 className={''}>ID: {user.idNumber}</h1>
+                    <h1 className={''}>Roles: {user?.roles?.map((u, i) => {
+                      return (
+                        user.roles.length > 1 ? u.name + ', ' : u.name
+                      )
+                    })}</h1>
+                    <h1 className={''}>Tel: {user.phoneNumber}</h1>
                   </div>
                 </div>
               )
@@ -71,25 +96,50 @@ export default function users ({ data }) {
                 return (
                 <div
                   onClick={() => router.push(`/admin/users/${user._id}`)}
-                  key={index} className={index % 2 === 0 ? 'ml-5 mr-5 mt-2 mb-2 bg-white flex flex-row justify-center items-center' : 'ml-5 mr-5 mt-2 mb-2 bg-gray-100 flex flex-row justify-center items-center'}>
-                  <div className={user.isAproved === 'aproved'
-                    ? 'h-[80px] bg-green-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'
-                    : user.isAproved === 'inReview'
-                      ? 'h-[80px] bg-orange-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'
-                      : 'h-[80px] bg-red-300 w-1/4 h-max m-0 p-0 flex flex-col items-center justify-center'}>
-                    <UserIcon className={'h-10 w-10 text-white'}/>
-                    {user.isAproved === 'aproved' ? <h3>Aprobado</h3> : user.isAproved === 'inReview' ? <h3>Pendiente</h3> : <h3>No aprobado</h3>}
-                  </div>
+                  key={index}
+                  className={index % 2 === 0 ? 'rounded-2xl ml-5 mr-5 mt-5 mb-2 pl-0 bg-white flex flex-row justify-center items-center drop-shadow-2xl' : 'rounded-2xl ml-5 mr-5 mt-5 mb-2 bg-gray-100 flex flex-row justify-center items-center drop-shadow-2xl'}>
+                  {
+                    user.roles[0].name.includes('client')
+                      ? <div
+                        className={' border-4 border-green-500 w-[100px] h-[100px] m-0 h-full rounded-full p-0 flex flex-col items-center justify-center'}>
+                        <h3 className={'font-bold'}>Cliente</h3>
+                      </div>
+                      : user.roles[0].name.includes('admin')
+                        ? <div
+                          className={' border-4 border-yellow-500 w-[100px] h-[100px] m-0 h-full rounded-full p-0 flex flex-col items-center justify-center'}>
+                          <h3 className={'font-bold'}>Admin</h3>
+                        </div>
+                        : <div
+                          style={user.roles[0].name.includes('client') ? { visibility: 'hidden' } : { visibility: 'visible' }}
+                          className={user.isAproved === 'aproved'
+                            ? 'bg-green-300 border-4 border-green-500 w-[100px] h-[100px] m-0 h-full rounded-full p-0 flex flex-col items-center justify-center'
+                            : user.isAproved === 'inReview'
+                              ? 'bg-orange-300 border-4 border-orange-500 w-[100px] h-[100px] rounded-xl m-0 p-0 flex flex-col items-center justify-center'
+                              : 'text-center bg-red-300 border-4 border-red-500 w-[100px] h-[100px] rounded-xl m-0 p-0 flex flex-col items-center justify-center'}>
+                          <UserIcon className={'h-10 w-10 text-white'}/>
+                          {user.isAproved === 'aproved'
+                            ? <h3>Aprobado</h3>
+                            : user.isAproved === 'inReview'
+                              ? <h3>Pendiente</h3>
+                              : <h3>No aprobado</h3>}
+                        </div>
+                  }
                   <div className={'w-3/4 flex flex-col items-center justify-center'}>
-                  <h1 className={''}>Nombre: {user.firstName}</h1>
-                  <h1 className={''}>Apellido: {user.lastName}</h1>
-                  <h1 className={''}>ID: {user.idNumber}</h1>
+                    <h1
+                      className={'mt-2 cursor-pointer bg-gradient-to-l from-gray-300 font-bold text-center w-full bg- h-[30px] rounded-r-xl'}>Nombre: {user.firstName} {user.lastName}</h1>
+                    <h1 className={''}>ID: {user.idNumber}</h1>
+                    <h1 className={''}>Roles: {user?.roles?.map((u, i) => {
+                      return (
+                        user.roles.length > 1 ? u.name + ', ' : u.name
+                      )
+                    })}</h1>
+                    <h1 className={''}>Tel: {user.phoneNumber}</h1>
                   </div>
                 </div>
                 )
               })
           }
-          <div className={'mt-1 mb-5 mt-5 flex w-full flex-row items-center justify-center'}>
+          <div className={'mt-5 mb-5 mt-5 flex w-full flex-row items-center justify-center'}>
             <ReactPaginate
               className={'flex w-full flex-row items-center justify-evenly'}
               breakLabel={'...'}

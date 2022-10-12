@@ -29,6 +29,11 @@ export default function AdminLayout () {
               onClick={() => router.push('/admin/travels')}>
               VER VIAJES
             </button>
+            <button
+              className={'w-5/6 h-[70px] bg-blue-500 text-white font-bold rounded-full p-2 m-2'}
+              onClick={() => router.push('/admin/clientesExternos')}>
+              VER CLIENTES EXTERNOS
+            </button>
           </div>
         </div>
       </div>
