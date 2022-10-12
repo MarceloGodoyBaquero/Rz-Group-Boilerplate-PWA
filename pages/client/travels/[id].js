@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
@@ -14,6 +14,7 @@ import {
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import FuecTemplate from '../../../components/FuecTemplate/FuecTemplate'
 import axios from 'axios'
+import SignaturePad from 'react-signature-canvas'
 
 export default function users ({ data }) {
   const router = useRouter()
@@ -21,36 +22,47 @@ export default function users ({ data }) {
   const { id } = router.query
   const { service, user } = useSelector(state => state)
   const [dateNow, setDateNow] = useState(null)
-  const [diasRestantes, setDiasRestantes] = useState(null)
   const [popUpAdd, setPopUpAdd] = useState(false)
   const [popUpMOD, setPopUpMOD] = useState(false)
-  const [popUpPago, setPopUpPago] = useState(false)
-  const [pago, setPago] = useState(null)
   const [tipoDePago, setTipoDePago] = useState('default')
-  const [voucher, setVoucher] = useState(null)
-  const [descripcionPago, setDescripcionPago] = useState(null)
   const [vehiclesCant, setVehiclesCant] = useState(0)
+  const [popUpFinalizar, setPopUpFinalizar] = useState(false)
   const [servicioEdit, setServicioEdit] = useState({
     from: service.from,
     to: service.to,
     start_date: service.start_date,
     end_date: service.end_date
   })
+
+  const [paid, setPaid] = useState({
+    isPaid: false,
+    description: '',
+    from: '/',
+    to: '/',
+    start_date: '/',
+    end_date: '/',
+    number_vehicles: '/',
+    serviceType: '/',
+    category: '/',
+    paymentType: '',
+    paymentAmount: null,
+    payment_description: '',
+    client_signature: null,
+    driver: '(id driver)',
+    client: '/',
+    alliedCompany: '/'
+  })
+
+  const sigCanvas = useRef({})
+  // eslint-disable-next-line
+  const [imageURL, setImageURL] = useState(null)
+
   useEffect(() => {
     if (id) {
       console.log(id)
       return dispatch(getServiceId(id))
     }
   }, [id])
-  const handleFinalizarServicio = (e, id) => {
-    e.preventDefault()
-    axios.put(`https://rz-group-backend.herokuapp.com/api/services/${id}`, {
-      status: 'completed'
-    }).then(res => {
-      console.log(res.data)
-      router.push('/client/travels')
-    }).catch(err => console.log(err))
-  }
 
   useEffect(() => {
     setServicioEdit({
@@ -83,17 +95,17 @@ export default function users ({ data }) {
 
   const handlePago = (e, id) => {
     e.preventDefault()
-    if (!pago) {
-      return alert('Ingrese el monto')
+    if (paid.paymentType === 'cash') {
+      setPaid({
+        ...paid,
+        isPaid: true
+      })
     }
-    if (tipoDePago === 'default') {
-      return alert('Ingrese el tipo de pago')
-    }
-    if (tipoDePago === 'Voucher' && !voucher) {
-      return alert('Ingrese el voucher')
-    } else {
-      return alert('Pago realizado')
-    }
+    axios.post('https://rz-group-backend.herokuapp.com/api/payment/create/' + service._id, paid)
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => console.log(err))
   }
 
   const handleModificacion = (e, id) => {
@@ -141,6 +153,34 @@ export default function users ({ data }) {
     dispatch(deleteService(id))
     router.push('/client/travels').then(dispatch(getServicesUserId(user.id)))
   }
+
+  const clear = () => sigCanvas.current.clear()
+  const save = () => {
+    setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL('image/png'))
+    setPaid({
+      ...paid,
+      client_signature: sigCanvas.current.getTrimmedCanvas().toDataURL('image/png')
+    })
+    console.log(paid)
+    return alert('Firma guardada')
+  }
+
+  useEffect(() => {
+    setPaid({
+      ...paid,
+      description: service.description,
+      from: service?.from,
+      to: service?.to,
+      start_date: service?.start_date,
+      end_date: service?.end_date,
+      number_vehicles: service?.number_vehicles,
+      serviceType: service?.serviceType,
+      category: service?.category,
+      client: service?.client?._id,
+      alliedCompany: service?.client?.companyAllied?._id
+    })
+    console.log(paid)
+  }, [service])
 
   return (
     <MobileLayout>
@@ -239,81 +279,109 @@ export default function users ({ data }) {
           }
           {
             service?.status === 'on progress' && user.roles === 'driver'
-              ? <button
-                onClick={(e) => handleFinalizarServicio(e, service._id)}
-                className={'mb-1 border-[#5B211F] border-2 w-5/6 rounded-full mt-5 h-[50px] text-[#5B211F] font-bold'}>
-                FINALIZAR SERVICIO
-              </button>
-              : null
-          }
-          {
-            service?.status === 'completed'
-              ? <button
-                onClick={(e) => setPopUpPago(true)}
-                style={popUpPago ? { display: 'none' } : { display: 'block' }}
-                className={'mb-1 bg-[#5B211F] w-5/6 rounded-full mt-5 h-[50px] text-white font-bold'}>
-                CARGAR PAGO
-              </button>
-              : null
-          }
-          {
-            popUpPago && service?.status === 'completed'
-              ? <div className={'w-5/6 flex flex-col items-center'}>
-                <select
-                  onChange={(e) => setTipoDePago(e.target.value)}
-                  className={'w-full rounded-xl mt-5 h-[50px] font-bold'}>
-                  <option value={'default'}>Forma de pago?</option>
-                  <option value={'Efectivo'}>Efectivo</option>
-                  <option value={'Voucher'}>Voucher</option>
-                </select>
-                {tipoDePago === 'default'
-                  ? null
-                  : <input
-                    onChange={(e) => setPago(e.target.value)}
-                    placeholder={'Monto?'}
-                    type={'number'}
-                    className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
-                }
-                {
-                  tipoDePago === 'Efectivo'
-                    ? <textarea
-                      onChange={(e) => setDescripcionPago(e.target.value)}
-                      placeholder={'Descripción'}
-                      className={'indent-3 w-full rounded-xl mt-5 h-[100px] font-bold'}/>
-                    : null
-                }
-                {
-                  tipoDePago === 'Voucher'
-                    ? <div>
-                      <input
-                        onChange={(e) => setPago(e.target.value)}
-                        placeholder={'Empresa Aliada?'}
-                        type={'text'}
-                        className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
-                      <input
-                        onChange={(e) => setPago(e.target.value)}
-                        placeholder={'Hotel?'}
-                        type={'text'}
-                        className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
-                      <input
-                        onChange={(e) => setPago(e.target.value)}
-                        placeholder={'Firma del cliente'}
-                        type={'text'}
-                        className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
-                    </div>
-                    : null
-                }
-                <div className={'w-full'}>
-                  <button
-                    onClick={(e) => handlePago(e, service._id)}
-                    className={'bg-green-400 w-4/6 rounded-xl mt-5 h-[50px] font-bold'}>Enviar
-                  </button>
-                  <button
-                    onClick={() => setPopUpPago(false)}
-                    className={'bg-red-400 w-2/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar
-                  </button>
+              // eslint-disable-next-line
+              ? !popUpFinalizar ? <button
+                  // onClick={(e) => handleFinalizarServicio(e, service._id)}
+                  onClick={() => {
+                    setPopUpFinalizar(true)
+                    setPaid({
+                      ...paid,
+                      driver: service.driver[0]._id
+                    })
+                  }}
+                  className={'mb-1 border-[#5B211F] border-2 w-5/6 rounded-full mt-5 h-[50px] text-[#5B211F] font-bold'}>
+                  FINALIZAR SERVICIO
+                </button>
+                  : <div className={'w-5/6 flex flex-col items-center'}>
+                  <hr/>
+                  <select
+                    onChange={(e) => {
+                      setTipoDePago(e.target.value)
+                      setPaid({
+                        ...paid,
+                        paymentType: e.target.value
+                      })
+                    }}
+                    className={'w-full rounded-xl mt-5 h-[50px] font-bold'}>
+                    <option value={'default'}>Forma de pago?</option>
+                    <option value={'cash'}>Efectivo</option>
+                    <option value={'voucher'}>Voucher</option>
+                  </select>
+                  {tipoDePago === 'default'
+                    ? null
+                    : <input
+                      onChange={(e) => {
+                        setPaid({
+                          ...paid,
+                          paymentAmount: Number(e.target.value)
+                        })
+                        console.log(paid)
+                      }}
+                      placeholder={'Monto?'}
+                      type={'number'}
+                      className={'indent-3 w-full rounded-xl mt-5 h-[50px] font-bold'}/>
+                  }
+                  {
+                    tipoDePago === 'cash'
+                      ? <textarea
+                        onChange={(e) => {
+                          setPaid({
+                            ...paid,
+                            payment_description: e.target.value
+                          })
+                          console.log(paid)
+                        }}
+                        placeholder={'Descripción'}
+                        className={'indent-3 w-full rounded-xl mt-5 h-[100px] font-bold'}/>
+                      : null
+                  }
+                  {
+                    tipoDePago === 'voucher'
+                      ? <div className={'w-full'}>
+                        <textarea
+                          onChange={(e) => {
+                            setPaid({
+                              ...paid,
+                              payment_description: e.target.value
+                            })
+                            console.log(paid)
+                          }}
+                          placeholder={'Descripción'}
+                          className={'indent-3 w-full rounded-xl mt-5 h-[100px] font-bold'}/>
+                        <div className={'text-center mt-5'}>
+                          <label className={'font-bold text-center mt-5'}>
+                            FIRMA
+                            <SignaturePad
+                              ref={sigCanvas}
+                              canvasProps={{
+                                className: 'border border-black rounded-xl w-full mt-5'
+                              }}
+                              backgroundColor={'#ffffff'}
+                            />
+                          </label>
+                          <div className={'w-full flex flex-row'}>
+                            <button onClick={clear}
+                                    className={'w-1/2 bg-cyan-400 rounded-xl mt-5 mr-1 h-[50px] font-bold'}>LIMPIAR
+                              FIRMA
+                            </button>
+                            <button onClick={save}
+                                    className={'w-1/2 bg-green-400 rounded-xl mt-5 ml-1 h-[50px] font-bold'}>GUARDAR
+                              FIRMA
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      : null
+                  }
+                  <div className={'w-full'}>
+                    < button onClick={(e) => handlePago(e, service._id)}
+                             className={'bg-[#5B211F] w-4/6 rounded-xl mt-5 h-[50px] text-white font-bold'}>Finalizar
+                    </button>
+                    <button onClick={() => setPopUpFinalizar(false)}
+                            className={'bg-red-400 w-2/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar
+                    </button>
+                  </div>
                 </div>
-              </div>
               : null
           }
         </div>
