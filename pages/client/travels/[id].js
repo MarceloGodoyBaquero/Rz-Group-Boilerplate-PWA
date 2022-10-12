@@ -8,7 +8,8 @@ import {
   deleteService,
   getServiceId,
   getServicesUserId,
-  updateService
+  updateService,
+  cancelService
 } from '../../../Redux/Actions/servicesActions'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import FuecTemplate from '../../../components/FuecTemplate/FuecTemplate'
@@ -110,6 +111,10 @@ export default function users ({ data }) {
     console.log(servicioEdit)
   }
 
+  const handleCancelTravel = (id) => {
+    dispatch(cancelService(id))
+  }
+
   const handleAddVehicle = (e) => {
     e.preventDefault()
     const servicio = {
@@ -173,7 +178,7 @@ export default function users ({ data }) {
           }
           {
             daysBetween(service?.start_date?.slice(0, 10), dateNow) > 1 &&
-            <button onClick={(e) => alert('viaje cancelado')}
+            <button onClick={(e) => handleCancelTravel(id)}
                     style={service?.status === 'on progress' && user?.id === service?.client?._id ? { display: 'block' } : { display: 'none' }}
                     className={'bg-[#5B211F] w-5/6 rounded-full mt-5 h-[50px] text-white font-bold'}>
               CANCELAR
