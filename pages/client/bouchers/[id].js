@@ -2,64 +2,124 @@ import React, { useState } from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 // eslint-disable-next-line
-import { deleteService } from '../../../Redux/Actions/servicesActions'
+import {deleteService} from '../../../Redux/Actions/servicesActions'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
 
-export default function users (props) {
+export default function users (data) {
+  console.log(data)
+  const { user } = useSelector(state => state)
   const router = useRouter()
-  // eslint-disable-next-line
-  const dispatch = useDispatch()
   const { id } = router.query
-  const [popUpAdd, setPopUpAdd] = useState(false)
-  // eslint-disable-next-line
-  const [popUpMOD, setPopUpMOD] = useState(false)
+
+  const confirmAction = () => {
+    if (user.roles === 'client') {
+      axios.post(`https://rz-group-backend.herokuapp.com/api/payment/confirmClient/${id}`)
+        .then(res => {
+          console.log(res)
+          console.log(user.roles)
+          return alert('pago confirmado')
+        }).catch(err => {
+          console.log(err)
+        }).then(res => {
+          router.reload()
+        })
+    } else if (user.roles === 'driver') {
+      return axios.post(`https://rz-group-backend.herokuapp.com/api/payment/confirmDriver/${id}`)
+        .then(res => {
+          console.log(res)
+          console.log(res.data)
+        }).catch(err => {
+          console.log(err)
+        })
+    }
+  }
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
-        <Nav location={'Detalles del Voucher'}/>
-        <div className={'p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
-          <h1>Numero de servicio: {id}</h1>
-          <h1>Precio: $50.000</h1>
-          <h1>Inicio: 12/12/2022</h1>
-          <h1>Final: 14/12/2022</h1>
-          <h1>Origen: Medellin</h1>
-          <h1>Destino: Cali</h1>
-          <h1>Estado: Pendiente de pago</h1>
+        <Nav location={'Detalles del Pago'}/>
+        <div className={'mt-5 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
+          {
+            data.data.isPaid ? <h1 className={'text-center text-green-500 font-bold'}>SERVICIO PAGADO</h1> : <h1 className={'text-center font-bold text-orange-500'}>SERVICIO PENDIENTE DE PAGO</h1>
+          }
+          <hr/>
+          {
+            data.data.driver_confirm ? <h3 className={'text-center text-[14px] text-green-500 font-bold'}>CONFIRMADO POR CONDUCTOR</h3> : <h3 className={'text-center font-bold text-[14px] text-orange-500'}>CONDUCTOR CONFIRMACIÓN PENDIENTE </h3>
+          }
+          <hr/>
+          {
+            data.data.client_confirm ? <h3 className={'text-center text-[14px] text-green-500 font-bold'}>CONFIRMADO POR CLIENTE</h3> : <h3 className={'text-center font-bold text-[14px] text-orange-500'}>CLIENTE CONFIRMACIÓN PENDIENTE</h3>
+          }
+        </div>
+        <div className={'mt-5 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
+          <h1 className={'text-center font-bold'}>CLIENTE</h1>
+          <h1>Nombre: {data.data.client.firstName} {data.data.client.lastName}</h1>
+          <h1>Id: {data.data.client.idNumber}</h1>
+          <h1>Tel: {data.data.client.phoneNumber}</h1>
+          <h1>Email: {data.data.client.email}</h1>
+          <hr className={'mt-2'}/>
+          <label className={'text-center mt-2'}>
+            Firma:
+            <img src={data.data.client_signature} alt={'cliente-firma'}/>
+          </label>
+        </div>
+        {
+          data.data.client.companyAllied
+            ? <div className={'mt-5 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
+              <h1 className={'text-center font-bold'}>EMPRESA ALIADA</h1>
+              <h1>Nombre: {data.data.client.companyAllied.name}</h1>
+              <h1>{data.data.client.companyAllied.Id_type}: {data.data.client.companyAllied.Id_number}</h1>
+              <h1>Tel: {data.data.client.companyAllied.phone}</h1>
+              <h1>Email: {data.data.client.companyAllied.email}</h1>
+              <h1>Dirección: {data.data.client.companyAllied.address}</h1>
+            </div>
+            : null
+        }
+        <div className={'mt-5 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
+          <h1 className={'text-center font-bold'}>SERVICIO</h1>
+          <h1>Precio: ${data.data.paymentAmount}</h1>
+          <h1>Forma de pago: {data.data.paymentType}</h1>
+          <hr/>
+          <h1>Cantidad de vehículos: {data.data.number_vehicles}</h1>
+          <h1>Tipo: {data.data.serviceType}</h1>
+          <h1>Categoría: {data.data.category}</h1>
+          <hr/>
+          <h1>Inicio: {data.data.start_date.slice(0, 10)}</h1>
+          <h1>Final: {data.data.end_date.slice(0, 10)}</h1>
+          <h1>Origen: {data.data.from}</h1>
+          <h1>Destino: {data.data.to}</h1>
+          <hr/>
+          <h1>Descipción servicio: {data.data.description}</h1>
+        </div>
+        <div className={'mt-5 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
+          <h1 className={'text-center font-bold'}>CONDUCTOR</h1>
+          <h1>Nombre: {data.data.driver.firstName} {data.data.driver.lastName}</h1>
+          <h1>Id: {data.data.driver.idNumber}</h1>
+          <h1>Licencia: {data.data.driver.nro_license}</h1>
+          <h1>Email: {data.data.driver.email}</h1>
+          <hr/>
+          <h1>Descripción extras: {data.data.payment_description}</h1>
         </div>
         <div className={'flex flex-col w-full items-center'}>
-          {
-            !popUpAdd
-              ? <button onClick={() => setPopUpAdd(true)}
-                        className={'bg-blue-400 w-5/6 rounded-xl mt-5 h-[50px] font-bold'}>AGREGAR COMPROBANTE DE PAGO</button>
-              : <div className={'w-5/6 flex flex-col'}>
-                <span className={'bg-gray-300 w-full h-0.5 mt-5'}></span>
-                <input
-                  className={'indent-5 mt-5 border-2 border-[#5B211F] outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}
-                  placeholder={'Empresa aliada'}
-                />
-                <label className={'flex items-center border-2 border-[#5B211F] justify-center w-full rounded-xl mt-5 h-[50px] font-bold'}>
-                  Comprobante
-                <input
-                  onChange={(e) => console.log(e.target.value)}
-                  placeholder={'Cantidad de vehículos extra'}
-                  type={'file'}
-                  style={{ display: 'none' }}/>
-                </label>
-                <div>
-                  <button
-                    onClick={() => console.log('hola')}
-                    className={'bg-green-400 w-4/6 rounded-xl mt-5 h-[50px] font-bold'}>Enviar
-                  </button>
-                  <button
-                    onClick={() => setPopUpAdd(false)}
-                    className={'bg-red-400 w-2/6 rounded-xl mt-5 h-[50px] font-bold'}>Cancelar
-                  </button>
-                </div>
-              </div>
-          }
+          <button onClick={() => confirmAction()}
+                  className={'bg-blue-400 w-5/6 rounded-xl mt-5 mb-5 h-[50px] font-bold'}>
+            CONFIRMAR PAGO
+          </button>
         </div>
       </div>
     </MobileLayout>
   )
+}
+
+export async function getServerSideProps (context) {
+  const { id } = context.query
+  const res = await fetch(`https://rz-group-backend.herokuapp.com/api/payment/${id}`)
+  const data = await res.json()
+  console.log(data)
+  return {
+    props: {
+      data
+    }
+  }
 }

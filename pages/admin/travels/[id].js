@@ -12,6 +12,7 @@ export default function travels ({ data, data3 }) {
   const [selectedDriver, setSelectedDriver] = useState('')
   const [inputPopUp, setInputPopUp] = useState(false)
   console.log(data)
+  console.log(data3)
   const asignarViaje = async (id) => {
     if(!selectedDriver){
       return toast.error('No se ha seleccionado un conductor')
