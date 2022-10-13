@@ -48,6 +48,7 @@ export default function Fuec({datosFiltrados}) {
   const [alliedDriver, setAlliedDriver] = useState(true)
   // eslint-disable-next-line
   const [favoriteDriver, setFavoriteDriver] = useState(false)
+  // eslint-disable-next-line
   const [addNewDriverInput, setAddNewDriverInput] = useState(false)
   const [addNewDriver, setAddNewDriver] = useState(false)
 
