@@ -6,6 +6,7 @@ export const GET_SERVICES_OF_USER = 'GET_SERVICES_OF_USER'
 export const GET_SERVICE_ID = 'GET_SERVICE_ID'
 export const UPDATE_SERVICE = 'UPDATE_SERVICE'
 export const DELETE_SERVICE = 'DELETE_SERVICE'
+export const CLEAR_SERVICE = 'CLEAR_SERVICE'
 
 export function createService (payload, router) {
   return function (dispatch) {
@@ -15,7 +16,15 @@ export function createService (payload, router) {
           pending: 'Creando servicio...',
           success: 'Servicio creado con éxito',
           error: 'Error al crear servicio'
+        }).then(res => {
+        dispatch({
+          type: CREATE_SERVICE,
+          payload: res.data
         })
+        setTimeout(() => {
+          router.push('/client/travels')
+        }, 2000)
+      }).catch(err => console.log(err))
       : toast.promise(
         axios.post('https://rz-group-backend.herokuapp.com/api/services/create', payload), {
           pending: 'Creando servicio...',
@@ -138,5 +147,14 @@ export function cancelService (id) {
       }, 4000)
     }).catch(err =>
       console.log(err))
+  }
+}
+
+export function clearService (id) {
+  return function (dispatch) {
+    dispatch({
+      type: CLEAR_SERVICE,
+      payload: {}
+    })
   }
 }

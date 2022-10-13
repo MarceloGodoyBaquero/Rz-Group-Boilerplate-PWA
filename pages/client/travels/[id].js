@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -9,12 +10,15 @@ import {
   getServiceId,
   getServicesUserId,
   updateService,
-  cancelService
+  cancelService,
+  clearService
 } from '../../../Redux/Actions/servicesActions'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import FuecTemplate from '../../../components/FuecTemplate/FuecTemplate'
 import axios from 'axios'
 import SignaturePad from 'react-signature-canvas'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function users ({ data }) {
   const router = useRouter()
@@ -53,6 +57,11 @@ export default function users ({ data }) {
     alliedCompany: '/'
   })
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearService())
+    }
+  }, [])
   const sigCanvas = useRef({})
   // eslint-disable-next-line
   const [imageURL, setImageURL] = useState(null)
@@ -103,7 +112,18 @@ export default function users ({ data }) {
     }
     axios.post('https://rz-group-backend.herokuapp.com/api/payment/create/' + service._id, paid)
       .then(res => {
-        console.log(res.data)
+        toast.success('Pago enviado correctamente', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        })
+        setTimeout(() => {
+          router.push('/client/travels')
+        }, 2000)
       })
       .catch(err => console.log(err))
   }
@@ -120,7 +140,6 @@ export default function users ({ data }) {
       ...servicioEdit,
       [e.target.name]: e.target.value
     })
-    console.log(servicioEdit)
   }
 
   const handleCancelTravel = (id) => {
@@ -161,8 +180,6 @@ export default function users ({ data }) {
       ...paid,
       client_signature: sigCanvas.current.getTrimmedCanvas().toDataURL('image/png')
     })
-    console.log(paid)
-    return alert('Firma guardada')
   }
 
   useEffect(() => {
@@ -179,14 +196,29 @@ export default function users ({ data }) {
       client: service?.client?._id,
       alliedCompany: service?.client?.companyAllied?._id
     })
-    console.log(paid)
   }, [service])
 
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
         <Nav location={'Detalles del Servicio'}/>
+        <ToastContainer/>
         <div className={'p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
+          {service.payment
+            ? (
+            <>
+            <h1>
+              Tipo de pago: <span className={`${service.paymentType === 'cash' ? 'text-red-400 font-bold' : 'text-green-400 font-bold'}`}>{service.payment.paymentType === 'cash' ? 'Efectivo' : 'Voucher'}</span>
+            </h1>
+            <h1>
+              Estado de pago: <span className={`${service.payment.isPaid ? 'text-green-400 font-bold' : 'text-red-400 font-bold'}`}>{service.payment.isPaid ? 'Pagado' : 'No pagado'}</span>
+            </h1>
+            <h1>
+              Monto: <span className={'text-green-400 font-bold'}>$ {service.payment.paymentAmount}</span>
+            </h1>
+            </>
+              )
+            : null}
           <h1>Categoría del servicio: {service?.category?.toUpperCase()}</h1>
           <h1>Tipo de servicio: {service?.serviceType?.toUpperCase()}</h1>
           <hr className={'m-3'}/>
@@ -198,10 +230,35 @@ export default function users ({ data }) {
           <h1>Final: {service?.end_date?.slice(0, 10)}</h1>
         </div>
         <div className={'p-5 mt-3 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
-          <h1>Descripción</h1>
+          <h1>Descripción del viaje</h1>
           <h1>{service?.description}</h1>
         </div>
+        {
+          service.payment
+            ? (
+            <div className={'p-5 mt-3 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
+          <h1>Descripción del pago</h1>
+          <h1>{service?.payment.payment_description}</h1>
+        </div>
+              )
+            : null
+        }
+        {
+          service.payment
+            ? service.payment.client_signature
+              ? <div className={'p-5 mt-3 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly h-40'}>
+              <h1 className='mb-3'>Firma del cliente</h1>
+              <div className={'mt-10 bg-white w-full rounded-xl flex flex-col justify-evenly h-32 relative'}>
+          <Image src={service.payment.client_signature} alt="firma del cliente" layout='fill' objectFit='contain'/>
+        </div>
+        </div>
+              : null
+            : null
+        }
         <div className={'flex flex-col w-full items-center'}>
+          {
+            service?.status === 'completed'
+          }
           {
             service?.status === 'on progress' && user.roles === 'driver'
               ? <PDFDownloadLink document={<FuecTemplate name={user.name} service={service}/>} fileName='fuec.pdf'
@@ -315,7 +372,6 @@ export default function users ({ data }) {
                           ...paid,
                           paymentAmount: Number(e.target.value)
                         })
-                        console.log(paid)
                       }}
                       placeholder={'Monto?'}
                       type={'number'}
@@ -329,7 +385,6 @@ export default function users ({ data }) {
                             ...paid,
                             payment_description: e.target.value
                           })
-                          console.log(paid)
                         }}
                         placeholder={'Descripción'}
                         className={'indent-3 w-full rounded-xl mt-5 h-[100px] font-bold'}/>
@@ -344,7 +399,6 @@ export default function users ({ data }) {
                               ...paid,
                               payment_description: e.target.value
                             })
-                            console.log(paid)
                           }}
                           placeholder={'Descripción'}
                           className={'indent-3 w-full rounded-xl mt-5 h-[100px] font-bold'}/>

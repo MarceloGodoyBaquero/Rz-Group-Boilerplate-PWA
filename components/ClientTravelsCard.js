@@ -13,7 +13,7 @@ export default function ClientTravelsCard ({ estado, id, data }) {
   const [selectedTravel, setSelectedTravel] = useState('')
   const [selectedVehicle, setSelectedVehicle] = useState('')
   const [showModal, setShowModal] = useState(false)
-  console.log(data)
+
 
   const showPopup = (id) => {
     setSelectedTravel(id)
@@ -28,7 +28,6 @@ export default function ClientTravelsCard ({ estado, id, data }) {
       vehicleId: selectedVehicle,
       driverId: user.id
     }).then(res => {
-      console.log(res)
       toast.success('Viaje aceptado')
       setTimeout(() => {
         router.reload()
