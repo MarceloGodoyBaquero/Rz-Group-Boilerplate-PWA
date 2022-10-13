@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'

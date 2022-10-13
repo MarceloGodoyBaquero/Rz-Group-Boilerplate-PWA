@@ -2,10 +2,10 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
 
-export default function ClientBoucherCard ({ estado, id, paymentAmount, paymentType, startDate, driver }) {
+export default function ClientBoucherCard ({ rol, estado, id, paymentAmount, paymentType, startDate, driver }) {
   const router = useRouter()
   return (
-    <div onClick={() => router.push(`/client/bouchers/${id}`)} className={'bg-white m-2 flex-row flex justify-evenly h-[100px] items-center w-full rounded'}>
+    <div onClick={() => router.push(`/${rol}/bouchers/${id}`)} className={'bg-white m-2 flex-row flex justify-evenly h-[100px] items-center w-full rounded'}>
       <div className={`flex items-center justify-center w-[100px] h-[100px] ${paymentType === 'voucher' ? 'border-green-500 border-4' : 'border-red-500 border-4'} rounded-full`}>
         <h2 className={'font-bold text-black' }>
           {paymentType === 'cash' ? 'Efectivo' : 'Voucher'}

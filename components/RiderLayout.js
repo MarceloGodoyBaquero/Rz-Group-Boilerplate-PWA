@@ -27,39 +27,6 @@ export default function RiderLayout () {
             </div>
           </div>
         </div>
-        {/* <div className={'h-3/6'}> */}
-        {/*  <h2 className={'text-black font-bold text-2xl m-5'}>Tus servicios activos</h2> */}
-        {/*  <div className={'h-4/6 overflow-auto'}> */}
-        {/*    {viajes.map((viaje, index) => ( */}
-        {/*      <div key={index} className={'flex flex-col items-center justify-center'}> */}
-        {/*        <div className={'bg-white w-full m-3 rounded p-3 flex'}> */}
-        {/*          <div> */}
-        {/*            <div className={'bg-gray-500 w-[66px] h-[66px] rounded-[50%] mr-3'}></div> */}
-        {/*          </div> */}
-        {/*          <div className={'w-full flex flex-col justify-center'}> */}
-        {/*            <div className={'flex items-center justify-between m-1'}> */}
-        {/*              <h3 className={'font-bold'}>Jhon Smith</h3> */}
-        {/*              <h3 className={'bg-orange-400 rounded-2xl text-white pl-2 pr-2'}>Pending</h3> */}
-        {/*            </div> */}
-        {/*            <div className={'flex items-center justify-evenly'}> */}
-        {/*              <div className={'flex items-center w-full'}> */}
-        {/*                <CalendarIcon className={'w-[16px]'}/> */}
-        {/*                <h3>Today</h3> */}
-        {/*              </div> */}
-        {/*              <div className={'flex items-center w-full'}> */}
-        {/*                <ClockIcon className={'w-[16px]'}/> */}
-        {/*                <h3>Pending</h3> */}
-        {/*              </div> */}
-        {/*              <div className={'flex items-center w-full '}> */}
-        {/*                <BanknotesIcon className={'w-[16px]'}/> */}
-        {/*                <h3>$200.00</h3> */}
-        {/*              </div> */}
-        {/*            </div> */}
-        {/*          </div> */}
-        {/*        </div> */}
-        {/*      </div>))} */}
-        {/*  </div> */}
-        {/* </div> */}
       </div>
       <div
         className={'bg-[#5b211f] w-full rounded-t-3xl mt-7 p-4 flex-grow flex-col items-center justify-center'}>
