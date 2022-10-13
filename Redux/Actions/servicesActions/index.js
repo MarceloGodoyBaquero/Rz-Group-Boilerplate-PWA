@@ -9,21 +9,28 @@ export const DELETE_SERVICE = 'DELETE_SERVICE'
 
 export function createService (payload, router) {
   return function (dispatch) {
-    toast.promise(
-      axios.post('https://rz-group-backend.herokuapp.com/api/services/create', payload), {
-        pending: 'Creando servicio...',
-        success: 'Servicio creado con éxito',
-        error: 'Error al crear servicio'
-      })
-      .then(res => {
-        dispatch({
-          type: CREATE_SERVICE,
-          payload: res.data
+    payload.asociateDriver
+      ? toast.promise(
+        axios.post(`https://rz-group-backend.herokuapp.com/api/services/create/${payload.asociateDriver}`, payload), {
+          pending: 'Creando servicio...',
+          success: 'Servicio creado con éxito',
+          error: 'Error al crear servicio'
         })
-        setTimeout(() => {
-          router.push('/client/travels')
-        }, 2000)
-      }).catch(err => console.log(err))
+      : toast.promise(
+        axios.post('https://rz-group-backend.herokuapp.com/api/services/create', payload), {
+          pending: 'Creando servicio...',
+          success: 'Servicio creado con éxito',
+          error: 'Error al crear servicio'
+        })
+        .then(res => {
+          dispatch({
+            type: CREATE_SERVICE,
+            payload: res.data
+          })
+          setTimeout(() => {
+            router.push('/client/travels')
+          }, 2000)
+        }).catch(err => console.log(err))
   }
 }
 

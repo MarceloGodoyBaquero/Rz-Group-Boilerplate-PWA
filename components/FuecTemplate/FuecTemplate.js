@@ -179,7 +179,7 @@ export default function FuecTemplate ({ name, service }) {
                 marginLeft: '10px',
                 marginTop: '5px'
               }}>
-                ROBERTO JOSÉ CACERES JOSE
+                {service.client.companyAllied ? service.client.companyAllied.name : ''}
               </Text>
             </View>
             <View style={{
@@ -201,7 +201,7 @@ export default function FuecTemplate ({ name, service }) {
                 fontSize: '9px',
                 marginLeft: '10px'
               }}>
-                RD 5347773 {/* dinamico */}
+                {service.client.companyAllied ? service.client.companyAllied.Id_number ? service.client.companyAllied.Id_number : '' : ''}
               </Text>
             </View>
             <View style={{
@@ -674,7 +674,7 @@ export default function FuecTemplate ({ name, service }) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                      MICROBUS {/* dinamico */}
+                      {service.vehicle[0].type}
                     </Text>
                     </View>
                 </View>
@@ -1055,7 +1055,7 @@ export default function FuecTemplate ({ name, service }) {
                         fontFamily: 'Arial',
                         fontSize: '9px'
                       }}>
-                        SERGIO DENIS
+                        {service.client.firstName + ' ' + service.client.lastName}
                       </Text>
                     </View>
                   </View>
@@ -1097,7 +1097,7 @@ export default function FuecTemplate ({ name, service }) {
                         fontSize: '9px',
                         marginBottom: '5px'
                       }}>
-                        RD 5347773
+                        {service.client.idNumber}
                       </Text>
                     </View>
                   </View>
@@ -1139,7 +1139,7 @@ export default function FuecTemplate ({ name, service }) {
                         fontFamily: 'Arial',
                         fontSize: '9px'
                       }}>
-                        3115904808
+                        {service.client.phoneNumber}
                       </Text>
                     </View>
                   </View>
@@ -1180,7 +1180,7 @@ export default function FuecTemplate ({ name, service }) {
                         fontFamily: 'Arial',
                         fontSize: '9px'
                       }}>
-                        CALLE: 83 # 9-48
+                        {service.client.companyAllied ? service.client.companyAllied.address ? service.client.companyAllied.address : '' : ''}
                       </Text>
                     </View>
                   </View>
