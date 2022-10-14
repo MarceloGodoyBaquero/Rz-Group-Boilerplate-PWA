@@ -71,11 +71,6 @@ export default function travels ({ data }) {
         <Nav location={'Viajes'}/>
         <div className={'flex flex-col justify-center w-full'}>
           <div className={'flex justify-center w-full items-center'}>
-            {/* <input */}
-            {/*  className={'m-5 text-center h-[70px] w-full rounded-full border-2 border-blue-500'} */}
-            {/*  type={'search'} */}
-            {/*  placeholder={'Buscar vehiculo por MATRICULA'} */}
-            {/* /> */}
           </div>
           {
             data.data.map((travels, index) => {
