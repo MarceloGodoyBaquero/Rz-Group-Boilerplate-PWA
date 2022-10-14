@@ -384,7 +384,7 @@ export default function Fuec({datosFiltrados}) {
               <option value="Transfer IN & OUT">Transfer IN y OUT</option>
               <option value="Reservation per Hour">Reservación por horas</option>
               <option value="tourist trip">Sitios turísticos a nivel Cundinamarca</option>
-              {user && user?.roles?.includes('driver') ? null : <option value="conductor específico">Escoger conductor en específico</option>}
+              {/* {user && user?.roles?.includes('driver') ? null : <option value="conductor específico">Escoger conductor en específico</option>} */}
               <option value="Conductor de planta">Conductor de planta</option>
             </select>
           </div>
