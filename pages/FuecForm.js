@@ -131,8 +131,9 @@ export default function Fuec({datosFiltrados}) {
     if (Object.keys(errors).length > 0) {
       alert('Please fill in all the required fields')
     } else {
-      console.log(input)
-      dispatch(createService(input, router))
+      for (let i = 0; i < Number(input.number_vehicles); i++) {
+        dispatch(createService(input))
+      }
     }
   }
 

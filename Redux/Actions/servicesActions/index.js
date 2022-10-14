@@ -21,9 +21,9 @@ export function createService (payload, router) {
           type: CREATE_SERVICE,
           payload: res.data
         })
-        setTimeout(() => {
-          router.push('/client/travels')
-        }, 2000)
+        // setTimeout(() => {
+        //   router.push('/client/travels')
+        // }, 2000)
       }).catch(err => console.log(err))
       : toast.promise(
         axios.post('https://rz-group-backend.herokuapp.com/api/services/create', payload), {
@@ -36,9 +36,9 @@ export function createService (payload, router) {
             type: CREATE_SERVICE,
             payload: res.data
           })
-          setTimeout(() => {
-            router.push('/client/travels')
-          }, 2000)
+          // setTimeout(() => {
+          //   router.push('/client/travels')
+          // }, 2000)
         }).catch(err => console.log(err))
   }
 }

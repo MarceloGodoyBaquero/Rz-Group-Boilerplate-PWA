@@ -39,7 +39,7 @@ export default function users ({ data }) {
   })
 
   const [paid, setPaid] = useState({
-    isPaid: false,
+    isPaid: null,
     description: '',
     from: '/',
     to: '/',
@@ -52,7 +52,7 @@ export default function users ({ data }) {
     paymentAmount: null,
     payment_description: '',
     client_signature: null,
-    driver: '(id driver)',
+    driver: '/',
     client: '/',
     alliedCompany: '/'
   })
@@ -109,6 +109,22 @@ export default function users ({ data }) {
         ...paid,
         isPaid: true
       })
+      return axios.post('https://rz-group-backend.herokuapp.com/api/payment/create/' + service._id, paid)
+        .then(res => {
+          toast.success('Pago enviado correctamente', {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+          })
+          setTimeout(() => {
+            router.push('/client/travels')
+          }, 2000)
+        })
+        .catch(err => console.log(err))
     }
     axios.post('https://rz-group-backend.herokuapp.com/api/payment/create/' + service._id, paid)
       .then(res => {
@@ -182,6 +198,25 @@ export default function users ({ data }) {
     })
   }
 
+  const handleTypeChange = (e) => {
+    e.preventDefault()
+    setTipoDePago(e.target.value)
+    if (e.target.value === 'cash') {
+      console.log('cash')
+      return setPaid({
+        ...paid,
+        isPaid: true,
+        paymentType: e.target.value
+      })
+    } else {
+      return setPaid({
+        ...paid,
+        isPaid: false,
+        paymentType: e.target.value
+      })
+    }
+  }
+
   useEffect(() => {
     setPaid({
       ...paid,
@@ -206,17 +241,19 @@ export default function users ({ data }) {
         <div className={'p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
           {service.payment
             ? (
-            <>
-            <h1>
-              Tipo de pago: <span className={`${service.paymentType === 'cash' ? 'text-red-400 font-bold' : 'text-green-400 font-bold'}`}>{service.payment.paymentType === 'cash' ? 'Efectivo' : 'Voucher'}</span>
-            </h1>
-            <h1>
-              Estado de pago: <span className={`${service.payment.isPaid ? 'text-green-400 font-bold' : 'text-red-400 font-bold'}`}>{service.payment.isPaid ? 'Pagado' : 'No pagado'}</span>
-            </h1>
-            <h1>
-              Monto: <span className={'text-green-400 font-bold'}>$ {service.payment.paymentAmount}</span>
-            </h1>
-            </>
+              <>
+                <h1>
+                  Tipo de pago: <span
+                  className={`${service.paymentType === 'cash' ? 'text-red-400 font-bold' : 'text-green-400 font-bold'}`}>{service.payment.paymentType === 'cash' ? 'Efectivo' : 'Voucher'}</span>
+                </h1>
+                <h1>
+                  Estado de pago: <span
+                  className={`${service.payment.isPaid ? 'text-green-400 font-bold' : 'text-red-400 font-bold'}`}>{service.payment.isPaid ? 'Pagado' : 'No pagado'}</span>
+                </h1>
+                <h1>
+                  Monto: <span className={'text-green-400 font-bold'}>$ {service.payment.paymentAmount}</span>
+                </h1>
+              </>
               )
             : null}
           <h1>Categoría del servicio: {service?.category?.toUpperCase()}</h1>
@@ -236,10 +273,10 @@ export default function users ({ data }) {
         {
           service.payment
             ? (
-            <div className={'p-5 mt-3 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
-          <h1>Descripción del pago</h1>
-          <h1>{service?.payment.payment_description}</h1>
-        </div>
+              <div className={'p-5 mt-3 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
+                <h1>Descripción del pago</h1>
+                <h1>{service?.payment.payment_description}</h1>
+              </div>
               )
             : null
         }
@@ -247,11 +284,12 @@ export default function users ({ data }) {
           service.payment
             ? service.payment.client_signature
               ? <div className={'p-5 mt-3 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly h-40'}>
-              <h1 className='mb-3'>Firma del cliente</h1>
-              <div className={'mt-10 bg-white w-full rounded-xl flex flex-col justify-evenly h-32 relative'}>
-          <Image src={service.payment.client_signature} alt="firma del cliente" layout='fill' objectFit='contain'/>
-        </div>
-        </div>
+                <h1 className='mb-3'>Firma del cliente</h1>
+                <div className={'mt-10 bg-white w-full rounded-xl flex flex-col justify-evenly h-32 relative'}>
+                  <Image src={service.payment.client_signature} alt="firma del cliente" layout='fill'
+                         objectFit='contain'/>
+                </div>
+              </div>
               : null
             : null
         }
@@ -352,13 +390,7 @@ export default function users ({ data }) {
                   : <div className={'w-5/6 flex flex-col items-center'}>
                   <hr/>
                   <select
-                    onChange={(e) => {
-                      setTipoDePago(e.target.value)
-                      setPaid({
-                        ...paid,
-                        paymentType: e.target.value
-                      })
-                    }}
+                    onChange={(e) => handleTypeChange(e)}
                     className={'w-full rounded-xl mt-5 h-[50px] font-bold'}>
                     <option value={'default'}>Forma de pago?</option>
                     <option value={'cash'}>Efectivo</option>
