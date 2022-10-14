@@ -18,9 +18,17 @@ export default function ClientBoucherCard ({ rol, estado, id, paymentAmount, pay
         <h1 className={'font-bold'}>
           Monto: <span className={'font-bold text-green-500'}>$ {paymentAmount}</span>
         </h1>
-        <h1>
+        {
+          rol === 'driver'
+            ? <h1 className={'font-bold'}>
+            Cliente: <span className='font-bold'>
+              {driver.firstName} {driver.lastName}
+            </span>
+          </h1>
+            : <h1>
           Conductor: <span className={'font-bold'}>{driver.firstName + ' ' + driver.lastName}</span>
         </h1>
+        }
         <h1>
           Fecha: <span className={'font-bold'}>{startDate.split('T')[0]}</span>
         </h1>
@@ -36,5 +44,6 @@ ClientBoucherCard.propTypes = {
   paymentAmount: PropTypes.string,
   paymentType: PropTypes.string,
   startDate: PropTypes.string,
-  driver: PropTypes.object
+  driver: PropTypes.object,
+  rol: PropTypes.string
 }

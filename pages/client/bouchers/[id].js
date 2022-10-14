@@ -116,7 +116,6 @@ export async function getServerSideProps (context) {
   const { id } = context.query
   const res = await fetch(`https://rz-group-backend.herokuapp.com/api/payment/${id}`)
   const data = await res.json()
-  console.log(data)
   return {
     props: {
       data
