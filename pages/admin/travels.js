@@ -15,56 +15,6 @@ export default function travels ({ data }) {
 
   console.log(data)
 
-  //   "_id": "6348177867031242e1a888d0",
-  //   "status": "on progress",
-  //   "isActive": true,
-  //   "description": "asd",
-  //   "from": "Bogota",
-  //   "to": "Argentina",
-  //   "start_date": "2022-10-14T00:00:00.000Z",
-  //   "start_time": "14:10",
-  //   "end_date": "2022-10-15T00:00:00.000Z",
-  //   "number_vehicles": "1",
-  //   "duration": "",
-  //   "serviceType": "Transfer IN & OUT",
-  //   "category": "confort",
-  //   "driver": [
-  //     {
-  //       "_id": "634410bb32440a66ff18db50",
-  //       "firstName": "Tiago Alberto",
-  //       "lastName": "Cornalo",
-  //       "idNumber": "437890862",
-  //       "phoneNumber": "3794257022"
-  //     }
-  //   ],
-  //   "client": {
-  //     "_id": "6345bcfe08022c1e213a8a1e",
-  //     "firstName": "Tiago empresa",
-  //     "lastName": "empresa",
-  //     "idNumber": "437890983",
-  //     "phoneNumber": "3794257026",
-  //     "companyAllied": {
-  //       "_id": "63425ac977cd1ff1c90db529",
-  //       "name": "MAGIC CONCERT SAS"
-  //     }
-  //   },
-  //   "vehicle": [
-  //     {
-  //       "_id": "6344314732440a66ff18de56",
-  //       "carPlate": "PIW873",
-  //       "brand": "Ford",
-  //       "model": "Ranger",
-  //       "year": "2021",
-  //       "owner": {
-  //         "_id": "634410bb32440a66ff18db50",
-  //         "firstName": "Tiago Alberto",
-  //         "lastName": "Cornalo",
-  //         "idNumber": "437890862",
-  //         "phoneNumber": "3794257022"
-  //       }
-  //     }
-  //   ]
-
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit h-screen flex items-center flex-col'}>

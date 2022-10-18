@@ -57,12 +57,14 @@ export default function users ({ data }) {
     alliedCompany: '/'
   })
 
+  const sigCanvas = useRef({})
+  const QR = useRef({})
+
   useEffect(() => {
     return () => {
       dispatch(clearService())
     }
   }, [])
-  const sigCanvas = useRef({})
   // eslint-disable-next-line
   const [imageURL, setImageURL] = useState(null)
 
@@ -296,6 +298,10 @@ export default function users ({ data }) {
         <div className={'flex flex-col w-full items-center'}>
           {
             service?.status === 'completed'
+          }
+          {/* aqui se puede ver el qr */}
+          {
+            <h1 onClick={() => console.log(QR)} ref={QR}>ESTE TESTEASO</h1>
           }
           {
             service?.status === 'on progress' && user.roles === 'driver'
