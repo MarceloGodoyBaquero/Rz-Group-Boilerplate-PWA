@@ -4,6 +4,7 @@ import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
+import Image from 'next/image'
 
 export default function users (data) {
   console.log(data)
@@ -59,7 +60,7 @@ export default function users (data) {
           <hr className={'mt-2'}/>
           <label className={'text-center mt-2'}>
             Firma:
-            <img src={data.data.client_signature} alt={'cliente-firma'}/>
+            <Image src={data.data.client_signature} alt={'cliente-firma'}/>
           </label>
         </div>
         {

@@ -2,6 +2,7 @@ import React from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 // eslint-disable-next-line
 import {deleteService} from '../../../Redux/Actions/servicesActions'
 import axios from 'axios'
@@ -61,7 +62,7 @@ export default function users (data) {
           <hr className={'mt-2'}/>
           <label className={'text-center mt-2'}>
             Firma:
-            <img src={data.data.client_signature} alt={'cliente-firma'}/>
+            <Image src={data.data.client_signature} alt={'cliente-firma'}/>
           </label>
         </div>
         {

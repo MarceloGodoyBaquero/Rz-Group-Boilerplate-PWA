@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Nav from '../components/Nav'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import SignUp from '../public/Images/OnBoarding-1.svg'
 // import { useRouter } from 'next/router'
 import MobileLayout from '../components/MobileLayout'
@@ -37,7 +36,6 @@ function validate (input) {
 export default function Fuec({datosFiltrados}) {
   // const router = useRouter()
   const { user } = useSelector(state => state)
-  const router = useRouter()
   const [asociateDrivers, setAsociateDrivers] = useState([])
   const [allDrivers, setAllDrivers] = useState([])
 
