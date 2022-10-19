@@ -50,7 +50,11 @@ export default function FuecTemplate ({ name, service }) {
               alignItems: 'center',
               width: '20%'
             }}>
-              <Image src="https://live.staticflickr.com/65535/52415774878_cda119f7bc_c.jpg" style={{
+              {/* <Image src="https://live.staticflickr.com/65535/52415774878_cda119f7bc_c.jpg" style={{ */}
+              {/*  width: '100px', */}
+              {/*  height: '100px' */}
+              {/* }}/> */}
+              <Image src={service.QR_code} style={{
                 width: '100px',
                 height: '100px'
               }}/>
