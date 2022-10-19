@@ -15,7 +15,13 @@ export default function ClientTravelsCard({estado, id, data}) {
   const [selectedVehicle, setSelectedVehicle] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [qrCode, setQrCode] = useState('')
+  const [qrCodeDirection, setQrCodeDirection] = useState('')
   console.log('id card', id)
+
+
+  useEffect(() => {
+    setQrCode(window.location.origin)
+  }, [])
 
   const downloadQRCode = () => {
     // Generate download with use canvas and stream
@@ -57,6 +63,7 @@ export default function ClientTravelsCard({estado, id, data}) {
       toast.error('Error al aceptar viaje')
     })
   }
+
   return (
     <div
       className={'bg-white m-2 flex-col flex h-[180px] items-center w-full rounded justify-center  content-center'}>
@@ -120,8 +127,7 @@ export default function ClientTravelsCard({estado, id, data}) {
             includeMargin={true}
             fgColor={'#5b211f'}
             size={250}
-            value={`http://localhost:3000/FuecComp/${id}`}
-            onClick={() => downloadQRCode()}/>
+            value={`${qrCodeDirection}/FuecComp/${id}`}/>
         </div>
       </div>
     </div>

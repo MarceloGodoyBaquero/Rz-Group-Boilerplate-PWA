@@ -19,7 +19,6 @@ import axios from 'axios'
 import SignaturePad from 'react-signature-canvas'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { QRCodeCanvas, QRCodeSVG } from 'qrcode.react'
 
 export default function users ({ data }) {
   const router = useRouter()
@@ -59,7 +58,6 @@ export default function users ({ data }) {
   })
 
   const sigCanvas = useRef({})
-  const QR = useRef({})
 
   useEffect(() => {
     return () => {
@@ -236,21 +234,6 @@ export default function users ({ data }) {
     })
   }, [service])
 
-  const downloadQRCode = () => {
-    // Generate download with use canvas and stream
-    const canvas = document.getElementById('QR-generado')
-    console.log('canvas', canvas)
-    const pngUrl = canvas.toDataURL('image/png')
-    // .replace('image/png', 'image/octet-stream')
-    console.log('pngUrl', pngUrl)
-    // const downloadLink = document.createElement('a')
-    // downloadLink.href = pngUrl
-    // downloadLink.download = `${qrValue}.png`
-    // document.body.appendChild(downloadLink)
-    // downloadLink.click()
-    // document.body.removeChild(downloadLink)
-  }
-
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
@@ -314,19 +297,6 @@ export default function users ({ data }) {
         <div className={'flex flex-col w-full items-center'}>
           {
             service?.status === 'completed'
-          }
-          {/* aqui se puede ver el qr */}
-          {
-            <div className={'hidden'}>
-              <QRCodeCanvas
-                className={'mt-3'}
-                id={'QR-generado'}
-                includeMargin={true}
-                fgColor={'#5b211f'}
-                size={200}
-                value={`http://localhost:3000/FuecComp/${id}`}
-                onClick={() => downloadQRCode()}/>
-            </div>
           }
           {
             service?.status === 'on progress' && user.roles === 'driver'
