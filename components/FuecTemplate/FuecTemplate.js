@@ -140,7 +140,7 @@ export default function FuecTemplate ({ name, service }) {
                 fontSize: '9px',
                 marginLeft: '30px'
               }}>
-                900.464.119-3 {/* numero dinamico */}
+                901.279.534-8 {/* numero dinamico */}
               </Text>
             </View>
             <View style={{
@@ -183,7 +183,12 @@ export default function FuecTemplate ({ name, service }) {
                 marginLeft: '10px',
                 marginTop: '5px'
               }}>
-                {service.client.companyAllied ? service.client.companyAllied.name : ''}
+                {service?.client?.companyAllied
+                  ? service.client.companyAllied.name
+                  : service?.ext_client.name
+                    ? service.ext_client.name
+                    : ''
+                }
               </Text>
             </View>
             <View style={{
@@ -205,7 +210,12 @@ export default function FuecTemplate ({ name, service }) {
                 fontSize: '9px',
                 marginLeft: '10px'
               }}>
-                {service.client.companyAllied ? service.client.companyAllied.Id_number ? service.client.companyAllied.Id_number : '' : ''}
+                {service?.client?.companyAllied
+                  ? service.client.companyAllied.Id_number
+                    ? service.client.companyAllied.Id_number
+                    : ''
+                  : service?.ext_client?.id_number ? service.ext_client.id_number : ''
+                }
               </Text>
             </View>
             <View style={{
@@ -251,7 +261,7 @@ export default function FuecTemplate ({ name, service }) {
                 fontSize: '9px',
                 marginLeft: '10px'
               }}>
-              {service.from.toUpperCase()} - {service.to.toUpperCase() + ' ' + service.serviceType}
+                {service.from.toUpperCase()} - {service.to.toUpperCase() + ' ' + service.serviceType}
               </Text>
             </View>
             <View style={{
@@ -286,7 +296,7 @@ export default function FuecTemplate ({ name, service }) {
                 fontSize: '10px',
                 fontWeight: 'bold'
               }}>
-              VIGENCIA DEL CONTRATO
+                VIGENCIA DEL CONTRATO
               </Text>
               <View style={{
                 width: '100%',
@@ -348,17 +358,17 @@ export default function FuecTemplate ({ name, service }) {
                     }}>
                       {service.start_date.split('-')[2].split('T')[0]}
                     </Text>
-                    </View>
-                    <View style={{
-                      border: '1px solid black',
-                      width: '25%',
-                      margin: '1px',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      flexDirection: 'column'
-                    }}>
+                  </View>
+                  <View style={{
+                    border: '1px solid black',
+                    width: '25%',
+                    margin: '1px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flexDirection: 'column'
+                  }}>
                     <Text style={{
                       fontFamily: 'Arial',
                       fontSize: '9px'
@@ -371,17 +381,17 @@ export default function FuecTemplate ({ name, service }) {
                     }}>
                       {service.start_date.split('-')[1]}
                     </Text>
-                    </View>
-                    <View style={{
-                      border: '1px solid black',
-                      width: '25%',
-                      margin: '1px',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      flexDirection: 'column'
-                    }}>
+                  </View>
+                  <View style={{
+                    border: '1px solid black',
+                    width: '25%',
+                    margin: '1px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flexDirection: 'column'
+                  }}>
                     <Text style={{
                       fontFamily: 'Arial',
                       fontSize: '9px'
@@ -394,7 +404,7 @@ export default function FuecTemplate ({ name, service }) {
                     }}>
                       {service.start_date.split('-')[0]}
                     </Text>
-                    </View>
+                  </View>
                 </View>
 
                 <View style={{
@@ -444,19 +454,19 @@ export default function FuecTemplate ({ name, service }) {
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
-                       {service.start_date.split('-')[2].split('T')[0]}
+                      {service.start_date.split('-')[2].split('T')[0]}
                     </Text>
-                    </View>
-                    <View style={{
-                      border: '1px solid black',
-                      width: '25%',
-                      margin: '1px',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      flexDirection: 'column'
-                    }}>
+                  </View>
+                  <View style={{
+                    border: '1px solid black',
+                    width: '25%',
+                    margin: '1px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flexDirection: 'column'
+                  }}>
                     <Text style={{
                       fontFamily: 'Arial',
                       fontSize: '9px'
@@ -469,17 +479,17 @@ export default function FuecTemplate ({ name, service }) {
                     }}>
                       {service.start_date.split('-')[1] === '12' ? '01' : Number(service.start_date.split('-')[1]) + 1}
                     </Text>
-                    </View>
-                    <View style={{
-                      border: '1px solid black',
-                      width: '25%',
-                      margin: '1px',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      flexDirection: 'column'
-                    }}>
+                  </View>
+                  <View style={{
+                    border: '1px solid black',
+                    width: '25%',
+                    margin: '1px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flexDirection: 'column'
+                  }}>
                     <Text style={{
                       fontFamily: 'Arial',
                       fontSize: '9px'
@@ -492,7 +502,7 @@ export default function FuecTemplate ({ name, service }) {
                     }}>
                       {service.start_date.split('-')[0]}
                     </Text>
-                    </View>
+                  </View>
                 </View>
 
               </View>
@@ -560,43 +570,43 @@ export default function FuecTemplate ({ name, service }) {
                     }}>
                       MODELO
                     </Text>
-                    </View>
-                    <View style={{
-                      border: '1px solid black',
-                      margin: '1px',
-                      width: '25%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      flexDirection: 'column',
-                      height: '100%'
-                    }}>
+                  </View>
+                  <View style={{
+                    border: '1px solid black',
+                    margin: '1px',
+                    width: '25%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flexDirection: 'column',
+                    height: '100%'
+                  }}>
                     <Text style={{
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
                       MARCA
                     </Text>
-                    </View>
-                    <View style={{
-                      border: '1px solid black',
-                      margin: '1px',
-                      width: '25%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      flexDirection: 'column',
-                      height: '100%'
-                    }}>
+                  </View>
+                  <View style={{
+                    border: '1px solid black',
+                    margin: '1px',
+                    width: '25%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flexDirection: 'column',
+                    height: '100%'
+                  }}>
                     <Text style={{
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
                       CLASE
                     </Text>
-                    </View>
+                  </View>
                 </View>
 
                 <View style={{
@@ -626,61 +636,61 @@ export default function FuecTemplate ({ name, service }) {
                     }}>
                       {service.vehicle[0].carPlate}
                     </Text>
-                    </View>
-                    <View style={{
-                      border: '1px solid black',
-                      margin: '1px',
-                      width: '25%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      flexDirection: 'column',
-                      height: '100%'
-                    }}>
+                  </View>
+                  <View style={{
+                    border: '1px solid black',
+                    margin: '1px',
+                    width: '25%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flexDirection: 'column',
+                    height: '100%'
+                  }}>
                     <Text style={{
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
                       {service.vehicle[0].year}
                     </Text>
-                    </View>
-                    <View style={{
-                      border: '1px solid black',
-                      margin: '1px',
-                      width: '25%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      flexDirection: 'column',
-                      height: '100%'
-                    }}>
+                  </View>
+                  <View style={{
+                    border: '1px solid black',
+                    margin: '1px',
+                    width: '25%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flexDirection: 'column',
+                    height: '100%'
+                  }}>
                     <Text style={{
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
                       {service.vehicle[0].brand}
                     </Text>
-                    </View>
-                    <View style={{
-                      border: '1px solid black',
-                      margin: '1px',
-                      width: '25%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      flexDirection: 'column',
-                      height: '100%'
-                    }}>
+                  </View>
+                  <View style={{
+                    border: '1px solid black',
+                    margin: '1px',
+                    width: '25%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flexDirection: 'column',
+                    height: '100%'
+                  }}>
                     <Text style={{
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
                       {service.vehicle[0].type}
                     </Text>
-                    </View>
+                  </View>
                 </View>
 
                 <View style={{
@@ -710,25 +720,25 @@ export default function FuecTemplate ({ name, service }) {
                     }}>
                       NUMERO INTERNO
                     </Text>
-                    </View>
-                    <View style={{
-                      border: '1px solid black',
-                      margin: '1px',
-                      width: '60%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      flexDirection: 'column',
-                      height: '100%'
-                    }}>
+                  </View>
+                  <View style={{
+                    border: '1px solid black',
+                    margin: '1px',
+                    width: '60%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flexDirection: 'column',
+                    height: '100%'
+                  }}>
                     <Text style={{
                       fontFamily: 'Arial',
                       fontSize: '9px'
                     }}>
                       NÚMERO TARJETA DE OPERACIÓN
                     </Text>
-                    </View>
+                  </View>
                 </View>
 
                 <View style={{
@@ -780,7 +790,7 @@ export default function FuecTemplate ({ name, service }) {
                   </View>
                 </View>
 
-                    {/* datos del conductor */}
+                {/* datos del conductor */}
 
                 <View style={{
                   width: '100%',
@@ -985,7 +995,7 @@ export default function FuecTemplate ({ name, service }) {
                   </View>
                 </View>
 
-                    {/* datos del Contratante */}
+                {/* datos del Contratante */}
 
                 <View style={{
                   width: '100%',
@@ -1022,16 +1032,16 @@ export default function FuecTemplate ({ name, service }) {
                     </Text>
                   </View>
 
-                <View style={{
-                  border: '1px solid black',
-                  margin: '1px',
-                  width: '25%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  height: '100%'
-                }}>
+                  <View style={{
+                    border: '1px solid black',
+                    margin: '1px',
+                    width: '25%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    height: '100%'
+                  }}>
                     <View style={{
                       width: '100%',
                       display: 'flex',
@@ -1059,7 +1069,13 @@ export default function FuecTemplate ({ name, service }) {
                         fontFamily: 'Arial',
                         fontSize: '9px'
                       }}>
-                        {service.client.firstName + ' ' + service.client.lastName}
+                        {
+                          service?.client
+                            ? (service?.client?.firstName + ' ' + service?.client?.lastName)
+                            : service?.ext_client?.responsible_name
+                              ? service?.ext_client?.responsible_name
+                              : service?.ext_client?.name
+                        }
                       </Text>
                     </View>
                   </View>
@@ -1101,7 +1117,13 @@ export default function FuecTemplate ({ name, service }) {
                         fontSize: '9px',
                         marginBottom: '5px'
                       }}>
-                        {service.client.idNumber}
+                        {
+                          service?.client
+                            ? service?.client?.idNumber
+                            : service?.ext_client?.responsible_id
+                              ? service?.ext_client?.responsible_id
+                              : service?.ext_client?.id_number
+                        }
                       </Text>
                     </View>
                   </View>
@@ -1143,7 +1165,13 @@ export default function FuecTemplate ({ name, service }) {
                         fontFamily: 'Arial',
                         fontSize: '9px'
                       }}>
-                        {service.client.phoneNumber}
+                        {
+                          service?.client
+                            ? service?.client?.phoneNumber
+                            : service?.ext_client?.responsible_phone
+                              ? service?.ext_client?.responsible_phone
+                              : service?.ext_client?.phone
+                        }
                       </Text>
                     </View>
                   </View>
@@ -1184,7 +1212,15 @@ export default function FuecTemplate ({ name, service }) {
                         fontFamily: 'Arial',
                         fontSize: '9px'
                       }}>
-                        {service.client.companyAllied ? service.client.companyAllied.address ? service.client.companyAllied.address : '' : ''}
+                        {
+                          service?.client?.companyAllied
+                            ? service.client.companyAllied.address
+                              ? service.client.companyAllied.address
+                              : ''
+                            : service?.ext_client?.address
+                              ? service?.ext_client?.address
+                              : ''
+                        }
                       </Text>
                     </View>
                   </View>

@@ -5,6 +5,7 @@ import Logo from '../public/icon-512x512.png'
 
 export default function SplashScreen () {
   const router = useRouter()
+
   useEffect(() => {
     setTimeout(() => {
       router.push('/Onboarding')

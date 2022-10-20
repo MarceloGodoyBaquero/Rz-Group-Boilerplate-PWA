@@ -22,7 +22,7 @@ export default function ClientBoucherCard ({ rol, estado, id, paymentAmount, pay
           rol === 'driver'
             ? <h1 className={'font-bold'}>
             Cliente: <span className='font-bold'>
-              {driver.firstName} {driver.lastName}
+              {driver?.firstName} {driver?.lastName}
             </span>
           </h1>
             : <h1>

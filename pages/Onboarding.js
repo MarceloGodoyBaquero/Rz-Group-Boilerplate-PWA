@@ -41,10 +41,12 @@ export default function Onboarding () {
                 <b> Bogotá, Medellín, Cali, Cartagena</b> entre otras.</h2>}
             {tab === 2 &&
               <h2 className={'text-white text-xl text-center m-5'}>Nuestro servicio es puerta a puerta
-                <b> (aeropuerto-hotel-hotel-aeropuerto)</b> y se basa en el respeto, la puntualidad y la seguridad (contamos con
+                <b> (aeropuerto-hotel-hotel-aeropuerto)</b> y se basa en el respeto, la puntualidad y la seguridad
+                (contamos con
                 protocolos de bioseguridad).</h2>}
             {tab === 3 &&
-              <h2 className={'text-white text-xl text-center m-5'}>Ofrecemos servicio <b> por horas o día completo</b> de
+              <h2 className={'text-white text-xl text-center m-5'}>Ofrecemos servicio <b> por horas o día
+                completo</b> de
                 acuerdo al requerimiento de nuestro cliente.</h2>}
           </div>
           <div className={'w-full'}>
