@@ -30,7 +30,7 @@ export default function companies ({ data }) {
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
-        <Nav location={'Compañias'}/>
+        <Nav location={'Compañias'} goBack={'/admin'}/>
         <div className={'flex flex-col justify-center w-full items-center'}>
         <div className={'flex justify-center w-full items-center'}>
             <input

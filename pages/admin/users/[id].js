@@ -17,7 +17,6 @@ export default function users ({ data }) {
     phoneNumber: data.phoneNumber,
     idNumber: data.idNumber
   })
-
   const deleteUser = async (id) => {
     console.log(id)
     axios.delete('https://rz-group-backend.herokuapp.com/api/user/' + id)

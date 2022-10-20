@@ -89,7 +89,7 @@ export default function companyCreate () {
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
-        <Nav location={'Crear compañia'}/>
+        <Nav location={'Crear compañia'} goBack={'/admin'}/>
         <ToastContainer/>
       <div className={'flex flex-col justify-center w-full items-center'}>
       { !naturalPerson && !company &&
@@ -103,7 +103,7 @@ export default function companyCreate () {
                         <input type="checkbox" className='rounded-full ml-3' checked={naturalPerson}
                                onChange={() => handleNaturalPerson()}/>
                       </div>
-                      <div className='mt-5'>
+                      <div className='mt-8'>
                         <label className='font-bold'>Persona Juridíca</label>
                         <input type="checkbox" className='rounded-full ml-3' checked={company}
                                onChange={() => handleCompany()}/>

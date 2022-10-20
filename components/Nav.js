@@ -6,7 +6,7 @@ import Image from 'next/image'
 import EditIcon from '../public/Images/EditProfile.svg'
 import Menu from './Menu'
 
-export default function Nav ({ location, cosito }) {
+export default function Nav ({ location, cosito, goBack }) {
   const [supportsPWA, setSupportsPWA] = useState(false)
   const [promptInstall, setPromptInstall] = useState(null)
   const router = useRouter()
@@ -47,7 +47,7 @@ export default function Nav ({ location, cosito }) {
         </Menu>
         : null
       }
-       {location !== 'Home' && <div onClick={() => router.back()} className={'w-1/6 flex items-center justify-center cursor-pointer'}>
+       {location !== 'Home' && <div onClick={() => goBack ? router.push(goBack) : router.back()} className={'w-1/6 flex items-center justify-center cursor-pointer'}>
         <ArrowLeftIcon className={'h-1/3'}/>
        </div>}
       <div className={'w-4/6 flex items-center justify-center'}>
@@ -63,5 +63,6 @@ export default function Nav ({ location, cosito }) {
 
 Nav.propTypes = {
   location: PropTypes.string,
-  cosito: PropTypes.bool
+  cosito: PropTypes.bool,
+  goBack: PropTypes.string
 }
