@@ -23,6 +23,7 @@ export default function users ({ data }) {
     vehicles: [id],
     idDriver: ''
   })
+  // && driver?.isAproved === 'aproved'
 
   const autorizacionTab = () => {
     setTab(1)
@@ -32,19 +33,50 @@ export default function users ({ data }) {
         setConductores(res?.data?.data?.filter(driver => driver?.roles[0]?.name === 'driver' && driver?.isAproved === 'aproved').map(e => {
           return {
             value: e?._id,
-            label: e?.firstName + ' ' + e?.lastName
+            label: e?.firstName + ' ' + e?.lastName + ' - (' + e?.idNumber + ')'
           }
         }))
       }).catch(err => {
         console.log(err)
       })
   }
+  // http://localhost:3001/api/user/authDrivers/:id
+
+  const quitarAutorizacionTab = () => {
+    setTab(2)
+    axios.get(`https://rz-group-backend.herokuapp.com/api/user/authDrivers/${user.id}`)
+      .then(res => {
+        console.log('asd', res.data)
+        setConductores(res?.data?.map(e => {
+          return {
+            value: e?._id,
+            label: e?.firstName + ' ' + e?.lastName + ' - (' + e?.idNumber + ')'
+          }
+        }))
+      }).catch(err => {
+        console.log(err)
+      })
+  }
+
+  const desautorizacion = (e) => {
+    e.preventDefault()
+    console.log(input)
+    axios.post(`https://rz-group-backend.herokuapp.com/api/user/unAuthDriver/${user.id}`, input)
+      .then(res => {
+        console.log(res)
+        setTab(0)
+      }).catch(err => {
+        console.log(err)
+      })
+  }
+
   const autorizacion = (e) => {
     e.preventDefault()
+    console.log(input)
     axios.post(`https://rz-group-backend.herokuapp.com/api/user/addDriver/${user.id}`, input)
       .then(res => {
         console.log(res)
-        setTab(1)
+        setTab(0)
       }).catch(err => {
         console.log(err)
       })
@@ -86,7 +118,7 @@ export default function users ({ data }) {
           {
             data.isAproved === 'aproved'
               ? <button onClick={() => autorizacionTab()}
-                        className={'bg-blue-500 w-5/6 rounded-xl mt-10 mb-5 h-[50px] font-bold text-white'}>AUTORIZAR
+                        className={tab === 1 ? 'bg-blue-900 w-5/6 rounded-xl mt-10 mb-5 h-[50px] font-bold text-white' : 'bg-blue-500 w-5/6 rounded-xl mt-10 mb-5 h-[50px] font-bold text-white'}>AUTORIZAR
                 CONDUCTOR
               </button>
               : null
@@ -97,7 +129,29 @@ export default function users ({ data }) {
                 <Select options={conductores}
                         className={'w-full mr-2'}
                         onChange={(e) => setInput({ ...input, idDriver: e.value })}/>
-                <button onClick={(e) => autorizacion(e)} className={'bg-green-500 w-2/6 rounded-xl h-[50px] font-bold text-white'}>AUTORIZAR</button>
+                <button onClick={(e) => autorizacion(e)}
+                        className={'bg-green-500 w-2/6 rounded-xl h-[50px] font-bold text-white'}>AUTORIZAR
+                </button>
+              </div>
+              : null
+          }
+          {
+            data.isAproved === 'aproved'
+              ? <button onClick={() => quitarAutorizacionTab()}
+                        className={tab === 2 ? 'bg-blue-900 w-5/6 rounded-xl mt-10 mb-5 h-[50px] font-bold text-white' : 'bg-blue-500 w-5/6 rounded-xl mt-10 mb-5 h-[50px] font-bold text-white'}>QUITAR
+                AUTORIZACIÓN
+              </button>
+              : null
+          }
+          {
+            tab === 2
+              ? <div className={'w-full w-5/6 flex flex-row items-center justify-center'}>
+                <Select options={conductores}
+                        className={'w-full mr-2'}
+                        onChange={(e) => setInput({ ...input, idDriver: e.value })}/>
+                <button onClick={(e) => desautorizacion(e)}
+                        className={'bg-red-500 w-3/6 rounded-xl h-[50px] font-bold text-white'}>DESAUTORIZAR
+                </button>
               </div>
               : null
           }
