@@ -29,7 +29,7 @@ export default function companies ({ data }) {
 
   return (
     <MobileLayout>
-      <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
+      <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
         <Nav location={'Compañias'}/>
         <div className={'flex flex-col justify-center w-full items-center'}>
         <div className={'flex justify-center w-full items-center'}>
@@ -59,7 +59,8 @@ export default function companies ({ data }) {
         }
         </div>
         </div>
-        <div className={'mt-5 mb-5 flex w-full flex-row items-center justify-center'}>
+        { search === '' &&
+          <div className={'mt-5 mb-5 flex w-full flex-row items-center justify-center'}>
             <ReactPaginate
               className={'flex w-full flex-row items-center justify-evenly'}
               breakLabel={'...'}
@@ -74,6 +75,8 @@ export default function companies ({ data }) {
               previousLinkClassName={'text-blue-500 border-2 border-blue-500 rounded-full p-2'}
             />
           </div>
+        }
+
         </div>
       </div>
     </MobileLayout>
