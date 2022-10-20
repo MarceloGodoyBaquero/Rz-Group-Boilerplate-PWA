@@ -1,3 +1,4 @@
+/* eslint react/prop-types: 0 */
 import React, { useEffect, useState } from 'react'
 import FuecTemplate from '../../components/FuecTemplate/FuecTemplate'
 import { PDFDownloadLink } from '@react-pdf/renderer'
