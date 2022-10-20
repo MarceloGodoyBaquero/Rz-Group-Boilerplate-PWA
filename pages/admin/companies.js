@@ -45,14 +45,14 @@ export default function companies ({ data }) {
         <div className={'flex flex-col justify-center w-full items-center'}>
         {
           data && search === '' && data.data.map((company, index) => (
-            <div key={index} className={'flex flex-col justify-center w-[90%] items-center mt-20'}>
+            <div key={index} className={'flex flex-col justify-center w-[100%] items-center mt-20'}>
               <AdminCompaniesCard type={company.responsabilidad_tributaria} name={company.name} lastName={company.last_name} id={company._id} idNumber={company.Id_number} address={company.address}/>
             </div>
           ))
         }
         {
           searchData && search !== '' && searchData.map((company, index) => (
-            <div key={index} className={'flex flex-col justify-center w-[90%] items-center mt-20'}>
+            <div key={index} className={'flex flex-col justify-center w-[100%] items-center mt-20'}>
               <AdminCompaniesCard type={company.responsabilidad_tributaria} name={company.name} lastName={company.last_name} id={company._id} idNumber={company.Id_number} address={company.address}/>
             </div>
           ))

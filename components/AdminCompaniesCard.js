@@ -12,13 +12,13 @@ export default function AdminCompaniesCard ({ type, name, lastName, id, phone, i
     address: PropTypes.string
   }
   return (
-    <div className={'bg-white m-2 flex-row flex justify-evenly h-[100px] items-center w-full rounded'}>
+    <div className={'bg-white m-2 flex-row flex justify-evenly h-[200px] items-center w-full rounded-2xl'}>
       <div className={`flex items-center justify-center w-[100px] h-[100px] mr-5 ${type === 'Persona juridica' || type === 'Persona jurídica' ? 'border-green-500 border-4' : 'border-red-500 border-4'} rounded-full`}>
         <h2 className={'font-bold text-black text-center' }>
           {type}
         </h2>
       </div>
-      <div className='flex flex-col justify-evenly items-flex-start h-full'>
+      <div className='flex flex-col justify-evenly items-flex-start h-fit'>
         <div>
         <h1 className={''}>
             Nombre: <span className='font-bold'>
