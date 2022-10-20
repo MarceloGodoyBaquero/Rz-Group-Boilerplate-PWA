@@ -87,7 +87,7 @@ export default function FuecTemplate ({ name, service }) {
             }}>
               FORMATO ÚNICO DE EXTRACTO DEL CONTRATO DEL SERVICIO PÚBLICO
               DE TRANSPORTE TERRESTRE AUTOMOTOR ESPECIAL
-              No. 425004714202241910001 {/* numero dinamico */}
+              No. 42500471420224191{service?.fuec_ID ? service?.fuec_ID : '0001'} {/* numero dinamico */}
             </Text>
           </View>
           <View style={{

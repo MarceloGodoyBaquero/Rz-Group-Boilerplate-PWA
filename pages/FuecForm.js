@@ -297,7 +297,7 @@ export default function Fuec({datosFiltrados}) {
                                 <div className={'w-full'}>
                                   <Select options={driversMap}
                                           onChange={(e) => setInput({ ...input, asociateDriver: e.value })}/>
-                                  {/* <ReactSearchAutocomplete onSelect={(item) => setInput({ ...input, asociateDriver: item.id })} onSearch={() => console.log(driversMap)} items={driversMap} autoFocus={true}/> */}
+                                   {/* <ReactSearchAutocomplete onSelect={(item) => setInput({ ...input, asociateDriver: item.id })} onSearch={() => console.log(driversMap)} items={driversMap} autoFocus={true}/> */}
                                 </div>
                               </div>
                               )

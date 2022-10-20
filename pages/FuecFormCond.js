@@ -64,7 +64,7 @@ export default function Fuec({datosFiltrados}) {
     })
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState({})
-  const [showModal, setShowModal] = useState(true)
+  const [showModal, setShowModal] = useState(false)
   const [tab, setTab] = useState(1)
 
   useEffect(() => {
