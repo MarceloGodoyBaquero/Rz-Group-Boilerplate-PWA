@@ -17,7 +17,7 @@ export default function travels ({ data }) {
 
   return (
     <MobileLayout>
-      <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit h-screen flex items-center flex-col'}>
+      <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
         <Nav location={'Viajes'}/>
         <div className={'flex flex-col justify-center w-full'}>
           <div className={'flex justify-center w-full items-center'}>

@@ -357,7 +357,7 @@ export default function Fuec({datosFiltrados}) {
                                       </div>
                                     )
                                   }
-                                  <InputSuggestions autoFocus suggestions={allDrivers.map(d, i => <option
+                                  <InputSuggestions autoFocus suggestions={allDrivers.map((d, i) => <option key={i}
                                     value={d._id}>{d.firstName} {d.lastName}</option>)}/>
                                 </div>
                                 )
