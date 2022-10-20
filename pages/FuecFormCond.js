@@ -7,9 +7,11 @@ import SignUp from '../public/Images/OnBoarding-1.svg'
 import MobileLayout from '../components/MobileLayout'
 import { useDispatch, useSelector } from 'react-redux'
 // import { createService } from '../Redux/Actions/servicesActions'
-import { ToastContainer, toast } from 'react-toastify'
+// eslint-disable-next-line
+import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Button, Modal, Spinner } from 'flowbite-react'
+// eslint-disable-next-line
+import {Button, Modal, Spinner} from 'flowbite-react'
 // import { InformationCircleIcon } from '@heroicons/react/24/solid'
 // import Select from 'react-select'
 
@@ -37,7 +39,9 @@ function validate (input) {
 export default function Fuec({datosFiltrados}) {
   // const router = useRouter()
   const { user } = useSelector(state => state)
+  // eslint-disable-next-line
   const [inputConductor, setInputConductor] = useState(0)
+  // eslint-disable-next-line
   const dispatch = useDispatch()
   const [mounted, setMounted] = useState(false)
   const [input, setInput] = useState(

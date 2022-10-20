@@ -1,24 +1,24 @@
-/* eslint-disable */
-import React, {useEffect, useState} from 'react'
-import {useRouter} from 'next/router'
-import {useSelector} from 'react-redux'
-import {Modal, Select, Button} from 'flowbite-react'
-import {ToastContainer, toast} from 'react-toastify'
+/* eslint react/prop-types: 0 */
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import { Modal, Select, Button } from 'flowbite-react'
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
-import {QRCodeCanvas} from "qrcode.react";
+import { QRCodeCanvas } from 'qrcode.react'
 
-export default function ClientTravelsCard({estado, id, data}) {
+export default function ClientTravelsCard ({ estado, id, data }) {
   const router = useRouter()
-  const {user} = useSelector(state => state)
+  const { user } = useSelector(state => state)
   const [selectedTravel, setSelectedTravel] = useState('')
   const [selectedVehicle, setSelectedVehicle] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [qrCode, setQrCode] = useState('')
+  // eslint-disable-next-line
   const [qrCodeDirection, setQrCodeDirection] = useState('')
   const [vehicles, setVehicles] = useState([])
   console.log('id card', id)
-
 
   useEffect(() => {
     setQrCode(window.location.origin)
@@ -40,15 +40,14 @@ export default function ClientTravelsCard({estado, id, data}) {
     // document.body.removeChild(downloadLink)
   }
 
-
   const showPopup = (id) => {
     axios.get(`https://rz-group-backend.herokuapp.com/api/user/chooseVehicle/${user.id}`)
       .then(res => {
         console.log(res.data)
         setVehicles(res.data)
       }).catch(err => {
-      console.log(err)
-    })
+        console.log(err)
+      })
     setSelectedTravel(id)
     setShowModal(true)
     return downloadQRCode()
@@ -90,8 +89,8 @@ export default function ClientTravelsCard({estado, id, data}) {
         </div>
         <div className={'flex flex-row justify-evenly items-center w-full mt-5'}>
           {
-            data.status === 'pending' && user?.roles?.includes('driver') ?
-              <>
+            data.status === 'pending' && user?.roles?.includes('driver')
+              ? <>
                 <Button onClick={() => showPopup(data._id)} color='success'>Aceptar</Button>
                 <Button onClick={() => {
                 }} color='failure'>Rechazar</Button>
