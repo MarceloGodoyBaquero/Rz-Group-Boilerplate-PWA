@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Spinner } from 'flowbite-react'
 import { InformationCircleIcon } from '@heroicons/react/24/solid'
+import { InputSuggestions } from 'react-input-suggestions'
 
 function validate (input) {
   const errors = {}
@@ -217,12 +218,12 @@ export default function Fuec({datosFiltrados}) {
             {
               user.companyAllied
                 ? (
-                <div className='mb-5 flex flex-row justify-center items-center'>
-            <InformationCircleIcon className=' text-gray-500 mr-2 h-16 w-16'/>
-              <p>
-                Si agregas mas de 1 vehiculo, no podras agregar un conductor especifico.
-              </p>
-            </div>
+                  <div className='mb-5 flex flex-row justify-center items-center'>
+                    <InformationCircleIcon className=' text-gray-500 mr-2 h-16 w-16'/>
+                    <p>
+                      Si agregas mas de 1 vehiculo, no podras agregar un conductor especifico.
+                    </p>
+                  </div>
                   )
                 : null
             }
@@ -235,43 +236,50 @@ export default function Fuec({datosFiltrados}) {
             />
           </div>
           {
-              Number(input.number_vehicles) === 1 && alliedDriver && user.companyAllied
-                ? (
-              <div className='flex flex-col justify-center items-center mt-5'>
-            <p>
-              ¿Tienes un conductor específico?
-            </p>
-            <div className='w-full flex flex-row justify-evenly items-center mt-5 mb-5'>
-              <div>
-                <label>Si</label>
-                <input type="checkbox" className='rounded-full' checked={specificDriver} onChange={() => user.companyAllied ? setSpecificDriver(true) : setFavoriteDriver(true) }/>
-              </div>
-              <div>
-                <label>No</label>
-                <input type="checkbox" className='rounded-full' checked={!specificDriver} onChange={() => user.companyAllied ? setSpecificDriver(false) : setFavoriteDriver(false)}/>
-              </div>
-            </div>
-                {
-                  specificDriver
-                    ? (
-                    <div className='w-full flex flex-col justify-center items-center mb-5 '>
-                      { asociateDrivers.length === 0
-                        ? <button className='bg-[#5b211f] rounded-lg w-[100px] h-[33px] text-white text-center text-sm font-bold border-[none]' onClick={() => handleSearchDrivers()}>
-                        {
-                          loading
-                            ? (
-                            <Spinner color="warning"
-                            aria-label="Warning spinner example"/>
-                              )
+            Number(input.number_vehicles) === 1 && alliedDriver && user.companyAllied
+              ? (
+                <div className='flex flex-col justify-center items-center mt-5'>
+                  <p>
+                    ¿Tienes un conductor específico?
+                  </p>
+                  <div className='w-full flex flex-row justify-evenly items-center mt-5 mb-5'>
+                    <div>
+                      <label>Si</label>
+                      <input type="checkbox" className='rounded-full' checked={specificDriver}
+                             onChange={() => user.companyAllied ? setSpecificDriver(true) : setFavoriteDriver(true)}/>
+                    </div>
+                    <div>
+                      <label>No</label>
+                      <input type="checkbox" className='rounded-full' checked={!specificDriver}
+                             onChange={() => user.companyAllied ? setSpecificDriver(false) : setFavoriteDriver(false)}/>
+                    </div>
+                  </div>
+                  {
+                    specificDriver
+                      ? (
+                        <div className='w-full flex flex-col justify-center items-center mb-5 '>
+                          {asociateDrivers.length === 0
+                            ? <button
+                              className='bg-[#5b211f] rounded-lg w-[100px] h-[33px] text-white text-center text-sm font-bold border-[none]'
+                              onClick={() => handleSearchDrivers()}>
+                              {
+                                loading
+                                  ? (
+                                    <Spinner color="warning"
+                                             aria-label="Warning spinner example"/>
+                                    )
+                                  : (
+                                    <p>Buscar</p>
+                                    )
+                              }
+                            </button>
                             : (
-                            <p>Buscar</p>
-                              )
-                        }
-                      </button>
-                        : (
-                          <div className='flex flex-col justify-center items-center w-full'>
-                                <label htmlFor="Drivers" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Elige una opción</label>
-                                <select id="Drivers" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              <div className='flex flex-col justify-center items-center w-full'>
+                                <label htmlFor="Drivers"
+                                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Elige una
+                                  opción</label>
+                                <select id="Drivers"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         onChange={(e) => setInput({ ...input, asociateDriver: e.target.value })}>
                                   <option selected disabled={true}>Elige un conductor</option>
                                   {
@@ -280,50 +288,57 @@ export default function Fuec({datosFiltrados}) {
                                     ))
                                   }
                                 </select>
-                          </div>
-                          )
-                      }
-                    </div>
-                      )
-                    : null
-                }
-                <div className='flex flex-col justify-center items-center mt-5'>
+                              </div>
+                              )
+                          }
+                        </div>
+                        )
+                      : null
+                  }
+                  <div className='flex flex-col justify-center items-center mt-5'>
                     <p>
-                     ¿Quieres agregar un conductor a tu empresa?
-                  </p>
-                  <div className='w-full flex flex-row justify-evenly items-center mt-5 mb-5'>
-                    <div>
-                      <label>Si</label>
-                      <input type="checkbox" className='rounded-full' checked={addNewDriver} onChange={() => setAddNewDriver(true)} />
+                      ¿Quieres agregar un conductor a tu empresa?
+                    </p>
+                    <div className='w-full flex flex-row justify-evenly items-center mt-5 mb-5'>
+                      <div>
+                        <label>Si</label>
+                        <input type="checkbox" className='rounded-full' checked={addNewDriver}
+                               onChange={() => setAddNewDriver(true)}/>
+                      </div>
+                      <div>
+                        <label>No</label>
+                        <input type="checkbox" className='rounded-full' checked={!addNewDriver}
+                               onChange={() => setAddNewDriver(false)}/>
+                      </div>
                     </div>
-                    <div>
-                      <label>No</label>
-                      <input type="checkbox" className='rounded-full' checked={!addNewDriver} onChange={() => setAddNewDriver(false)} />
-                    </div>
-                  </div>
-                  {
-                    addNewDriver && (
-                      <div className='w-full flex flex-col justify-center items-center mb-5 '>
-                        {
-                          allDrivers.length === 0
-                            ? (
-                            <button className='bg-[#5b211f] rounded-lg w-[100px] h-[33px] text-white text-center text-sm font-bold border-[none]' onClick={() => findAllDrivers()}>
-                        {
-                          loading2
-                            ? (
-                            <Spinner color="warning"
-                            aria-label="Warning spinner example"/>
-                              )
-                            : (
-                            <p>Buscar</p>
-                              )
-                        }
-                        </button>
-                              )
-                            : (
-                            <div className='flex flex-col justify-center items-center w-full'>
-                                  <label htmlFor="Drivers" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Elige una opción</label>
-                                  <select id="Drivers" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    {
+                      addNewDriver && (
+                        <div className='w-full flex flex-col justify-center items-center mb-5 '>
+                          {
+                            allDrivers.length === 0
+                              ? (
+                                <button
+                                  className='bg-[#5b211f] rounded-lg w-[100px] h-[33px] text-white text-center text-sm font-bold border-[none]'
+                                  onClick={() => findAllDrivers()}>
+                                  {
+                                    loading2
+                                      ? (
+                                        <Spinner color="warning"
+                                                 aria-label="Warning spinner example"/>
+                                        )
+                                      : (
+                                        <p>Buscar</p>
+                                        )
+                                  }
+                                </button>
+                                )
+                              : (
+                                <div className='flex flex-col justify-center items-center w-full'>
+                                  <label htmlFor="Drivers"
+                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Elige una
+                                    opción</label>
+                                  <select id="Drivers"
+                                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                           onChange={(e) => setSelectedNewDriver(e.target.value)}>
                                     <option selected disabled={true}>Elige un conductor</option>
                                     {
@@ -335,21 +350,26 @@ export default function Fuec({datosFiltrados}) {
                                   {
                                     selectedNewDriver && (
                                       <div className='flex justify-center items-center w-full mt-5'>
-                                    <button className='bg-[#5b211f] rounded-lg w-[100px] h-[33px] text-white text-center text-sm font-bold border-[none]' onClick={() => handleAddNewDriver()}> Agregar </button>
-                                  </div>
+                                        <button
+                                          className='bg-[#5b211f] rounded-lg w-[100px] h-[33px] text-white text-center text-sm font-bold border-[none]'
+                                          onClick={() => handleAddNewDriver()}> Agregar
+                                        </button>
+                                      </div>
                                     )
                                   }
-                            </div>
-                              )
-                        }
-                      </div>
-                    )
-                  }
+                                  <InputSuggestions autoFocus suggestions={allDrivers.map(d, i => <option
+                                    value={d._id}>{d.firstName} {d.lastName}</option>)}/>
+                                </div>
+                                )
+                          }
+                        </div>
+                      )
+                    }
                   </div>
-          </div>
-                  )
-                : null
-                     // TODO: Hacer que se pueda seleccionar un conductor favorito si no tiene la propiedad user.alliedCompany
+                </div>
+                )
+              : null
+            // TODO: Hacer que se pueda seleccionar un conductor favorito si no tiene la propiedad user.alliedCompany
           }
           <div className={'w-full m-2'}>
             <textarea placeholder={'Descripción del servicio (max 150 caracteres)'}

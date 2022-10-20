@@ -57,12 +57,13 @@ export default function users ({ data }) {
     alliedCompany: '/'
   })
 
+  const sigCanvas = useRef({})
+
   useEffect(() => {
     return () => {
       dispatch(clearService())
     }
   }, [])
-  const sigCanvas = useRef({})
   // eslint-disable-next-line
   const [imageURL, setImageURL] = useState(null)
 
