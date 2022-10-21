@@ -72,6 +72,19 @@ export default function ClientTravelsCard ({ estado, id, data }) {
     })
   }
 
+  const RechazarViaje = async (id) => {
+    axios.post(`https://rz-group-backend.herokuapp.com/api/services/cancel/${id}`)
+      .then(res => {
+        toast.success('Viaje rechazado')
+        setTimeout(() => {
+          router.reload()
+        }, 2000)
+      }).catch(err => {
+        console.log(err)
+        toast.error('Error al rechazar viaje')
+      })
+  }
+
   return (
     <div
       className={'bg-white m-2 flex-col flex h-[180px] items-center w-5/6 rounded justify-center  content-center'}>
@@ -92,8 +105,7 @@ export default function ClientTravelsCard ({ estado, id, data }) {
             data.status === 'pending' && user?.roles?.includes('driver')
               ? <>
                 <Button onClick={() => showPopup(data._id)} color='success'>Aceptar</Button>
-                <Button onClick={() => {
-                }} color='failure'>Rechazar</Button>
+                <Button onClick={() => RechazarViaje(id)} color='failure'>Rechazar</Button>
               </>
               : null
           }

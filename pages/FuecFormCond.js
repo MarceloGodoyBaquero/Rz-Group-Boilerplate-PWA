@@ -3,7 +3,7 @@ import axios from 'axios'
 import Nav from '../components/Nav'
 import Image from 'next/image'
 import SignUp from '../public/Images/OnBoarding-1.svg'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import MobileLayout from '../components/MobileLayout'
 import { useDispatch, useSelector } from 'react-redux'
 // import { createService } from '../Redux/Actions/servicesActions'
@@ -37,7 +37,7 @@ function validate (input) {
 
 // eslint-disable-next-line
 export default function Fuec({datosFiltrados}) {
-  // const router = useRouter()
+  const router = useRouter()
   const { user } = useSelector(state => state)
   // eslint-disable-next-line
   const [inputConductor, setInputConductor] = useState(0)
@@ -97,9 +97,15 @@ export default function Fuec({datosFiltrados}) {
       axios.post(`https://rz-group-backend.herokuapp.com/api/services/createExt/${user.id}`, input)
         .then(res => {
           console.log(res)
+          toast.success('Viaje creado')
+          setTimeout(() => {
+            // eslint-disable-next-line
+            router.push('/client/travels/' + res._id)
+          }, 2000)
         })
         .catch(err => {
           console.log(err)
+          toast.error('Viaje rechazado')
         })
       // }
     }

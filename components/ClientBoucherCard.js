@@ -37,7 +37,6 @@ export default function ClientBoucherCard ({ rol, estado, id, paymentAmount, pay
   )
 }
 
-// props validation
 ClientBoucherCard.propTypes = {
   estado: PropTypes.boolean,
   id: PropTypes.string,
