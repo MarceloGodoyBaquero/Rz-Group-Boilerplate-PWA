@@ -14,6 +14,7 @@ export default function Onboarding () {
 
   // need a function to change tabs automatically after 5 seconds and when tab === 3, it should return the value to 1 and start again
   useEffect(() => {
+    localStorage.setItem('ya pasó por aquí', 'true')
     const interval = setInterval(() => {
       if (tab === 3) {
         setTab(1)
