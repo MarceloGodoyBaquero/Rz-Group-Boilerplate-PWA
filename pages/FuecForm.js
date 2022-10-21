@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Spinner } from 'flowbite-react'
 import { InformationCircleIcon } from '@heroicons/react/24/solid'
 import Select from 'react-select'
+import { useRouter } from 'next/router'
 
 function validate (input) {
   const errors = {}
@@ -35,7 +36,7 @@ function validate (input) {
 
 // eslint-disable-next-line
 export default function Fuec({datosFiltrados}) {
-  // const router = useRouter()
+  const router = useRouter()
   const { user } = useSelector(state => state)
   const [asociateDrivers, setAsociateDrivers] = useState([])
   const [allDrivers, setAllDrivers] = useState([])
@@ -141,6 +142,10 @@ export default function Fuec({datosFiltrados}) {
       for (let i = 0; i < Number(input.number_vehicles); i++) {
         dispatch(createService(input))
       }
+      toast.success('Servicio creado correctamente')
+      setTimeout(() => {
+        router.push('/client/travels')
+      }, 2000)
     }
   }
 
