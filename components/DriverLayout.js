@@ -19,8 +19,17 @@ export default function DriverLayout () {
     }
   }, [user])
   useEffect(() => {
-    if (services.length) {
-      toast.warn('Tienes servicios activos/pendientes por favor revisa tu panel de servicios.')
+    const pendingService = services.find(service => service.status === 'pending')
+    if (pendingService) {
+      toast.info('Tienes nuevos servicios pendientes', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      })
     }
   }, [services])
   return (
