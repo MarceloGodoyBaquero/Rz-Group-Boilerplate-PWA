@@ -40,7 +40,8 @@ export default function users (data) {
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
         <Nav location={'Detalles del Pago'}/>
-        <div className={'mt-5 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
+        { data?.data?.paymentType !== 'cash'
+          ? <div className={'mt-5 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
           {
             data.isPaid
               ? <h1 className={'text-center text-green-500 font-bold'}>SERVICIO PAGADO</h1>
@@ -59,6 +60,7 @@ export default function users (data) {
               : <h3 className={'text-center font-bold text-[14px] text-orange-500'}>CLIENTE CONFIRMACIÓN PENDIENTE</h3>
           }
         </div>
+          : null }
         <div className={'mt-5 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
           <h1 className={'text-center font-bold'}>CLIENTE</h1>
           <h1>Nombre: {data?.data?.client?.firstName} {data?.data?.client?.lastName}</h1>
@@ -113,10 +115,12 @@ export default function users (data) {
           <h1>Descripción extras: {data?.data?.payment_description}</h1>
         </div>
         <div className={'flex flex-col w-full items-center'}>
-          <button onClick={() => confirmAction()}
-                  className={'bg-blue-400 w-5/6 rounded-xl mt-5 mb-5 h-[50px] font-bold'}>
+          { data?.data?.paymentType !== 'cash'
+            ? <button onClick={() => confirmAction()}
+                   className={'bg-blue-400 w-5/6 rounded-xl mt-5 mb-5 h-[50px] font-bold'}>
             CONFIRMAR PAGO
           </button>
+            : null}
         </div>
       </div>
     </MobileLayout>
