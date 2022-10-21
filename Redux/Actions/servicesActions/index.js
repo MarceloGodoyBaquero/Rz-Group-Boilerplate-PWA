@@ -24,7 +24,10 @@ export function createService (payload, router) {
         // setTimeout(() => {
         //   router.push('/client/travels')
         // }, 2000)
-      }).catch(err => console.log(err))
+      }).catch(err => {
+        console.log(err)
+        toast.error(err.response.data)
+      })
       : toast.promise(
         axios.post('https://rz-group-backend.herokuapp.com/api/services/create', payload), {
           pending: 'Creando servicio...',

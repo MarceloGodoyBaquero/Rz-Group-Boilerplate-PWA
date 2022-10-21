@@ -11,7 +11,7 @@ export default function users ({ data }) {
   const [search, setSearch] = React.useState('')
   const [searchData, setSearchData] = React.useState([])
   useEffect(() => {
-    search.length >= 5 && fetch('https://rz-group-backend.herokuapp.com/api/admin/user/search?idNumber=' + search)
+    search.length >= 4 && fetch('https://rz-group-backend.herokuapp.com/api/admin/user/search?fullName=' + search)
       .then(res => res.json())
       .then(data => {
         setSearchData(data)
@@ -38,27 +38,27 @@ export default function users ({ data }) {
             <input
               className={'m-5 text-center h-10 w-full rounded-full border-2 border-blue-500'}
               type={'search'}
-              placeholder={'Buscar usuario por ID'}
+              placeholder={'Buscar usuario por Nombre y Apellido'}
               value={search}
               onChange={(e) => handleSearch(e)}
             />
           </div>
           {searchData.length > 0
-            ? searchData.map((user, index) => {
+            ? searchData?.map((user, index) => {
               return (
                 <div
                   onClick={() => router.push(`/admin/users/${user._id}`)}
                   key={index}
                   className={index % 2 === 0 ? 'rounded-2xl ml-5 mr-5 mt-5 mb-2 pl-0 bg-white flex flex-row justify-center items-center drop-shadow-2xl' : 'rounded-2xl ml-5 mr-5 mt-5 mb-2 bg-gray-100 flex flex-row justify-center items-center drop-shadow-2xl'}>
                   {
-                    user.roles[0].name.includes('client')
+                    user?.roles[0]?.name?.includes('client')
                       ? <div
                         className={' border-4 border-green-500 w-[100px] h-[100px] m-0 h-full rounded-full p-0 flex flex-col items-center justify-center'}>
                         <h3 className={'font-bold'}>Cliente</h3>
                       </div>
-                      : user.roles[0].name.includes('admin')
+                      : user.roles[0].name?.includes('admin')
                         ? <div
-                          className={' border-4 border-green-500 w-[100px] h-[100px] m-0 h-full rounded-full p-0 flex flex-col items-center justify-center'}>
+                          className={' border-4 border-yellow-500 w-[100px] h-[100px] m-0 h-full rounded-full p-0 flex flex-col items-center justify-center'}>
                           <h3 className={'font-bold'}>Admin</h3>
                         </div>
                         : <div
@@ -90,8 +90,8 @@ export default function users ({ data }) {
                 </div>
               )
             })
-            : search.length >= 5 && searchData.length === 0
-              ? (<h1>no se encontraron resultados</h1>)
+            : search.length >= 4 && searchData.length === 0
+              ? (<h1 className='flex justify-center'>No se encontraron resultados</h1>)
               : data.data.map((user, index) => {
                 return (
                 <div
@@ -99,7 +99,7 @@ export default function users ({ data }) {
                   key={index}
                   className={index % 2 === 0 ? 'rounded-2xl ml-5 mr-5 mt-5 mb-2 pl-0 bg-white flex flex-row justify-center items-center drop-shadow-2xl' : 'rounded-2xl ml-5 mr-5 mt-5 mb-2 bg-gray-100 flex flex-row justify-center items-center drop-shadow-2xl'}>
                   {
-                    user.roles[0].name.includes('client')
+                    user?.roles[0]?.name.includes('client')
                       ? <div
                         className={' border-4 border-green-500 w-[100px] h-[100px] m-0 h-full rounded-full p-0 flex flex-col items-center justify-center'}>
                         <h3 className={'font-bold'}>Cliente</h3>
