@@ -60,7 +60,7 @@ export default function users (data) {
           <hr className={'mt-2'}/>
           <label className={'text-center mt-2'}>
             Firma:
-            <Image src={data.data.client_signature} alt={'cliente-firma'}/>
+            <Image src={data?.data?.client_signature} width={300} height={150} alt={'cliente-firma'}/>
           </label>
         </div>
         {

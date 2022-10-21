@@ -132,7 +132,7 @@ export default function travels ({ data }) {
                     </div>
                       }
                       {payments && payments?.data?.filter(e => e.isPaid)?.map((item, index) =>
-                              <ClientBoucherCard key={index} id={index} estado={item.isPaid} paymentAmount={item.paymentAmount} paymentType={item.paymentType} startDate={item.start_date} driver={item.driver}/>
+                              <ClientBoucherCard key={index} id={item._id} estado={item.isPaid} paymentAmount={item.paymentAmount} paymentType={item.paymentType} startDate={item.start_date} driver={item.driver}/>
                       )}
                     </div>}
                 </div>
