@@ -38,24 +38,24 @@ export default function users (data) {
   }
   return (
     <MobileLayout>
-      <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
+      <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
         <Nav location={'Detalles del Pago'}/>
         { data?.data?.paymentType !== 'cash'
           ? <div className={'mt-5 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
           {
-            data.isPaid
+            data?.data?.isPaid
               ? <h1 className={'text-center text-green-500 font-bold'}>SERVICIO PAGADO</h1>
               : <h1 className={'text-center font-bold text-orange-500'}>SERVICIO PENDIENTE DE PAGO</h1>
           }
           <hr/>
           {
-            data.driver_confirm
-              ? <h3 className={'text-center text-[14px] text-green-500 font-bold'}>CONFIRMADO POR CONDUCTOR</h3>
-              : <h3 className={'text-center font-bold text-[14px] text-orange-500'}>CONDUCTOR CONFIRMACIÓN PENDIENTE </h3>
+            data?.data?.driver_confirm
+              ? <h3 className={'text-center text-[14px] text-green-500 font-bold'}>CONFIRMADO POR ADMIN</h3>
+              : <h3 className={'text-center font-bold text-[14px] text-orange-500'}>ADMIN CONFIRMACIÓN PENDIENTE </h3>
           }
           <hr/>
           {
-            data.client_confirm
+            data?.data?.client_confirm === true
               ? <h3 className={'text-center text-[14px] text-green-500 font-bold'}>CONFIRMADO POR CLIENTE</h3>
               : <h3 className={'text-center font-bold text-[14px] text-orange-500'}>CLIENTE CONFIRMACIÓN PENDIENTE</h3>
           }
