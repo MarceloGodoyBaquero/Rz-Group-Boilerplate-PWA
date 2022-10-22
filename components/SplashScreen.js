@@ -8,14 +8,15 @@ export default function SplashScreen () {
 
   useEffect(() => {
     setTimeout(() => {
-      if (localStorage.getItem('user')) {
-        router.push('/Main')
-      } else {
-        if (localStorage.getItem('ya pasó por aquí')) {
-          router.push('/SignIn')
-        }
-        router.push('/Onboarding')
-      }
+      // if (localStorage.getItem('user')) {
+      //   router.push('/Main')
+      // } else {
+      //   if (localStorage.getItem('ya pasó por aquí')) {
+      //     router.push('/SignIn')
+      //   }
+      //   router.push('/Onboarding')
+      // }
+      router.push('/SignIn')
     }, 1000)
   }, [])
 

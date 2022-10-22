@@ -36,7 +36,7 @@ export default function users (data) {
   }
   return (
     <MobileLayout>
-      <div className={'md:shadow-2xl bg-[#F7F8FA] h-screen flex items-center flex-col'}>
+      <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
         <Nav location={'Detalles del Pago'}/>
         <div className={'mt-5 p-5 bg-white w-5/6 drop-shadow-2xl rounded-xl flex flex-col justify-evenly'}>
           {
@@ -100,12 +100,12 @@ export default function users (data) {
           <hr/>
           <h1>Descripción extras: {data.data.payment_description}</h1>
         </div>
-        <div className={'flex flex-col w-full items-center'}>
-          <button onClick={() => confirmAction()}
-                  className={'bg-blue-400 w-5/6 rounded-xl mt-5 mb-5 h-[50px] font-bold'}>
-            CONFIRMAR PAGO
-          </button>
-        </div>
+        {/* <div className={'flex flex-col w-full items-center'}> */}
+        {/*  <button onClick={() => confirmAction()} */}
+        {/*          className={'bg-blue-400 w-5/6 rounded-xl mt-5 mb-5 h-[50px] font-bold'}> */}
+        {/*    CONFIRMAR PAGO */}
+        {/*  </button> */}
+        {/* </div> */}
       </div>
     </MobileLayout>
   )

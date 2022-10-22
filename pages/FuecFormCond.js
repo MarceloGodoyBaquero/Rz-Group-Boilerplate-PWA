@@ -100,7 +100,7 @@ export default function Fuec({datosFiltrados}) {
           toast.success('Viaje creado')
           setTimeout(() => {
             // eslint-disable-next-line
-            router.push('/client/travels/' + res._id)
+            router.push('/client/travels/')
           }, 2000)
         })
         .catch(err => {
@@ -307,7 +307,7 @@ export default function Fuec({datosFiltrados}) {
                     <input name={'responsible_phone'} onChange={(e) => handleInputChange(e)} type={'number'}
                            placeholder={'Teléfono Responsable'}
                            className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}/>
-                    <input name={'responsible_phone'} onChange={(e) => handleInputChange(e)} type={'number'}
+                    <input name={'responsible_id'} onChange={(e) => handleInputChange(e)} type={'number'}
                            placeholder={'CC/ NIT Responsable'}
                            className={'indent-5 outline-0 w-full rounded-[25px] h-[50px] font-bold text-black bg-[#F4F5F7]'}/>
                   </div>)
