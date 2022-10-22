@@ -62,7 +62,7 @@ export default function DriverLayout () {
             </div>
             <div onClick={() => router.push('driver/bouchers')}
                  className={'m-3 flex flex-row items-center border-4 border-green-500 h-[80px] w-full rounded-full'}>
-              <h2 className={'text-2xl font-bold w-5/6 h-max flex items-center justify-center'}>Mis Vouchers</h2>
+              <h2 className={'text-2xl font-bold w-5/6 h-max flex items-center justify-center'}>Mis Pagos</h2>
               <BanknotesIcon className={'w-1/6 text-white bg-green-500 h-[80px] rounded-r-full'}></BanknotesIcon>
             </div>
             <div onClick={() => router.push('client/travels')}

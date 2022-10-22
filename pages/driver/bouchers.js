@@ -9,6 +9,7 @@ import ClientBoucherCard from '../../components/ClientBoucherCard'
 import * as PropTypes from 'prop-types'
 import { Spinner, Modal, Button } from 'flowbite-react'
 import axios from 'axios'
+import { InformationCircleIcon } from '@heroicons/react/24/solid'
 
 ClientBoucherCard.propTypes = {
   estado: PropTypes.string,
@@ -24,6 +25,14 @@ export default function travels ({ data }) {
   const [loading, setLoading] = useState(false)
   const [debt, setDebt] = useState('')
   const [popUp, setPopUp] = useState(false)
+  const [unpaid, setUnpaid] = useState([])
+
+  useEffect(() => {
+    axios.get(`https://rz-group-backend.herokuapp.com/api/payment/driver/unpaid/${user.id}`)
+      .then(res => {
+        setUnpaid(res.data.data)
+      })
+  }, [payments])
 
   useEffect(() => {
     dispatch(getPaymentsByDriverId(user.id))
@@ -77,7 +86,7 @@ export default function travels ({ data }) {
                           subTab === 1 &&
                           <div className={'flex flex-col justify-center w-full items-center'}>
                             {
-                              payments && payments?.data?.filter(e => !e.isPaid).length === 0
+                              unpaid && unpaid?.length === 0
                                 ? <div className={'flex flex-col justify-center w-full items-center'}>
                                   <h1 className={'text-2xl font-bold'}>No tienes pagos pendientes!</h1>
                                 </div>
@@ -87,67 +96,18 @@ export default function travels ({ data }) {
                                       <h1 className='font-bold'>
                                         Vouchers pendientes:
                                         <span className='text-red-500 font-bold ml-3'>{
-                                          payments && payments?.data?.filter(e => e.paymentType === 'voucher' && !e.isPaid).length
+                                          unpaid && unpaid?.length
                                         }</span>
                                       </h1>
                                     </div>
                                     <div className='flex flex-row justify-evenly items-center'>
                                       <h1 className='font-bold'>
                                         Montos pendientes: $ <span className='text-red-500 font-bold'>{
-                                          payments && payments?.data?.filter(e => e.paymentType === 'voucher' && !e.isPaid).reduce((a, b) => a + b.paymentAmount, 0)
+                                          unpaid && unpaid?.reduce((a, b) => a + b.paymentAmount, 0)
                                         }</span>
                                       </h1>
                                     </div>
-                                  </div>
-                                </div>
-                            }
-                            {payments && payments?.data?.filter(e => !e.isPaid)?.map((item, index) =>
-                              <ClientBoucherCard rol={user.roles} key={index} id={item._id} estado={item.isPaid} paymentAmount={item.paymentAmount} paymentType={item.paymentType} startDate={item.start_date} driver={item.client} />
-                            )}
-                          </div>
-                        }
-                      </div>
-                    </div>}
-                  {tab === 2 &&
-                    <div className={'mt-5 flex flex-col justify-center w-full items-center'}>
-                      {
-                        payments && payments?.data?.filter(e => e.isPaid).length === 0
-                          ? <div className={'flex flex-col justify-center w-full items-center'}>
-                            <h1 className={'text-2xl font-bold'}>No tienes pagos finalizados!</h1>
-                          </div>
-                          : <div className={'flex flex-row justify-evenly w-full items-center ml-3 mr-3 mb-5'}>
-                            <div className='flex flex-col justify-evenly items-start w-full mt-3 ml-5'>
-                              <div className='flex flex-row justify-start items-center w-full'>
-                                <h1 className='font-bold'>
-                                  Vouchers Pagados:
-                                  <span className='text-green-500 font-bold ml-3'>{
-                                    payments && payments?.data?.filter(e => e.paymentType === 'voucher' && e.isPaid).length
-                                  }</span>
-                                </h1>
-                              </div>
-                              <div className='flex flex-row justify-evenly items-center'>
-                                <h1 className='font-bold'>
-                                  Total Vouchers: $ <span className='text-green-500 font-bold'>{
-                                    payments && payments?.data?.filter(e => e.paymentType === 'voucher' && e.isPaid).reduce((a, b) => a + b.paymentAmount, 0)
-                                  }</span>
-                                </h1>
-                              </div>
-                              <div className='flex flex-row justify-evenly items-center'>
-                                <h1 className='font-bold'>
-                                  Servicios con efectivo: <span className='text-green-500 font-bold'>{
-                                    payments && payments?.data?.filter(e => e.paymentType === 'cash' && e.isPaid).length
-                                  }</span>
-                                </h1>
-                              </div>
-                              <div className='flex flex-row justify-evenly items-center'>
-                                <h1 className='font-bold'>
-                                  Total efectivo: $ <span className='text-green-500 font-bold'>{
-                                    payments && payments?.data?.filter(e => e.paymentType === 'cash' && e.isPaid).reduce((a, b) => a + b.paymentAmount, 0)
-                                  }</span>
-                                </h1>
-                              </div>
-                            </div>
-                            <div className='flex flex-col justify-center items-center mr-5'>
+                                    <div className='flex flex-col justify-center items-center mr-5'>
                               <button className='bg-[#5b211f] rounded-lg w-[100px] h-[40px] text-white text-center text-sm font-bold border-[none]' onClick={() => handleSearchDebt()}>
                                 {
                                   loading
@@ -161,14 +121,14 @@ export default function travels ({ data }) {
                                 }
                               </button>
                             </div>
-                          </div>
-                      }
-                      {
+                            {
                         debt && popUp &&
                         <Modal
                           show={popUp}
                           size={'xl'}
-                          className={'h-screen'}
+                          style={{
+                            height: '100vh'
+                          }}
                           onClose={() => setPopUp(false)}
                         >
                           <Modal.Header className='text-2xl font-bold'>
@@ -176,6 +136,12 @@ export default function travels ({ data }) {
                           </Modal.Header>
                           <Modal.Body>
                             <div className="space-y-6 flex flex-col justify-start items-start">
+                              <div className='flex flex-row justify-center items-center w-full'>
+                              <InformationCircleIcon className=' text-gray-500 mr-2 h-16 w-16'/>
+                              <h1 className='text-xl'>
+                                Resumen de tu cuenta de los ultimos 15 dias.
+                              </h1>
+                              </div>
                               <h1>
                               servicios con voucher:
                                 <span className='font-bold text-green-500'>{debt.voucher}</span>
@@ -208,6 +174,28 @@ export default function travels ({ data }) {
                             </Button>
                           </Modal.Footer>
                         </Modal>
+                      }
+                                  </div>
+                                </div>
+                            }
+                            {unpaid.length && unpaid.map((item, index) =>
+                              <ClientBoucherCard rol={user.roles} key={index} id={item._id} estado={item.isPaid} paymentAmount={item.paymentAmount} paymentType={item.paymentType} startDate={item.start_date} driver={item.client} />
+                            )}
+                          </div>
+                        }
+                      </div>
+                    </div>}
+                  {tab === 2 &&
+                    <div className={'mt-5 flex flex-col justify-center w-full items-center'}>
+                      {
+                        payments && payments?.data?.filter(e => e.isPaid).length === 0
+                          ? <div className={'flex flex-col justify-center w-full items-center'}>
+                            <h1 className={'text-2xl font-bold'}>No tienes pagos finalizados!</h1>
+                          </div>
+                          : <div className={'flex flex-row justify-evenly w-full items-center ml-3 mr-3 mb-5'}>
+                            <div className='flex flex-col justify-evenly items-start w-full mt-3 ml-5'>
+                            </div>
+                          </div>
                       }
                       {payments && payments?.data?.filter(e => e.isPaid)?.map((item, index) =>
                         <ClientBoucherCard rol={user.roles} key={index} id={item._id} estado={item.isPaid} paymentAmount={item.paymentAmount} paymentType={item.paymentType} startDate={item.start_date} driver={item.client} />

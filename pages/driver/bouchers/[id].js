@@ -1,39 +1,11 @@
 import React from 'react'
 import MobileLayout from '../../../components/MobileLayout'
 import Nav from '../../../components/Nav'
-import { useRouter } from 'next/router'
-import axios from 'axios'
-import { useSelector } from 'react-redux'
 import Image from 'next/image'
 
 export default function users (data) {
   console.log(data)
-  const { user } = useSelector(state => state)
-  const router = useRouter()
-  const { id } = router.query
 
-  const confirmAction = () => {
-    if (user.roles === 'client') {
-      axios.post(`https://rz-group-backend.herokuapp.com/api/payment/confirmClient/${id}`)
-        .then(res => {
-          console.log(res)
-          console.log(user.roles)
-          return alert('pago confirmado')
-        }).catch(err => {
-          console.log(err)
-        }).then(res => {
-          router.reload()
-        })
-    } else if (user.roles === 'driver') {
-      return axios.post(`https://rz-group-backend.herokuapp.com/api/payment/confirmDriver/${id}`)
-        .then(res => {
-          console.log(res)
-          console.log(res.data)
-        }).catch(err => {
-          console.log(err)
-        })
-    }
-  }
   return (
     <MobileLayout>
       <div className={'md:shadow-2xl bg-[#F7F8FA] h-fit flex items-center flex-col'}>
@@ -44,7 +16,7 @@ export default function users (data) {
           }
           <hr/>
           {
-            data.data.driver_confirm ? <h3 className={'text-center text-[14px] text-green-500 font-bold'}>CONFIRMADO POR CONDUCTOR</h3> : <h3 className={'text-center font-bold text-[14px] text-orange-500'}>CONDUCTOR CONFIRMACIÓN PENDIENTE </h3>
+            data.data.driver_confirm ? <h3 className={'text-center text-[14px] text-green-500 font-bold'}>CONFIRMADO POR ADMIN</h3> : <h3 className={'text-center font-bold text-[14px] text-orange-500'}>ADMIN CONFIRMACIÓN PENDIENTE </h3>
           }
           <hr/>
           {
@@ -58,10 +30,13 @@ export default function users (data) {
           <h1>Tel: {data.data.client.phoneNumber}</h1>
           <h1>Email: {data.data.client.email}</h1>
           <hr className={'mt-2'}/>
-          <label className={'text-center mt-2'}>
+          {
+            data.data.client && data?.data?.client.client_signature
+              ? <label className={'text-center mt-2'}>
             Firma:
-            <Image src={data?.data?.client_signature} width={300} height={150} alt={'cliente-firma'}/>
+            <Image src={data?.data?.client.client_signature} width={300} height={150} alt={'cliente-firma'}/>
           </label>
+              : null }
         </div>
         {
           data.data.client.companyAllied

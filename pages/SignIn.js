@@ -5,14 +5,14 @@ import LoginImage from '../public/Images/Login.svg'
 import { useRouter } from 'next/router'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 import { signIn } from '../Redux/Actions/authActions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
 import MobileLayout from '../components/MobileLayout'
 
 export default function SignIn () {
   const router = useRouter()
+  const user = useSelector(state => state.user)
   const [showPassword, setShowPassword] = useState(false)
   const [input, setInput] = useState({
     email: '',
@@ -24,6 +24,14 @@ export default function SignIn () {
       ...input,
       [e.target.name]: e.target.value
     })
+  }
+  if (user) {
+    if (user.roles === 'admin') {
+      router.push('/admin')
+    }
+    if (user.roles === 'driver' || user.roles === 'client') {
+      router.push('/Main')
+    }
   }
 
   function handleSubmit (e) {

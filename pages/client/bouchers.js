@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPaymentsByUserId } from '../../Redux/Actions/paymentActions'
 import ClientBoucherCard from '../../components/ClientBoucherCard'
 import * as PropTypes from 'prop-types'
+import axios from 'axios'
 
 ClientBoucherCard.propTypes = {
   estado: PropTypes.string,
@@ -19,6 +20,14 @@ export default function travels ({ data }) {
   const router = useRouter()
   const dispatch = useDispatch()
   const { payments, user } = useSelector(state => state)
+  const [unpaid, setUnpaid] = useState([])
+
+  useEffect(() => {
+    axios.get(`https://rz-group-backend.herokuapp.com/api/payment/client/unpaid/${user._id}`)
+      .then(res => {
+        setUnpaid(res.data)
+      })
+  }, [payments])
 
   useEffect(() => {
     dispatch(getPaymentsByUserId(user.id))
@@ -65,25 +74,10 @@ export default function travels ({ data }) {
                               </div>
                                 : <div className={'flex flex-col justify-evenly w-full items-center ml-3 mr-3 mb-5'}>
                                   <div className='flex flex-col justify-evenly items-start w-full mt-3 ml-5'>
-                                    <div className='flex flex-row justify-center items-center'>
-                                      <h1 className='font-bold'>
-                                        Vouchers pendientes:
-                                        <span className='text-red-500 font-bold ml-3'>{
-                                          payments && payments?.data?.filter(e => e.paymentType === 'voucher' && !e.isPaid).length
-                                        }</span>
-                                      </h1>
-                                    </div>
-                                  <div className='flex flex-row justify-evenly items-center'>
-                                  <h1 className='font-bold'>
-                                        Montos pendientes: $ <span className='text-red-500 font-bold'>{
-                                          payments && payments?.data?.filter(e => e.paymentType === 'voucher' && !e.isPaid).reduce((a, b) => a + b.paymentAmount, 0)
-                                        }</span>
-                                      </h1>
-                                    </div>
                                   </div>
                               </div>
                             }
-                            {payments && payments?.data?.filter(e => !e.isPaid)?.map((item, index) =>
+                            {unpaid && unpaid?.filter(e => !e.isPaid)?.map((item, index) =>
                               <ClientBoucherCard key={index} id={item._id} estado={item.isPaid} paymentAmount={item.paymentAmount} paymentType={item.paymentType} startDate={item.start_date} driver={item.driver} rol={user.roles}/>
                             )}
                           </div>
@@ -99,35 +93,6 @@ export default function travels ({ data }) {
                         </div>
                           : <div className={'flex flex-col justify-evenly w-full items-center ml-3 mr-3 mb-5'}>
                         <div className='flex flex-col justify-evenly items-start w-full mt-3 ml-5'>
-                          <div className='flex flex-row justify-center items-center'>
-                            <h1 className='font-bold'>
-                              Vouchers Pagados:
-                              <span className='text-green-500 font-bold ml-3'>{
-                                payments && payments?.data?.filter(e => e.paymentType === 'voucher' && e.isPaid).length
-                              }</span>
-                            </h1>
-                          </div>
-                        <div className='flex flex-row justify-evenly items-center'>
-                        <h1 className='font-bold'>
-                              Total Vouchers: $ <span className='text-green-500 font-bold'>{
-                                payments && payments?.data?.filter(e => e.paymentType === 'voucher' && e.isPaid).reduce((a, b) => a + b.paymentAmount, 0)
-                              }</span>
-                            </h1>
-                          </div>
-                          <div className='flex flex-row justify-evenly items-center'>
-                          <h1 className='font-bold'>
-                             Servicios con efectivo: <span className='text-green-500 font-bold'>{
-                                payments && payments?.data?.filter(e => e.paymentType === 'cash' && e.isPaid).length
-                             }</span>
-                          </h1>
-                          </div>
-                            <div className='flex flex-row justify-evenly items-center'>
-                            <h1 className='font-bold'>
-                              Total efectivo: $ <span className='text-green-500 font-bold'>{
-                                payments && payments?.data?.filter(e => e.paymentType === 'cash' && e.isPaid).reduce((a, b) => a + b.paymentAmount, 0)
-                              }</span>
-                            </h1>
-                            </div>
                         </div>
                     </div>
                       }
