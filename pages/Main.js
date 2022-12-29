@@ -11,12 +11,12 @@ export default function Main () {
   const { user } = useSelector(state => state)
   const [showing, setShowing] = useState(false)
   useEffect(() => {
-    if (user?.accessToken) {
-      console.log(user)
+    if (user.roles === 'admin') {
+      router.push('/admin')
     } else {
       router.push('/SignIn')
     }
-  }, [user])
+  }, [])
 
   useEffect(() => {
     setShowing(true)
